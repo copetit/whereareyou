@@ -1,12 +1,19 @@
 version: "3"
 services:
-  nest:
-    stdin_open: true
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    volumes:
-      - /app/node_modules # /app/node_modulesは共有しない
-      - ./backend:/app
+    nest:
+        stdin_open: true
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        ports:
+            - "3000:3000"
+        volumes:
+            - /app/node_modules # /app/node_modulesは共有しない
+            - ./backend:/app
+    mongo:
+        image: mongo
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: rootpassword
+        ports:
+            - "27017:27017"
