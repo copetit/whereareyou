@@ -24,3 +24,13 @@ services:
         volumes:
             - ./db:/data/db
             - ./configdb:/data/configdb
+        networks:
+            default:
+                ipv4_address: 172.0.25.2
+networks:
+    default:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.0.25.0/28
