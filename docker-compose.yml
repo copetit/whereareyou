@@ -13,6 +13,9 @@ services:
             - ./backend:/app
         depends_on:
             - mongo
+        networks:
+            default:
+                ipv4_address: 172.0.25.3
     mongo:
         container_name: mongo-wau
         image: mongo

@@ -11,7 +11,7 @@ import { AppService } from './app.service';
       port: 27017,
       username: 'root',
       password: 'root',
-      database: 'test',
+      database: 'admin',
       entities: [],
     }),
   ],
