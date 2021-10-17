@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Location } from './entities/location.entity';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { AppService } from './app.service';
       username: 'root',
       password: 'root',
       database: 'admin',
-      entities: [],
+      entities: [Location],
     }),
   ],
   controllers: [AppController],
