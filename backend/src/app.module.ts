@@ -4,7 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { User } from './entities/user.entity';
 import { Posting } from './entities/posting.entity';
-import { Location } from './entities/location.entity';
+import { LocationInfo } from './entities/locationinfo.entity';
+import { Contents } from './entities/contents.entity';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { Location } from './entities/location.entity';
       username: 'root',
       password: 'root',
       database: 'admin',
-      entities: [User, Posting, Location],
+      entities: [User, Posting, LocationInfo, Contents],
     }),
   ],
   controllers: [AppController],
