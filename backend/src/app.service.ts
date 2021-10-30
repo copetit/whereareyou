@@ -2,14 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { getMongoManager } from 'typeorm';
 import { Posting } from './entities/posting.entity';
 import { User } from './entities/user.entity';
+import { LocationInfo } from './entities/locationinfo.entity';
+import { Contents } from './entities/contents.entity';
 
 @Injectable()
 export class AppService {
-  async getHello(): Promise<string> {
+  getHello(): string {
+    return 'Hello Main';
+  }
+
+  async getDummy(): Promise<string> {
     const manager = getMongoManager();
-    const user = new User();
-    const posting = new Posting();
     // posting
+    const posting = new Posting();
+
     posting.PostingNum = 1;
     posting.PetName = 'パンダ';
     posting.PetSex = '男';
@@ -20,12 +26,31 @@ export class AppService {
     posting.Address = 'hogehoge';
 
     await manager.save(posting);
+
     // user
+    const user = new User();
+
     user.Password = '1234';
     user.MailAddress = 'hoge@example.com';
     user.PostingNum = posting.PostingNum;
-
     await manager.save(user);
-    return 'HELLO';
+
+    // location
+    const location = new LocationInfo();
+
+    location.lat = 123;
+    location.lng = 456;
+    location.PostingNum = posting.PostingNum;
+    await manager.save(location);
+
+    // contents
+    const contents = new Contents();
+
+    contents.imageUrl = 'dummyImage.com';
+    contents.videoUrl = 'dummyVideo.com';
+    contents.PostingNum = posting.PostingNum;
+    await manager.save(contents);
+
+    return 'OK - Dummy Data';
   }
 }

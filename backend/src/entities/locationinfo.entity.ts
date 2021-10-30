@@ -1,16 +1,16 @@
-import { Entity, Column, ObjectIdColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, OneToOne, ObjectIdColumn, JoinColumn } from 'typeorm';
 import { Posting } from './posting.entity';
 
 @Entity()
-export class User {
+export class LocationInfo {
   @ObjectIdColumn()
   id: number;
 
   @Column()
-  Password: string;
+  lat: number;
 
   @Column()
-  MailAddress: string;
+  lng: number;
 
   @OneToOne(() => Posting)
   @JoinColumn()
