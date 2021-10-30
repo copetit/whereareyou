@@ -7,7 +7,11 @@ import { Contents } from './entities/contents.entity';
 
 @Injectable()
 export class AppService {
-  async getHello(): Promise<string> {
+  getHello(): string {
+    return 'Hello Main';
+  }
+
+  async getDummy(): Promise<string> {
     const manager = getMongoManager();
     // posting
     const posting = new Posting();
@@ -47,6 +51,6 @@ export class AppService {
     contents.PostingNum = posting.PostingNum;
     await manager.save(contents);
 
-    return 'HELLO';
+    return 'OK - Dummy Data';
   }
 }
