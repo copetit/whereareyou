@@ -1,15 +1,9 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, Column, OneToOne, JoinColumn, ObjectIdColumn } from 'typeorm';
 import { Posting } from './posting.entity';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
+  @ObjectIdColumn()
   id: number;
 
   @Column()
@@ -20,5 +14,5 @@ export class User {
 
   @OneToOne((type) => Posting)
   @JoinColumn()
-  PostingNum: Posting;
+  PostingNum: number;
 }
