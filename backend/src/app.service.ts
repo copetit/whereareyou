@@ -4,6 +4,8 @@ import { Posting } from './entities/posting.entity';
 import { User } from './entities/user.entity';
 import { LocationInfo } from './entities/locationinfo.entity';
 import { Contents } from './entities/contents.entity';
+
+@Injectable()
 export class AppService {
   async getHello(): Promise<string> {
     const manager = getMongoManager();
@@ -45,6 +47,6 @@ export class AppService {
     contents.PostingNum = posting.PostingNum;
     await manager.save(contents);
 
-    return 'Hello World!';
+    return 'HELLO';
   }
 }
