@@ -1,14 +1,14 @@
 import {
   Entity,
   Column,
-  ObjectIdColumn,
+  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
 export class Posting {
-  @ObjectIdColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()

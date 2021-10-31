@@ -12,21 +12,21 @@ services:
       - /app/node_modules # /app/node_modulesは共有しない
       - ./backend:/app
     depends_on:
-      - mongo
+      - mysql
     networks:
       default:
         ipv4_address: 172.0.25.3
-  mongo:
-    container_name: mongo-wau
-    image: mongo
+  mysql:
+    container_name: mysql-wau
+    image: mysql:8
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wau
+      TZ: 'Asia/Tokyo'
     ports:
-      - '27017:27017'
+      - 3306:3306
     volumes:
-      - ./db:/data/db
-      - ./configdb:/data/configdb
+      - ./initdb:/docker-entrypoint-initdb.d
     networks:
       default:
         ipv4_address: 172.0.25.2

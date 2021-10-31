@@ -1,9 +1,15 @@
-import { Entity, Column, OneToOne, ObjectIdColumn, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+} from 'typeorm';
 import { Posting } from './posting.entity';
 
 @Entity()
 export class Contents {
-  @ObjectIdColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
