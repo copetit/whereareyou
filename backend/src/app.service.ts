@@ -16,7 +16,6 @@ export class AppService {
     // posting
     const posting = new Posting();
 
-    posting.PostingNum = 1;
     posting.PetName = 'パンダ';
     posting.PetSex = '男';
     posting.PetAge = 7;
@@ -32,7 +31,7 @@ export class AppService {
 
     user.Password = '1234';
     user.MailAddress = 'hoge@example.com';
-    user.PostingNum = posting.PostingNum;
+    user.posting = posting;
     await manager.save(user);
 
     // location
@@ -40,7 +39,7 @@ export class AppService {
 
     location.lat = 123;
     location.lng = 456;
-    location.PostingNum = posting.PostingNum;
+    location.posting = posting;
     await manager.save(location);
 
     // contents
@@ -48,7 +47,7 @@ export class AppService {
 
     contents.imageUrl = 'dummyImage.com';
     contents.videoUrl = 'dummyVideo.com';
-    contents.PostingNum = posting.PostingNum;
+    contents.posting = posting;
     await manager.save(contents);
 
     return 'OK - Dummy Data';

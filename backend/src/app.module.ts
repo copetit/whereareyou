@@ -10,12 +10,13 @@ import { Contents } from './entities/contents.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mongodb',
+      type: 'mysql',
       host: '172.0.25.2',
-      port: 27017,
+      port: 3306,
       username: 'root',
       password: 'root',
-      database: 'admin',
+      database: 'wau',
+      synchronize: true,
       entities: [User, Posting, LocationInfo, Contents],
     }),
   ],

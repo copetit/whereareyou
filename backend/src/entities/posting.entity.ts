@@ -1,18 +1,15 @@
 import {
   Entity,
   Column,
-  ObjectIdColumn,
+  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
 export class Posting {
-  @ObjectIdColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
-
-  @Column()
-  PostingNum: number;
 
   @Column()
   PetName: string;
