@@ -20,5 +20,5 @@ export class Contents {
 
   @OneToOne(() => Posting)
   @JoinColumn()
-  PostingNum: number;
+  posting: Posting;
 }

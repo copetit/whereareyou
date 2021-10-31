@@ -20,5 +20,5 @@ export class LocationInfo {
 
   @OneToOne(() => Posting)
   @JoinColumn()
-  PostingNum: number;
+  posting: Posting;
 }

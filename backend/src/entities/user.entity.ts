@@ -20,5 +20,5 @@ export class User {
 
   @OneToOne(() => Posting)
   @JoinColumn()
-  PostingNum: number;
+  posting: Posting;
 }

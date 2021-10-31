@@ -23,8 +23,10 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: wau
       TZ: 'Asia/Tokyo'
+      LANG: 'ja_JP.UTF-8'
     ports:
       - 3306:3306
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - ./initdb:/docker-entrypoint-initdb.d
     networks:

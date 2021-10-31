@@ -8,11 +8,8 @@ import {
 
 @Entity()
 export class Posting {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
-
-  @Column()
-  PostingNum: number;
 
   @Column()
   PetName: string;
