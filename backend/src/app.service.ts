@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { getMongoManager } from 'typeorm';
+import { getManager, getRepository } from 'typeorm';
 import { Posting } from './entities/posting.entity';
 import { User } from './entities/user.entity';
 import { LocationInfo } from './entities/locationinfo.entity';
@@ -11,8 +11,19 @@ export class AppService {
     return 'Hello Main';
   }
 
+  async getContentById(id: string): Promise<Contents[]> {
+    const contentRepo = getRepository(Contents);
+    const content =  await contentRepo.find({
+      where: {
+          posting: { id },
+      },
+      relations: ["posting"],
+  });
+    return content;
+  }
+
   async getDummy(): Promise<string> {
-    const manager = getMongoManager();
+    const manager = getManager();
     // posting
     const posting = new Posting();
 

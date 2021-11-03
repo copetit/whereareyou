@@ -1,5 +1,8 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Posting } from './entities/posting.entity';
+import { Contents } from './entities/contents.entity';
+
 
 @Controller()
 export class AppController {
@@ -13,5 +16,9 @@ export class AppController {
   @Get('dummy')
   async getDummy(): Promise<string> {
     return this.appService.getDummy();
+  }
+  @Get('v1/get/posting/:id')
+  getContentById(@Param('id') id: string): Promise<Contents[]> {
+    return this.appService.getContentById(id);
   }
 }
