@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { LocationInfo } from './entities/locationinfo.entity';
 
 @Controller()
 export class AppController {
@@ -13,5 +14,10 @@ export class AppController {
   @Get('dummy')
   async getDummy(): Promise<string> {
     return this.appService.getDummy();
+  }
+
+  @Get('v1/wau/locations')
+  async getLocationinfo(): Promise<LocationInfo[]> {
+    return this.appService.getLocationInfo();
   }
 }
