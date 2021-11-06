@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { getMongoManager } from 'typeorm';
+import { getManager, getRepository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Posting } from './entities/posting.entity';
@@ -13,16 +13,26 @@ export class AppService {
     @InjectRepository(LocationInfo)
     private readonly locationInfoRepository: Repository<LocationInfo>,
 
-    @InjectRepository(Contents)
-    private readonly contentsRepository: Repository<Contents>,
+    @InjectRepository(Posting)
+    private readonly postingRepository: Repository<Posting>,
   ) {}
 
   getHello(): string {
     return 'Hello Main';
   }
 
+  async getPostingById(id: string): Promise<Posting[]> {
+    const posting = await this.postingRepository.find({
+      where: {
+        id,
+      },
+      relations: ['contents'],
+    });
+    return posting;
+  }
+
   async getDummy(): Promise<string> {
-    const manager = getMongoManager();
+    const manager = getManager();
 
     // user
     const user = new User();

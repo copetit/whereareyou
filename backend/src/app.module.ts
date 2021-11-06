@@ -23,6 +23,8 @@ import { CommonModule } from './common/common.module';
     CommonModule,
     TypeOrmModule.forFeature([LocationInfo]),
     TypeOrmModule.forFeature([Contents]),
+    TypeOrmModule.forFeature([Posting]),
+    TypeOrmModule.forFeature([User]),
   ],
   controllers: [AppController],
   providers: [AppService],
