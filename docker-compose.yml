@@ -5,9 +5,9 @@ services:
     stdin_open: true
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.back
     ports:
-      - '3000:3000'
+      - '4000:4000'
     volumes:
       - /app/node_modules # /app/node_modulesは共有しない
       - ./backend:/app
@@ -16,6 +16,22 @@ services:
     networks:
       default:
         ipv4_address: 172.0.25.3
+  react:
+    container_name: react-wau
+    stdin_open: true
+    build:
+      context: ./
+      dockerfile: Dockerfile.front
+    ports:
+      - '3000:3000'
+    volumes:
+      - /app/node_modules # /app/node_modulesは共有しない
+      - ./frontend:/app
+    depends_on:
+      - nest
+    networks:
+      default:
+        ipv4_address: 172.0.25.4
   mysql:
     container_name: mysql-wau
     image: mysql:8
