@@ -1,24 +1,11 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
-} from 'typeorm';
-import { Posting } from './posting.entity';
+import { CoreEntity } from 'src/common/entities/core.entity';
+import { Entity, Column } from 'typeorm';
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends CoreEntity {
   @Column()
   Password: string;
 
   @Column()
   MailAddress: string;
-
-  @OneToOne(() => Posting)
-  @JoinColumn()
-  posting: Posting;
 }

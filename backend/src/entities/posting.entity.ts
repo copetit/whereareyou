@@ -1,16 +1,18 @@
+import { CoreEntity } from 'src/common/entities/core.entity';
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
+import { Contents } from './contents.entity';
+import { LocationInfo } from './locationinfo.entity';
+import { User } from './user.entity';
 
 @Entity()
-export class Posting {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+export class Posting extends CoreEntity {
   @Column()
   PetName: string;
 
@@ -37,4 +39,16 @@ export class Posting {
 
   @UpdateDateColumn()
   UpdateDate: Date;
+
+  @OneToOne(() => LocationInfo)
+  @JoinColumn()
+  locationinfo: LocationInfo;
+
+  @OneToOne(() => User)
+  @JoinColumn()
+  user: User;
+
+  @OneToOne(() => Contents)
+  @JoinColumn()
+  contents: Contents;
 }

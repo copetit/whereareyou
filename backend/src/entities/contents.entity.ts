@@ -1,24 +1,11 @@
-import {
-  Entity,
-  Column,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  JoinColumn,
-} from 'typeorm';
-import { Posting } from './posting.entity';
+import { CoreEntity } from 'src/common/entities/core.entity';
+import { Entity, Column } from 'typeorm';
 
 @Entity()
-export class Contents {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Contents extends CoreEntity {
   @Column()
   imageUrl: string;
 
   @Column()
   videoUrl: string;
-
-  @OneToOne(() => Posting)
-  @JoinColumn()
-  posting: Posting;
 }
