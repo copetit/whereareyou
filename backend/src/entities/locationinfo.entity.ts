@@ -1,24 +1,11 @@
-import {
-  Entity,
-  Column,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  JoinColumn,
-} from 'typeorm';
-import { Posting } from './posting.entity';
+import { CoreEntity } from 'src/common/entities/core.entity';
+import { Entity, Column } from 'typeorm';
 
 @Entity()
-export class LocationInfo {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class LocationInfo extends CoreEntity {
   @Column()
   lat: number;
 
   @Column()
   lng: number;
-
-  @OneToOne(() => Posting)
-  @JoinColumn()
-  posting: Posting;
 }

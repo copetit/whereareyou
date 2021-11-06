@@ -6,6 +6,7 @@ import { User } from './entities/user.entity';
 import { Posting } from './entities/posting.entity';
 import { LocationInfo } from './entities/locationinfo.entity';
 import { Contents } from './entities/contents.entity';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -19,6 +20,9 @@ import { Contents } from './entities/contents.entity';
       synchronize: true,
       entities: [User, Posting, LocationInfo, Contents],
     }),
+    CommonModule,
+    TypeOrmModule.forFeature([LocationInfo]),
+    TypeOrmModule.forFeature([Contents]),
   ],
   controllers: [AppController],
   providers: [AppService],
