@@ -13,23 +13,22 @@ export class AppService {
     @InjectRepository(LocationInfo)
     private readonly locationInfoRepository: Repository<LocationInfo>,
 
-    @InjectRepository(Contents)
-    private readonly contentsRepository: Repository<Contents>,
+    @InjectRepository(Posting)
+    private readonly postingRepository: Repository<Posting>,
   ) {}
 
   getHello(): string {
     return 'Hello Main';
   }
 
-  async getContentById(id: string): Promise<Contents[]> {
-    const contentRepo = getRepository(Contents);
-    const content = await contentRepo.find({
+  async getPostingById(id: string): Promise<Posting[]> {
+    const posting = await this.postingRepository.find({
       where: {
-        posting: { id },
+        id,
       },
-      relations: ['posting'],
+      relations: ['contents'],
     });
-    return content;
+    return posting;
   }
 
   async getDummy(): Promise<string> {

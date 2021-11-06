@@ -18,9 +18,9 @@ export class AppController {
     return this.appService.getDummy();
   }
 
-  @Get('v1/get/posting/:id')
-  getContentById(@Param('id') id: string): Promise<Contents[]> {
-    return this.appService.getContentById(id);
+  @Get('v1/wau/posting/:id')
+  getPostingById(@Param('id') id: string): Promise<Posting[]> {
+    return this.appService.getPostingById(id);
   }
 
   @Get('v1/wau/locations')
