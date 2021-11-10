@@ -3,9 +3,9 @@ import { Entity, Column } from 'typeorm';
 
 @Entity()
 export class Contents extends CoreEntity {
-  @Column()
-  imageUrl: string;
+  @Column('simple-array')
+  imageUrl: string[];
 
-  @Column()
-  videoUrl: string;
+  @Column('simple-array')
+  videoUrl: string[];
 }

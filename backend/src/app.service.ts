@@ -30,8 +30,20 @@ export class AppService {
     // contents
     const contents = new Contents();
 
-    contents.imageUrl = 'dummyImage.com';
-    contents.videoUrl = 'dummyVideo.com';
+    contents.imageUrl = [
+      'dummyImage.com',
+      'dummyImage2.com',
+      'dummyImage3.com',
+      'dummyImage4.com',
+      'dummyImage5.com',
+    ];
+    contents.videoUrl = [
+      'dummyVideo.com',
+      'dummyVideo2.com',
+      'dummyVideo3.com',
+      'dummyVideo4.com',
+      'dummyVideo5.com',
+    ];
     await manager.save(contents);
 
     // posting
