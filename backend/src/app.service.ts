@@ -1,34 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { getManager, getRepository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Posting } from './entities/posting.entity';
-import { User } from './entities/user.entity';
-import { LocationInfo } from './entities/locationinfo.entity';
-import { Contents } from './entities/contents.entity';
-
+import { getManager } from 'typeorm';
+import { Contents } from './wau/entities/contents.entity';
+import { LocationInfo } from './wau/entities/locationinfo.entity';
+import { Posting } from './wau/entities/posting.entity';
+import { User } from './wau/entities/user.entity';
 @Injectable()
 export class AppService {
-  constructor(
-    @InjectRepository(LocationInfo)
-    private readonly locationInfoRepository: Repository<LocationInfo>,
-
-    @InjectRepository(Posting)
-    private readonly postingRepository: Repository<Posting>,
-  ) {}
-
   getHello(): string {
     return 'Hello Main';
-  }
-
-  async getPostingById(id: string): Promise<Posting[]> {
-    const posting = await this.postingRepository.find({
-      where: {
-        id,
-      },
-      relations: ['contents'],
-    });
-    return posting;
   }
 
   async getDummy(): Promise<string> {
@@ -72,9 +51,5 @@ export class AppService {
     await manager.save(posting);
 
     return 'OK - Dummy Data';
-  }
-
-  async getLocationInfo(): Promise<LocationInfo[]> {
-    return this.locationInfoRepository.find();
   }
 }
