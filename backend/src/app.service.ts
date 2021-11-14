@@ -4,6 +4,7 @@ import { Contents } from './wau/entities/contents.entity';
 import { LocationInfo } from './wau/entities/locationinfo.entity';
 import { Posting } from './wau/entities/posting.entity';
 import { User } from './wau/entities/user.entity';
+
 @Injectable()
 export class AppService {
   getHello(): string {
