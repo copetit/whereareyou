@@ -1,0 +1,134 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { LocationInfo } from './entities/locationinfo.entity';
+import { Posting } from './entities/posting.entity';
+import { WauService } from './wau.service';
+
+// Mock Repositoryの型
+// Repositoryのmethod key全部を jest.mockによってmockingする
+// それを型化
+export type MockRepository<T> = Partial<Record<keyof Repository<T>, jest.Mock>>;
+
+// findのjest mock function作成
+const mockRepository = () => ({
+  find: jest.fn(),
+});
+
+// Posting Table Dummy Data
+const TEST_POSTING: Posting = {
+  id: 1,
+  PetName: 'イーブイ',
+  PetSex: '不明',
+  PetAge: 1,
+  PetInfo: 'かわいい',
+  Detail: 'ふわふわなしっぽ',
+  LostDate: new Date('2021-12-09'),
+  Address: 'hogehoge',
+  CreatedDate: new Date('2021-12-11'),
+  UpdateDate: new Date('2021-12-11'),
+  locationinfo: { id: 1, lat: 12, lng: 56 },
+  user: { id: 1, Password: '12345678', MailAddress: 'dummy@test.com' },
+  contents: {
+    id: 1,
+    imageUrl: ['dummyImage@dummy.com', 'dummyImage2@dummy.com'],
+    videoUrl: ['dummyVideo@dummy.com', 'dummyVideo2@dummy.com'],
+  },
+};
+
+// LocationInfo Table Dummy Data
+const TEST_LOCATIONINFO: LocationInfo = { id: 1, lat: 12, lng: 56 };
+const TEST_LOCATIONINFO_TWO: LocationInfo = { id: 2, lat: 55, lng: 88 };
+
+// WausServiceに対するテスト
+describe('WauService', () => {
+  let service: WauService;
+
+  // Posting(Entity)のMockRepository
+  let postingRepository: MockRepository<Posting>;
+  // Location(Entity)のMockRepository
+  let locationinfoRepository: MockRepository<LocationInfo>;
+
+  beforeEach(async () => {
+    // Module定義
+    // getRepositoryToken
+    // See.https://qiita.com/potato4d/items/64a1f518abdfe281ce01#provider-の抽象化とトークン作成
+    // See.https://stackoverflow.com/questions/65570680/what-is-getrepositorytoken-in-nestjs-typeorm-and-when-to-use-it
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        WauService,
+        { provide: getRepositoryToken(Posting), useValue: mockRepository() },
+        {
+          provide: getRepositoryToken(LocationInfo),
+          useValue: mockRepository(),
+        },
+      ],
+    }).compile();
+
+    service = module.get<WauService>(WauService);
+    postingRepository = module.get(getRepositoryToken(Posting));
+    locationinfoRepository = module.get(getRepositoryToken(LocationInfo));
+  });
+
+  // Mock postingRepository/locationinfoRepositoryに問題ないか確認
+  it('should be defined', () => {
+    expect(service).toBeDefined();
+    expect(postingRepository).toBeDefined();
+    expect(locationinfoRepository).toBeDefined();
+  });
+
+  // getPostingByIdのテスト
+  describe('getPostingById', () => {
+    // success
+    it('shoud success to return posting', async () => {
+      // MockにTEST_POSTING　DummyData Insert
+      // See.https://jestjs.io/ja/docs/mock-function-api#mockfnmockresolvedvalueoncevalue
+      postingRepository.find.mockResolvedValueOnce([TEST_POSTING]);
+
+      const result = await service.getPostingById('1');
+
+      expect(postingRepository.find).toHaveBeenCalledTimes(1);
+      // getPostingById('1') === TEST_POSTING 確認
+      expect(result).toMatchObject([TEST_POSTING]);
+    });
+
+    // fail
+    it('shoud fail to return posting', async () => {
+      // Mockが空の場合
+      postingRepository.find.mockResolvedValueOnce([]);
+
+      const result = await service.getPostingById('1');
+      expect(postingRepository.find).toHaveBeenCalledTimes(1);
+      // service.getPostingById('1') === []
+      expect(result).toMatchObject([]);
+    });
+  });
+
+  // getLocationInfoのテスト
+  describe('getLocationInfo', () => {
+    // success
+    it('shoud success to return locationinfo', async () => {
+      // MockにTEST_LOCATIONINFO / TEST_LOCATIONINFO_TWO　DummyData Insert
+      locationinfoRepository.find.mockResolvedValueOnce([
+        TEST_LOCATIONINFO,
+        TEST_LOCATIONINFO_TWO,
+      ]);
+
+      const result = await service.getLocationInfo();
+
+      expect(locationinfoRepository.find).toHaveBeenCalledTimes(1);
+      // getLocationInfo() === [TEST_LOCATIONINFO, TEST_LOCATIONINFO_TWO]
+      expect(result).toMatchObject([TEST_LOCATIONINFO, TEST_LOCATIONINFO_TWO]);
+    });
+
+    it('shoud fail to return locationinfo', async () => {
+      // Mockが空の場合
+      locationinfoRepository.find.mockResolvedValueOnce([]);
+
+      const result = await service.getLocationInfo();
+      expect(locationinfoRepository.find).toHaveBeenCalledTimes(1);
+      // getLocationInfo() === []
+      expect(result).toMatchObject([]);
+    });
+  });
+});

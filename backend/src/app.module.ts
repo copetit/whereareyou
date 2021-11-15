@@ -2,11 +2,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { User } from './entities/user.entity';
-import { Posting } from './entities/posting.entity';
-import { LocationInfo } from './entities/locationinfo.entity';
-import { Contents } from './entities/contents.entity';
+import { User } from './wau/entities/user.entity';
+import { Posting } from './wau/entities/posting.entity';
+import { LocationInfo } from './wau/entities/locationinfo.entity';
+import { Contents } from './wau/entities/contents.entity';
 import { CommonModule } from './common/common.module';
+import { WauModule } from './wau/wau.module';
 
 @Module({
   imports: [
@@ -21,10 +22,7 @@ import { CommonModule } from './common/common.module';
       entities: [User, Posting, LocationInfo, Contents],
     }),
     CommonModule,
-    TypeOrmModule.forFeature([LocationInfo]),
-    TypeOrmModule.forFeature([Contents]),
-    TypeOrmModule.forFeature([Posting]),
-    TypeOrmModule.forFeature([User]),
+    WauModule,
   ],
   controllers: [AppController],
   providers: [AppService],
