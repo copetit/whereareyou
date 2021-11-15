@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
@@ -22,6 +23,24 @@ const positionIwamotocho = {
 // const configValue: string = process.env.GOOGLE_API_KEY;
 
 function Map() {
+  useEffect(() => {
+    const getLocations = async () => {
+      const locationAPi = '/v1/wau/locations';
+      const response = await axios.get(
+        // 'http://localhost:4000/v1/wau/locations',
+        '/v1/wau/locations',
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      console.log(locationAPi);
+      console.log(response.data);
+    };
+    getLocations();
+  }, []);
   return (
     <LoadScript googleMapsApiKey="AIzaSyCiUYM3IVNVKzonJU9NStnOvZSW3f-yArs">
       {/* <LoadScript googleMapsApiKey={configValue}> */}
