@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
@@ -27,29 +27,28 @@ function Map() {
     const getLocations = async () => {
       const locationAPi = '/v1/wau/locations';
       const response = await axios.get(
-        // 'http://localhost:4000/v1/wau/locations',
-        '/v1/wau/locations',
-        {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-          },
-        },
+        'http://localhost:4000/v1/wau/locations',
       );
-      console.log(locationAPi);
+      //   console.log(locationAPi);
       console.log(response.data);
+
+      //   arr.forEach((el: any) => {
+      //     console.log(el.lat, el.lng);
+      //   });
     };
     getLocations();
   }, []);
   return (
-    <LoadScript googleMapsApiKey="AIzaSyCiUYM3IVNVKzonJU9NStnOvZSW3f-yArs">
-      {/* <LoadScript googleMapsApiKey={configValue}> */}
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
-        <Marker position={positionAkiba} />
-        <Marker position={positionIwamotocho} />
-        <></>
-      </GoogleMap>
-    </LoadScript>
+    <div>
+      <LoadScript googleMapsApiKey="AIzaSyCiUYM3IVNVKzonJU9NStnOvZSW3f-yArs">
+        {/* <LoadScript googleMapsApiKey={configValue}> */}
+        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
+          <Marker position={positionAkiba} />
+          <Marker position={positionIwamotocho} />
+          <></>
+        </GoogleMap>
+      </LoadScript>
+    </div>
   );
 }
 
