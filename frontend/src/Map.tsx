@@ -8,8 +8,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: 35.69575,
-  lng: 139.77521,
+  lat: 35.73805386139952,
+  lng: 139.6538817110336,
 };
 const positionAkiba = {
   lat: 35.69731,
@@ -23,18 +23,14 @@ const positionIwamotocho = {
 // const configValue: string = process.env.GOOGLE_API_KEY;
 
 function Map() {
+  const [result, setResult] = useState(center);
   useEffect(() => {
     const getLocations = async () => {
-      const locationAPi = '/v1/wau/locations';
-      const response = await axios.get(
-        'http://localhost:4000/v1/wau/locations',
-      );
-      //   console.log(locationAPi);
-      console.log(response.data);
-
-      //   arr.forEach((el: any) => {
-      //     console.log(el.lat, el.lng);
-      //   });
+      const response = await axios
+        .get('http://localhost:4000/v1/wau/locations')
+        .then((response) => {
+          setResult(response.data);
+        });
     };
     getLocations();
   }, []);
@@ -43,7 +39,20 @@ function Map() {
       <LoadScript googleMapsApiKey="AIzaSyCiUYM3IVNVKzonJU9NStnOvZSW3f-yArs">
         {/* <LoadScript googleMapsApiKey={configValue}> */}
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
-          <Marker position={positionAkiba} />
+          {/* {console.log(result)} */}
+          {console.log(result[0].lat)}
+          {console.log(result[0].lng)}
+          <Marker
+            position={{
+              lat: Number(result[0].lat),
+              lng: Number(result[0].lng),
+            }}
+          />
+          {/* {result.forEach((el) => {
+            console.log(el.lat, el.lng);
+            <Marker position={(el.lat, el.lan)} />;
+          })} */}
+
           <Marker position={positionIwamotocho} />
           <></>
         </GoogleMap>
