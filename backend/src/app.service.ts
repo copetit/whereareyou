@@ -25,7 +25,7 @@ export class AppService {
     const location = new LocationInfo();
     location.lat = 35.73805386139952;
     location.lng = 139.6538817110336;
-    // location (nerima city hall)
+    // // location (nerima city hall)
     // location.lat = 35.73665547513479;
     // location.lng = 139.6517759;
 
