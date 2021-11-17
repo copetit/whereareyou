@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { getLocations, IGetLocations } from './Api';
+import { getLocations } from './Api';
+import { IGetLocations } from './Type';
 
 const containerStyle = {
   width: '1000px',
@@ -18,7 +19,9 @@ function Map() {
     try {
       const response = await getLocations();
       setResult(response);
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   }
   useEffect(() => {
     getMap();
@@ -27,6 +30,7 @@ function Map() {
   return (
     <div>
       <LoadScript googleMapsApiKey="AIzaSyCiUYM3IVNVKzonJU9NStnOvZSW3f-yArs">
+        {/* map表示の初期値 */}
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
           {results.map((result: IGetLocations, i) => {
             console.log(typeof result.lat);
