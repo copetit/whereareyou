@@ -3,9 +3,9 @@ import { Entity, Column } from 'typeorm';
 
 @Entity()
 export class LocationInfo extends CoreEntity {
-  @Column()
+  @Column('decimal', { precision: 9, scale: 6 })
   lat: number;
 
-  @Column()
+  @Column('decimal', { precision: 9, scale: 6 })
   lng: number;
 }

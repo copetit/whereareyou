@@ -33,6 +33,7 @@ services:
       default:
         ipv4_address: 172.0.25.4
   mysql:
+    platform: linux/x86_64
     container_name: mysql-wau
     image: mysql:8
     environment:

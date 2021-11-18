@@ -21,12 +21,17 @@ export class AppService {
     user.MailAddress = 'hoge@example.com';
     await manager.save(user);
 
-    // location
+    // location (nerima station)
     const location = new LocationInfo();
-
-    location.lat = 123;
-    location.lng = 456;
+    location.lat = 35.73805386139952;
+    location.lng = 139.6538817110336;
     await manager.save(location);
+
+    // location2 (nerima city hall)
+    const locationTwo = new LocationInfo();
+    locationTwo.lat = 35.73665547513479;
+    locationTwo.lng = 139.6517759;
+    await manager.save(locationTwo);
 
     // contents
     const contents = new Contents();
