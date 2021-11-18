@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { getLocations } from './Api';
-import { IGetLocations } from './Type';
+import { IGetLocations } from './Types';
 
 const containerStyle = {
   width: '1000px',
@@ -33,7 +33,6 @@ function Map() {
         {/* map表示の初期値 */}
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
           {results.map((result: IGetLocations, i) => {
-            console.log(typeof result.lat);
             return (
               <Marker
                 key={i}
