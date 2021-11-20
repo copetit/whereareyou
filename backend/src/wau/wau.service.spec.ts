@@ -13,6 +13,8 @@ export type MockRepository<T> = Partial<Record<keyof Repository<T>, jest.Mock>>;
 // findのjest mock function作成
 const mockRepository = () => ({
   find: jest.fn(),
+  create: jest.fn(),
+  save: jest.fn(),
 });
 
 // Posting Table Dummy Data
@@ -80,7 +82,7 @@ describe('WauService', () => {
   // getPostingByIdのテスト
   describe('getPostingById', () => {
     // success
-    it('shoud success to return posting', async () => {
+    it('should success to return posting', async () => {
       // MockにTEST_POSTING　DummyData Insert
       // See.https://jestjs.io/ja/docs/mock-function-api#mockfnmockresolvedvalueoncevalue
       postingRepository.find.mockResolvedValueOnce([TEST_POSTING]);
@@ -93,7 +95,7 @@ describe('WauService', () => {
     });
 
     // fail
-    it('shoud fail to return posting', async () => {
+    it('should fail to return posting', async () => {
       // Mockが空の場合
       postingRepository.find.mockResolvedValueOnce([]);
 
@@ -107,7 +109,7 @@ describe('WauService', () => {
   // getLocationInfoのテスト
   describe('getLocationInfo', () => {
     // success
-    it('shoud success to return locationinfo', async () => {
+    it('should success to return locationinfo', async () => {
       // MockにTEST_LOCATIONINFO / TEST_LOCATIONINFO_TWO　DummyData Insert
       locationinfoRepository.find.mockResolvedValueOnce([
         TEST_LOCATIONINFO,
@@ -121,7 +123,7 @@ describe('WauService', () => {
       expect(result).toMatchObject([TEST_LOCATIONINFO, TEST_LOCATIONINFO_TWO]);
     });
 
-    it('shoud fail to return locationinfo', async () => {
+    it('should fail to return locationinfo', async () => {
       // Mockが空の場合
       locationinfoRepository.find.mockResolvedValueOnce([]);
 
@@ -131,4 +133,61 @@ describe('WauService', () => {
       expect(result).toMatchObject([]);
     });
   });
+
+  describe('createPosting', () => {
+    it('should success to return createPosting', async () => {
+      const userParam = {
+        id: 1,
+        Password: 'lovecat',
+        MailAddress: 'IamcatButler@cat.cat',
+      };
+
+      const contentsParam = {
+        id: 1,
+        imageUrl: ['cat1.image1.com', 'cat1.image2.com', 'cat1.image3.com'],
+        videoUrl: ['cat1.video1.com', 'cat1.video2.com', 'cat1.video3.com'],
+      };
+
+      const createParam = {
+        PetName: TEST_POSTING.PetName,
+        PetSex: TEST_POSTING.PetSex,
+        PetAge: TEST_POSTING.PetAge,
+        PetInfo: TEST_POSTING.PetInfo,
+        Detail: TEST_POSTING.Detail,
+        LostDate: TEST_POSTING.LostDate,
+        Address: TEST_POSTING.Address,
+        CreatedDate: TEST_POSTING.CreatedDate,
+        UpdateDate: TEST_POSTING.UpdateDate,
+        locationinfo: TEST_POSTING.locationinfo,
+        user: TEST_POSTING.user,
+        contents: TEST_POSTING.contents,
+      };
+
+      postingRepository.create.mockReturnValueOnce(createParam);
+      postingRepository.save.mockResolvedValueOnce(TEST_POSTING);
+
+      const result = await service.createPosting(TEST_POSTING);
+
+      expect(postingRepository.create).toHaveBeenCalledTimes(1);
+      expect(postingRepository.create).toHaveBeenCalledWith(TEST_POSTING);
+      expect(postingRepository.save).toHaveBeenCalledTimes(1);
+      expect(postingRepository.save).toHaveBeenCalledWith(TEST_POSTING);
+      expect(result).toMatchObject({ ok: true, id: TEST_POSTING.id });
+    });
+  });
 });
+
+//  // success
+//  it('shoud success to return locationinfo', async () => {
+//   // MockにTEST_LOCATIONINFO / TEST_LOCATIONINFO_TWO　DummyData Insert
+//   locationinfoRepository.find.mockResolvedValueOnce([
+//     TEST_LOCATIONINFO,
+//     TEST_LOCATIONINFO_TWO,
+//   ]);
+
+//   const result = await service.getLocationInfo();
+
+//   expect(locationinfoRepository.find).toHaveBeenCalledTimes(1);
+//   // getLocationInfo() === [TEST_LOCATIONINFO, TEST_LOCATIONINFO_TWO]
+//   expect(result).toMatchObject([TEST_LOCATIONINFO, TEST_LOCATIONINFO_TWO]);
+// });
