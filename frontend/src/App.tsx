@@ -1,13 +1,7 @@
-import React from 'react';
-import Map from './Map';
+import Router from './Components/Router';
 
 function App() {
-  return (
-    <div className="App">
-      Hello React
-      <Map />
-    </div>
-  );
+  return <Router />;
 }
 
 export default App;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { getLocations } from './Api';
-import { IGetLocations } from './Types';
+import { getLocations } from '../Api';
+import { IGetLocations } from '../Types';
 
 const containerStyle = {
   width: '1000px',
