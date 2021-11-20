@@ -8,14 +8,17 @@ const containerStyle = {
   height: '1000px',
 };
 
-const center = {
-  lat: 35.738054,
-  lng: 139.653882,
-};
-
 function Map() {
-  const [results, setResult] = useState([center]);
+  // default location (Tokyo Station)
+  const [location, setLocation] = useState({ lat: 35.681345, lng: 139.767151 });
+  const [results, setResult] = useState([]);
+
   async function getMap() {
+    // get Current Location
+    navigator.geolocation.getCurrentPosition(function (position) {
+      const { latitude, longitude } = position.coords;
+      setLocation({ lat: latitude, lng: longitude });
+    });
     try {
       const response = await getLocations();
       setResult(response);
@@ -23,6 +26,7 @@ function Map() {
       console.error(error);
     }
   }
+
   useEffect(() => {
     getMap();
   }, []);
@@ -31,7 +35,11 @@ function Map() {
     <div>
       <LoadScript googleMapsApiKey="AIzaSyCiUYM3IVNVKzonJU9NStnOvZSW3f-yArs">
         {/* map表示の初期値 */}
-        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={location}
+          zoom={17}
+        >
           {results.map((result: IGetLocations, i) => {
             return (
               <Marker
