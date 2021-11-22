@@ -12,7 +12,7 @@ function Map() {
   const [location, setLocation] = useState<IGetLocations>();
   const [results, setResult] = useState([]);
 
-  // get Current Location
+  // Get Current Location
   async function getGeoLocation() {
     navigator.geolocation.getCurrentPosition(function (position) {
       const { latitude, longitude } = position.coords;
