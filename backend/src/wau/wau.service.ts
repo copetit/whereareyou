@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreatePosting, CreatePostingOutput } from './dtos/create-posting.dto';
+import {
+  CreatePostingDto,
+  CreatePostingOutput,
+} from './dtos/create-posting.dto';
 import { LocationInfo } from './entities/locationinfo.entity';
 import { Posting } from './entities/posting.entity';
 
@@ -47,7 +50,7 @@ export class WauService {
     locationinfo,
     user,
     contents,
-  }: CreatePosting): Promise<CreatePostingOutput> {
+  }: CreatePostingDto): Promise<CreatePostingOutput> {
     try {
       const newPosting = this.postingRepository.create({
         PetName,

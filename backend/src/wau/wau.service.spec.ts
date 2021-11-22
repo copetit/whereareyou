@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { LocationInfo } from './entities/locationinfo.entity';
 import { Posting } from './entities/posting.entity';
 import { WauService } from './wau.service';
+import { CreatePostingDto } from './dtos/create-posting.dto';
 
 // Mock Repositoryの型
 // Repositoryのmethod key全部を jest.mockによってmockingする
@@ -20,6 +21,26 @@ const mockRepository = () => ({
 // Posting Table Dummy Data
 const TEST_POSTING: Posting = {
   id: 1,
+  PetName: 'イーブイ',
+  PetSex: '不明',
+  PetAge: 1,
+  PetInfo: 'かわいい',
+  Detail: 'ふわふわなしっぽ',
+  LostDate: new Date('2021-12-09'),
+  Address: 'hogehoge',
+  CreatedDate: new Date('2021-12-11'),
+  UpdateDate: new Date('2021-12-11'),
+  locationinfo: { id: 1, lat: 12, lng: 56 },
+  user: { id: 1, Password: '12345678', MailAddress: 'dummy@test.com' },
+  contents: {
+    id: 1,
+    imageUrl: ['dummyImage@dummy.com', 'dummyImage2@dummy.com'],
+    videoUrl: ['dummyVideo@dummy.com', 'dummyVideo2@dummy.com'],
+  },
+};
+
+// Create Posting Dummy
+const TEST_POSTING_POST: CreatePostingDto = {
   PetName: 'イーブイ',
   PetSex: '不明',
   PetAge: 1,
@@ -136,18 +157,6 @@ describe('WauService', () => {
 
   describe('createPosting', () => {
     it('should success to return createPosting', async () => {
-      const userParam = {
-        id: 1,
-        Password: 'lovecat',
-        MailAddress: 'IamcatButler@cat.cat',
-      };
-
-      const contentsParam = {
-        id: 1,
-        imageUrl: ['cat1.image1.com', 'cat1.image2.com', 'cat1.image3.com'],
-        videoUrl: ['cat1.video1.com', 'cat1.video2.com', 'cat1.video3.com'],
-      };
-
       const createParam = {
         PetName: TEST_POSTING.PetName,
         PetSex: TEST_POSTING.PetSex,
@@ -169,25 +178,10 @@ describe('WauService', () => {
       const result = await service.createPosting(TEST_POSTING);
 
       expect(postingRepository.create).toHaveBeenCalledTimes(1);
-      expect(postingRepository.create).toHaveBeenCalledWith(TEST_POSTING);
+      expect(postingRepository.create).toHaveBeenCalledWith(TEST_POSTING_POST);
       expect(postingRepository.save).toHaveBeenCalledTimes(1);
-      expect(postingRepository.save).toHaveBeenCalledWith(TEST_POSTING);
+      expect(postingRepository.save).toHaveBeenCalledWith(TEST_POSTING_POST);
       expect(result).toMatchObject({ ok: true, id: TEST_POSTING.id });
     });
   });
 });
-
-//  // success
-//  it('shoud success to return locationinfo', async () => {
-//   // MockにTEST_LOCATIONINFO / TEST_LOCATIONINFO_TWO　DummyData Insert
-//   locationinfoRepository.find.mockResolvedValueOnce([
-//     TEST_LOCATIONINFO,
-//     TEST_LOCATIONINFO_TWO,
-//   ]);
-
-//   const result = await service.getLocationInfo();
-
-//   expect(locationinfoRepository.find).toHaveBeenCalledTimes(1);
-//   // getLocationInfo() === [TEST_LOCATIONINFO, TEST_LOCATIONINFO_TWO]
-//   expect(result).toMatchObject([TEST_LOCATIONINFO, TEST_LOCATIONINFO_TWO]);
-// });
