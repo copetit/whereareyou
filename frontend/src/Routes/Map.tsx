@@ -9,16 +9,17 @@ const containerStyle = {
 };
 
 function Map() {
-  // default location (Tokyo Station)
-  const [location, setLocation] = useState({ lat: 35.681345, lng: 139.767151 });
+  const [location, setLocation] = useState<IGetLocations>();
   const [results, setResult] = useState([]);
 
-  async function getMap() {
-    // get Current Location
+  // get Current Location
+  async function getGeoLocation() {
     navigator.geolocation.getCurrentPosition(function (position) {
       const { latitude, longitude } = position.coords;
       setLocation({ lat: latitude, lng: longitude });
     });
+  }
+  async function getMap() {
     try {
       const response = await getLocations();
       setResult(response);
@@ -28,6 +29,7 @@ function Map() {
   }
 
   useEffect(() => {
+    getGeoLocation();
     getMap();
   }, []);
 
