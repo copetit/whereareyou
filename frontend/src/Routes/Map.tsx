@@ -8,13 +8,17 @@ const containerStyle = {
   height: '1000px',
 };
 
-const center = {
-  lat: 35.738054,
-  lng: 139.653882,
-};
-
 function Map() {
-  const [results, setResult] = useState([center]);
+  const [location, setLocation] = useState<IGetLocations>();
+  const [results, setResult] = useState([]);
+
+  // get Current Location
+  async function getGeoLocation() {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      const { latitude, longitude } = position.coords;
+      setLocation({ lat: latitude, lng: longitude });
+    });
+  }
   async function getMap() {
     try {
       const response = await getLocations();
@@ -23,7 +27,9 @@ function Map() {
       console.error(error);
     }
   }
+
   useEffect(() => {
+    getGeoLocation();
     getMap();
   }, []);
 
@@ -31,7 +37,11 @@ function Map() {
     <div>
       <LoadScript googleMapsApiKey="AIzaSyCiUYM3IVNVKzonJU9NStnOvZSW3f-yArs">
         {/* map表示の初期値 */}
-        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={location}
+          zoom={17}
+        >
           {results.map((result: IGetLocations, i) => {
             return (
               <Marker
