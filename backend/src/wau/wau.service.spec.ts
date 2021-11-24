@@ -11,7 +11,7 @@ import { CreatePostingDto } from './dtos/create-posting.dto';
 // それを型化
 export type MockRepository<T> = Partial<Record<keyof Repository<T>, jest.Mock>>;
 
-// findのjest mock function作成
+// jestのmock function作成
 const mockRepository = () => ({
   find: jest.fn(),
   create: jest.fn(),
