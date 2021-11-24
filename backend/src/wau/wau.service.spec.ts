@@ -5,6 +5,8 @@ import { LocationInfo } from './entities/locationinfo.entity';
 import { Posting } from './entities/posting.entity';
 import { WauService } from './wau.service';
 import { CreatePostingDto } from './dtos/create-posting.dto';
+import { User } from './entities/user.entity';
+import { Contents } from './entities/contents.entity';
 
 // Mock Repositoryの型
 // Repositoryのmethod key全部を jest.mockによってmockingする
@@ -50,10 +52,9 @@ const TEST_POSTING_POST: CreatePostingDto = {
   Address: 'hogehoge',
   CreatedDate: new Date('2021-12-11'),
   UpdateDate: new Date('2021-12-11'),
-  locationinfo: { id: 1, lat: 12, lng: 56 },
-  user: { id: 1, Password: '12345678', MailAddress: 'dummy@test.com' },
+  locationinfo: { lat: 12, lng: 56 },
+  user: { Password: '12345678', MailAddress: 'dummy@test.com' },
   contents: {
-    id: 1,
     imageUrl: ['dummyImage@dummy.com', 'dummyImage2@dummy.com'],
     videoUrl: ['dummyVideo@dummy.com', 'dummyVideo2@dummy.com'],
   },
@@ -71,6 +72,10 @@ describe('WauService', () => {
   let postingRepository: MockRepository<Posting>;
   // Location(Entity)のMockRepository
   let locationinfoRepository: MockRepository<LocationInfo>;
+  // User(Entity)のMockRepository
+  let userRepository: MockRepository<User>;
+  // Contents(Entity)のMockRepository
+  let contentsRepository: MockRepository<Contents>;
 
   beforeEach(async () => {
     // Module定義
@@ -85,12 +90,19 @@ describe('WauService', () => {
           provide: getRepositoryToken(LocationInfo),
           useValue: mockRepository(),
         },
+        { provide: getRepositoryToken(User), useValue: mockRepository() },
+        {
+          provide: getRepositoryToken(Contents),
+          useValue: mockRepository(),
+        },
       ],
     }).compile();
 
     service = module.get<WauService>(WauService);
     postingRepository = module.get(getRepositoryToken(Posting));
     locationinfoRepository = module.get(getRepositoryToken(LocationInfo));
+    userRepository = module.get(getRepositoryToken(User));
+    contentsRepository = module.get(getRepositoryToken(Contents));
   });
 
   // Mock postingRepository/locationinfoRepositoryに問題ないか確認
@@ -155,27 +167,42 @@ describe('WauService', () => {
     });
   });
 
+  // createPostingのテスト
   describe('createPosting', () => {
+    // success
     it('should success to return createPosting', async () => {
-      const createParam = {
-        PetName: TEST_POSTING.PetName,
-        PetSex: TEST_POSTING.PetSex,
-        PetAge: TEST_POSTING.PetAge,
-        PetInfo: TEST_POSTING.PetInfo,
-        Detail: TEST_POSTING.Detail,
-        LostDate: TEST_POSTING.LostDate,
-        Address: TEST_POSTING.Address,
-        CreatedDate: TEST_POSTING.CreatedDate,
-        UpdateDate: TEST_POSTING.UpdateDate,
-        locationinfo: TEST_POSTING.locationinfo,
-        user: TEST_POSTING.user,
-        contents: TEST_POSTING.contents,
+      const createParamLocationInfo = TEST_POSTING_POST.locationinfo;
+      const createParamUser = TEST_POSTING_POST.user;
+      const createParamContents = TEST_POSTING_POST.contents;
+      const createParamPosting = {
+        PetName: TEST_POSTING_POST.PetName,
+        PetSex: TEST_POSTING_POST.PetSex,
+        PetAge: TEST_POSTING_POST.PetAge,
+        PetInfo: TEST_POSTING_POST.PetInfo,
+        Detail: TEST_POSTING_POST.Detail,
+        LostDate: TEST_POSTING_POST.LostDate,
+        Address: TEST_POSTING_POST.Address,
+        CreatedDate: TEST_POSTING_POST.CreatedDate,
+        UpdateDate: TEST_POSTING_POST.UpdateDate,
+        locationinfo: TEST_POSTING_POST.locationinfo,
+        user: TEST_POSTING_POST.user,
+        contents: TEST_POSTING_POST.contents,
       };
 
-      postingRepository.create.mockReturnValueOnce(createParam);
+      locationinfoRepository.create.mockReturnValueOnce(
+        createParamLocationInfo,
+      );
+      locationinfoRepository.save.mockResolvedValueOnce(
+        TEST_POSTING.locationinfo,
+      );
+      userRepository.create.mockReturnValueOnce(createParamUser);
+      userRepository.save.mockResolvedValueOnce(TEST_POSTING.user);
+      contentsRepository.create.mockReturnValueOnce(createParamContents);
+      contentsRepository.save.mockResolvedValueOnce(TEST_POSTING.contents);
+      postingRepository.create.mockReturnValueOnce(createParamPosting);
       postingRepository.save.mockResolvedValueOnce(TEST_POSTING);
 
-      const result = await service.createPosting(TEST_POSTING);
+      const result = await service.createPosting(createParamPosting);
 
       expect(postingRepository.create).toHaveBeenCalledTimes(1);
       expect(postingRepository.create).toHaveBeenCalledWith(TEST_POSTING_POST);

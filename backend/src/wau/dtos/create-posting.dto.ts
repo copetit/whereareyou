@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '../entities/user.entity';
-import { LocationInfo } from '../entities/locationinfo.entity';
-import { Contents } from '../entities/contents.entity';
 import { CoreOutput } from './output.dto';
+import { CreateLocationInfoDto } from './create-locationInfo.dto';
+import { CreateUserDto } from './create-user.dto';
+import { CreateContentsDto } from './create-contents.dto';
 
 export class CreatePostingDto {
   @ApiProperty({
@@ -56,7 +56,7 @@ export class CreatePostingDto {
       lng: 139.6538817110336,
     },
   })
-  locationinfo: LocationInfo;
+  locationinfo: CreateLocationInfoDto;
 
   @ApiProperty({
     default: {
@@ -64,7 +64,7 @@ export class CreatePostingDto {
       MailAddress: 'eevee@thunder.com',
     },
   })
-  user: User;
+  user: CreateUserDto;
 
   @ApiProperty({
     default: {
@@ -72,7 +72,7 @@ export class CreatePostingDto {
       videoUrl: "['dummyVideo@dummy.com', 'dummyVideo2@dummy.com']",
     },
   })
-  contents: Contents;
+  contents: CreateContentsDto;
 }
 
 export class CreatePostingOutput extends CoreOutput {
