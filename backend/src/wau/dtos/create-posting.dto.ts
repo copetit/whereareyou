@@ -51,17 +51,26 @@ export class CreatePostingDto {
   UpdateDate: Date;
 
   @ApiProperty({
-    default: {},
+    default: {
+      lat: 35.73805386139952,
+      lng: 139.6538817110336,
+    },
   })
   locationinfo: LocationInfo;
 
   @ApiProperty({
-    default: {},
+    default: {
+      Password: '12345678',
+      MailAddress: 'eevee@thunder.com',
+    },
   })
   user: User;
 
   @ApiProperty({
-    default: {},
+    default: {
+      imageUrl: "['dummyImage@dummy.com', 'dummyImage2@dummy.com']",
+      videoUrl: "['dummyVideo@dummy.com', 'dummyVideo2@dummy.com']",
+    },
   })
   contents: Contents;
 }
