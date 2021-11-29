@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { WauService } from './wau.service';
 import { Posting } from './entities/posting.entity';
 import { LocationInfo } from './entities/locationinfo.entity';
@@ -19,6 +27,7 @@ export class WauController {
   }
 
   @Post('posting')
+  @UsePipes(ValidationPipe)
   createPosting(@Body() createPostingDto: CreatePostingDto) {
     return this.wauService.createPosting(createPostingDto);
   }
