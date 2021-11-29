@@ -1,8 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import {
+  CreatePostingDto,
+  CreatePostingOutput,
+} from './dtos/create-posting.dto';
+import { Contents } from './entities/contents.entity';
 import { LocationInfo } from './entities/locationinfo.entity';
 import { Posting } from './entities/posting.entity';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class WauService {
@@ -12,7 +18,18 @@ export class WauService {
 
     @InjectRepository(Posting)
     private readonly postingRepository: Repository<Posting>,
+
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+
+    @InjectRepository(Contents)
+    private readonly contentsRepository: Repository<Contents>,
   ) {}
+
+  private readonly ErrorOutput = {
+    ok: false,
+    error: 'An Error Occurred.',
+  };
 
   async getPostingById(id: string): Promise<Posting[]> {
     const posting = await this.postingRepository.find({
@@ -26,5 +43,65 @@ export class WauService {
 
   async getLocationInfo(): Promise<LocationInfo[]> {
     return this.locationInfoRepository.find();
+  }
+
+  async createPosting({
+    PetName,
+    PetSex,
+    PetAge,
+    PetInfo,
+    Detail,
+    LostDate,
+    Address,
+    CreatedDate,
+    UpdateDate,
+    locationinfo,
+    user,
+    contents,
+  }: CreatePostingDto): Promise<CreatePostingOutput> {
+    try {
+      // LocationInfo
+      const newLocation = this.locationInfoRepository.create(locationinfo);
+      const { id: locationId } = await this.locationInfoRepository.save(
+        newLocation,
+      );
+      locationinfo['id'] = locationId;
+
+      // User
+      const newUser = this.userRepository.create(user);
+      const { id: userId } = await this.userRepository.save(newUser);
+      user['id'] = userId;
+
+      // Contents
+      const newContents = this.contentsRepository.create(contents);
+      const { id: contentsId } = await this.contentsRepository.save(
+        newContents,
+      );
+      contents['id'] = contentsId;
+
+      // Posting
+      const newPosting = this.postingRepository.create({
+        PetName,
+        PetSex,
+        PetAge,
+        PetInfo,
+        Detail,
+        LostDate,
+        Address,
+        CreatedDate,
+        UpdateDate,
+        locationinfo,
+        user,
+        contents,
+      });
+      const { id } = await this.postingRepository.save(newPosting);
+
+      return {
+        id,
+        ok: true,
+      };
+    } catch (error) {
+      return this.ErrorOutput;
+    }
   }
 }

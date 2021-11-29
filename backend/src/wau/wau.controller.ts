@@ -1,7 +1,8 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { WauService } from './wau.service';
 import { Posting } from './entities/posting.entity';
 import { LocationInfo } from './entities/locationinfo.entity';
+import { CreatePostingDto } from './dtos/create-posting.dto';
 
 @Controller('v1/wau')
 export class WauController {
@@ -15,5 +16,10 @@ export class WauController {
   @Get('locations')
   async getLocationinfo(): Promise<LocationInfo[]> {
     return this.wauService.getLocationInfo();
+  }
+
+  @Post('posting')
+  createPosting(@Body() createPostingDto: CreatePostingDto) {
+    return this.wauService.createPosting(createPostingDto);
   }
 }
