@@ -6,9 +6,10 @@ export class CreateUserDto {
     default: '12345678',
   })
   Password: string;
+
+  @IsEmail()
   @ApiProperty({
     default: 'eevee@thunder.com',
   })
-  @IsEmail()
   MailAddress: string;
 }

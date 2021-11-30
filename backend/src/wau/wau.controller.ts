@@ -27,7 +27,7 @@ export class WauController {
   }
 
   @Post('posting')
-  @UsePipes(ValidationPipe)
+  @UsePipes(new ValidationPipe({ transform: true }))
   createPosting(@Body() createPostingDto: CreatePostingDto) {
     return this.wauService.createPosting(createPostingDto);
   }

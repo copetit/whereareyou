@@ -3,7 +3,8 @@ import { CoreOutput } from './output.dto';
 import { CreateLocationInfoDto } from './create-locationInfo.dto';
 import { CreateUserDto } from './create-user.dto';
 import { CreateContentsDto } from './create-contents.dto';
-import { IsEmail } from 'class-validator';
+import { ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreatePostingDto {
   @ApiProperty({
@@ -35,8 +36,7 @@ export class CreatePostingDto {
     default: '2021-12-09',
   })
   LostDate: Date;
-  // テストのために一時的に入れました
-  @IsEmail()
+
   @ApiProperty({
     default: 'hogehoge',
   })
@@ -60,12 +60,14 @@ export class CreatePostingDto {
   })
   locationinfo: CreateLocationInfoDto;
 
+  @ValidateNested({ each: true })
   @ApiProperty({
     default: {
       Password: '12345678',
       MailAddress: 'eevee@thunder.com',
     },
   })
+  @Type(() => CreateUserDto)
   user: CreateUserDto;
 
   @ApiProperty({
