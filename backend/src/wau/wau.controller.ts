@@ -56,6 +56,7 @@ export class WauController {
 
   // see.https://docs.nestjs.com/openapi/operations#file-upload
   @ApiConsumes('multipart/form-data')
+  // [TODO] Create upload-file.dto.ts
   @ApiBody({
     schema: {
       type: 'object',
@@ -72,6 +73,7 @@ export class WauController {
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     console.log(file);
     // [TODO] Insert Conetents DB Filename
+    // [TODO] Create API Create Contents
     // Mock
     // {
     //   fieldname: 'file',
@@ -86,6 +88,7 @@ export class WauController {
   }
 
   @ApiConsumes('multipart/form-data')
+  // [TODO] Create upload-files.dto.ts
   @ApiBody({
     schema: {
       type: 'object',
@@ -105,7 +108,8 @@ export class WauController {
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
     console.log(files);
   }
-  // [TODO] Insert Conetents DB Filename
+  // [TODO] Insert Conetents DB Filenames
+  // [TODO] Create API Create Contents
   // Mock
   // [
   //   {
