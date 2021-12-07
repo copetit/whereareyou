@@ -3,7 +3,7 @@ import { CoreOutput } from './output.dto';
 import { CreateLocationInfoDto } from './create-locationInfo.dto';
 import { CreateUserDto } from './create-user.dto';
 import { CreateContentsDto } from './create-contents.dto';
-import { ValidateNested } from 'class-validator';
+import { IsDate, Max, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreatePostingDto {
@@ -17,6 +17,7 @@ export class CreatePostingDto {
   })
   PetSex?: string;
 
+  @Max(100)
   @ApiProperty({
     default: '1',
   })
@@ -32,6 +33,7 @@ export class CreatePostingDto {
   })
   Detail?: string;
 
+  @IsDate()
   @ApiProperty({
     default: '2021-12-09',
   })
@@ -42,22 +44,26 @@ export class CreatePostingDto {
   })
   Address: string;
 
+  @IsDate()
   @ApiProperty({
     default: '2021-12-11',
   })
   CreatedDate: Date;
 
+  @IsDate()
   @ApiProperty({
     default: '2021-12-11',
   })
   UpdateDate: Date;
 
+  @ValidateNested({ each: true })
   @ApiProperty({
     default: {
       lat: 35.73805386139952,
       lng: 139.6538817110336,
     },
   })
+  @Type(() => CreateLocationInfoDto)
   locationinfo: CreateLocationInfoDto;
 
   @ValidateNested({ each: true })

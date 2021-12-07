@@ -7,6 +7,7 @@ export class CreateLocationInfoDto {
     default: 35.73805386139952,
   })
   lat: number;
+
   @IsLongitude()
   @ApiProperty({
     default: 139.6538817110336,
