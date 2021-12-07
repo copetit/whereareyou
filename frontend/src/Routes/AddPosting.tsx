@@ -11,16 +11,16 @@ function AddPosting() {
   const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.currentTarget.files && (fileOne = event.currentTarget.files[0]);
   };
-  const fileTwoChange = (event: any) => {
+  const fileTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.currentTarget.files && (fileTwo = event.target.files[0]);
   };
-  const fileThreeChange = (event: any) => {
+  const fileThreeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.currentTarget.files && (fileThree = event.target.files[0]);
   };
-  const fileFourChange = (event: any) => {
+  const fileFourChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.currentTarget.files && (fileFour = event.target.files[0]);
   };
-  const fileFiveChange = (event: any) => {
+  const fileFiveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.currentTarget.files && (fileFive = event.target.files[0]);
   };
 
