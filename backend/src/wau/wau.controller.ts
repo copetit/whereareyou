@@ -56,38 +56,6 @@ export class WauController {
 
   // see.https://docs.nestjs.com/openapi/operations#file-upload
   @ApiConsumes('multipart/form-data')
-  // [TODO] Create upload-file.dto.ts
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        file: {
-          type: 'file',
-          format: 'binary',
-        },
-      },
-    },
-  })
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file', { dest: './contents' }))
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
-    console.log(file);
-    // [TODO] Insert Conetents DB Filename
-    // [TODO] Create API Create Contents
-    // Mock
-    // {
-    //   fieldname: 'file',
-    //   originalname: 'S__83058692.png',
-    //   encoding: '7bit',
-    //   mimetype: 'image/png',
-    //   destination: './contents',
-    //   filename: 'ce62dae4834ba35dbc2abfa348ed6fa7',
-    //   path: 'contents/ce62dae4834ba35dbc2abfa348ed6fa7',
-    //   size: 490294
-    // }
-  }
-
-  @ApiConsumes('multipart/form-data')
   // [TODO] Create upload-files.dto.ts
   @ApiBody({
     schema: {
