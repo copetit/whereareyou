@@ -4,8 +4,6 @@ import {
   Get,
   Param,
   Post,
-  UsePipes,
-  ValidationPipe,
   UploadedFiles,
   UseInterceptors,
   Version,
@@ -52,7 +50,6 @@ export class WauController {
   @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Version('1')
   @Post('posting')
-  @UsePipes(new ValidationPipe({ transform: true }))
   createPosting(@Body() createPostingDto: CreatePostingDto) {
     return this.wauService.createPosting(createPostingDto);
   }

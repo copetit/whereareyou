@@ -3,7 +3,7 @@ import { CoreOutput } from './output.dto';
 import { CreateLocationInfoDto } from './create-locationInfo.dto';
 import { CreateUserDto } from './create-user.dto';
 import { CreateContentsDto } from './create-contents.dto';
-import { IsDate, Max, ValidateNested } from 'class-validator';
+import { IsDateString, Max, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreatePostingDto {
@@ -33,9 +33,9 @@ export class CreatePostingDto {
   })
   Detail?: string;
 
-  @IsDate()
+  @IsDateString()
   @ApiProperty({
-    default: '2021-12-09',
+    default: '20211209',
   })
   LostDate: Date;
 
@@ -44,15 +44,15 @@ export class CreatePostingDto {
   })
   Address: string;
 
-  @IsDate()
+  @IsDateString()
   @ApiProperty({
-    default: '2021-12-11',
+    default: '20211211',
   })
   CreatedDate: Date;
 
-  @IsDate()
+  @IsDateString()
   @ApiProperty({
-    default: '2021-12-11',
+    default: '20211211',
   })
   UpdateDate: Date;
 

@@ -45,7 +45,7 @@ export class Posting extends CoreEntity {
   Detail: string;
 
   @ApiProperty({
-    default: '2021-12-09',
+    default: '20211209',
   })
   @Column()
   LostDate: Date;
@@ -57,13 +57,13 @@ export class Posting extends CoreEntity {
   Address: string;
 
   @ApiProperty({
-    default: '2021-12-11',
+    default: '20211211',
   })
   @CreateDateColumn()
   CreatedDate: Date;
 
   @ApiProperty({
-    default: '2021-12-11',
+    default: '20211211',
   })
   @UpdateDateColumn()
   UpdateDate: Date;
