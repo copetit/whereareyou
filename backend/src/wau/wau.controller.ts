@@ -8,7 +8,6 @@ import {
   UseInterceptors,
   Version,
 } from '@nestjs/common';
-
 import { WauService } from './wau.service';
 import { Posting } from './entities/posting.entity';
 import { LocationInfo } from './entities/locationinfo.entity';
