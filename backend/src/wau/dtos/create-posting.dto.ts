@@ -3,6 +3,8 @@ import { CoreOutput } from './output.dto';
 import { CreateLocationInfoDto } from './create-locationInfo.dto';
 import { CreateUserDto } from './create-user.dto';
 import { CreateContentsDto } from './create-contents.dto';
+import { IsDateString, Max, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreatePostingDto {
   @ApiProperty({
@@ -15,6 +17,7 @@ export class CreatePostingDto {
   })
   PetSex?: string;
 
+  @Max(100)
   @ApiProperty({
     default: '1',
   })
@@ -30,6 +33,7 @@ export class CreatePostingDto {
   })
   Detail?: string;
 
+  @IsDateString()
   @ApiProperty({
     default: '2021-12-09',
   })
@@ -40,30 +44,36 @@ export class CreatePostingDto {
   })
   Address: string;
 
+  @IsDateString()
   @ApiProperty({
     default: '2021-12-11',
   })
   CreatedDate: Date;
 
+  @IsDateString()
   @ApiProperty({
     default: '2021-12-11',
   })
   UpdateDate: Date;
 
+  @ValidateNested({ each: true })
   @ApiProperty({
     default: {
       lat: 35.73805386139952,
       lng: 139.6538817110336,
     },
   })
+  @Type(() => CreateLocationInfoDto)
   locationinfo: CreateLocationInfoDto;
 
+  @ValidateNested({ each: true })
   @ApiProperty({
     default: {
       Password: '12345678',
       MailAddress: 'eevee@thunder.com',
     },
   })
+  @Type(() => CreateUserDto)
   user: CreateUserDto;
 
   @ApiProperty({

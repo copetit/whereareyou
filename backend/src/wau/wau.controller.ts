@@ -4,7 +4,6 @@ import {
   Get,
   Param,
   Post,
-  UploadedFile,
   UploadedFiles,
   UseInterceptors,
   Version,

@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
@@ -9,6 +9,9 @@ async function bootstrap() {
   app.enableVersioning({
     type: VersioningType.URI,
   });
+
+  // オートバリデーション + ペイロードオブジェクトの変換
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   const config = new DocumentBuilder()
     .setTitle('whereareyou')
