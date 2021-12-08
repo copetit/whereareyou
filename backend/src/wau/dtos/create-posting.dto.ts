@@ -35,7 +35,7 @@ export class CreatePostingDto {
 
   @IsDateString()
   @ApiProperty({
-    default: '20211209',
+    default: '2021-12-09',
   })
   LostDate: Date;
 
@@ -46,13 +46,13 @@ export class CreatePostingDto {
 
   @IsDateString()
   @ApiProperty({
-    default: '20211211',
+    default: '2021-12-11',
   })
   CreatedDate: Date;
 
   @IsDateString()
   @ApiProperty({
-    default: '20211211',
+    default: '2021-12-11',
   })
   UpdateDate: Date;
 
