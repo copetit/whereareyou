@@ -35,8 +35,9 @@ function Map() {
 
   return (
     <div>
-      {/* null, undeifnedではないと宣言するため、後ろに Non-null assertion operator( ! ) を利用*/}
-      <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY!}>
+      <LoadScript
+        googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'}
+      >
         {/* map表示の初期値 */}
         <GoogleMap
           mapContainerStyle={containerStyle}
