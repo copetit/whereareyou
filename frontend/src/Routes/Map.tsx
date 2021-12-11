@@ -35,7 +35,9 @@ function Map() {
 
   return (
     <div>
-      <LoadScript googleMapsApiKey="AIzaSyCiUYM3IVNVKzonJU9NStnOvZSW3f-yArs">
+      <LoadScript
+        googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'}
+      >
         {/* map表示の初期値 */}
         <GoogleMap
           mapContainerStyle={containerStyle}
