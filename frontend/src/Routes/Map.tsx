@@ -35,6 +35,7 @@ function Map() {
 
   return (
     <div>
+      <div className="text-indigo-600 font-bold underline">Where Are you</div>
       <LoadScript
         googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'}
       >
