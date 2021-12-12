@@ -44,6 +44,9 @@ function Map() {
           mapContainerStyle={containerStyle}
           center={location}
           zoom={17}
+          onClick={(e) => {
+            console.log(JSON.stringify(e.latLng!.toJSON()));
+          }}
         >
           {results.map((result: IGetLocations, i) => {
             return (
