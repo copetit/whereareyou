@@ -33,7 +33,12 @@ const TEST_POSTING: Posting = {
   CreatedDate: new Date('2021-12-11'),
   UpdateDate: new Date('2021-12-11'),
   locationinfo: { id: 1, lat: 12, lng: 56 },
-  user: { id: 1, Password: '12345678', MailAddress: 'dummy@test.com' },
+  user: {
+    id: 1,
+    Password: '12345678',
+    MailAddress: 'dummy@test.com',
+    hashPassword: () => null,
+  },
   contents: {
     id: 1,
     imageUrl: ['dummyImage@dummy.com', 'dummyImage2@dummy.com'],
