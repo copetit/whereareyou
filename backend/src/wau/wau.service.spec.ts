@@ -21,7 +21,7 @@ const mockRepository = () => ({
 });
 
 // Posting Table Dummy Data
-const TEST_POSTING = {
+const TEST_POSTING: Posting = {
   id: 1,
   PetName: 'イーブイ',
   PetSex: '不明',
