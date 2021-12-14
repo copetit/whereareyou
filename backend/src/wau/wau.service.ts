@@ -9,7 +9,6 @@ import { Contents } from './entities/contents.entity';
 import { LocationInfo } from './entities/locationinfo.entity';
 import { Posting } from './entities/posting.entity';
 import { User } from './entities/user.entity';
-import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class WauService {
@@ -69,14 +68,7 @@ export class WauService {
       locationinfo['id'] = locationId;
 
       // User
-      const { Password, MailAddress } = user;
-      // passwordをhash化する
-      const salt = await bcrypt.genSalt();
-      const hashedPassword = await bcrypt.hash(Password, salt);
-      const newUser = this.userRepository.create({
-        Password: hashedPassword,
-        MailAddress,
-      });
+      const newUser = this.userRepository.create(user);
       const { id: userId } = await this.userRepository.save(newUser);
       user['id'] = userId;
 
