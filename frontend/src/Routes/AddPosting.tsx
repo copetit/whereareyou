@@ -40,13 +40,17 @@ function AddPosting() {
 
   return (
     <div>
-      <link rel="stylesheet" href="https://unpkg.com/mvp.css"></link>
+      {/* <link rel="stylesheet" href="https://unpkg.com/mvp.css"></link> */}
       <input type="file" onChange={(event) => fileOneChange(event)}></input>
       <input type="file" onChange={(event) => fileTwoChange(event)}></input>
       <input type="file" onChange={(event) => fileThreeChange(event)}></input>
       <input type="file" onChange={(event) => fileFourChange(event)}></input>
       <input type="file" onChange={(event) => fileFiveChange(event)}></input>
-      <button type="submit" onClick={() => submitFiles()}>
+      <button
+        className="btn btn-blue"
+        type="submit"
+        onClick={() => submitFiles()}
+      >
         Upload Files
       </button>
     </div>
