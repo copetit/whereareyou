@@ -5,7 +5,7 @@ import Posting from '../Routes/Posting';
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/wau">
       <Routes>
         <Route path="/" element={<Map />} />
         <Route path="/posting" element={<Posting />} />
