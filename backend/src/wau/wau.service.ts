@@ -2,6 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
+  CreateContentsDto,
+  CreateContentsOutput,
+} from './dtos/create-contents.dto';
+import {
   CreatePostingDto,
   CreatePostingOutput,
 } from './dtos/create-posting.dto';
@@ -26,11 +30,6 @@ export class WauService {
     private readonly contentsRepository: Repository<Contents>,
   ) {}
 
-  private readonly ErrorOutput = {
-    ok: false,
-    error: 'An Error Occurred.',
-  };
-
   async getPostingById(id: string): Promise<Posting[]> {
     const posting = await this.postingRepository.find({
       where: {
@@ -43,6 +42,28 @@ export class WauService {
 
   async getLocationInfo(): Promise<LocationInfo[]> {
     return this.locationInfoRepository.find();
+  }
+
+  async createContents({
+    imageUrl,
+    videoUrl,
+  }: CreateContentsDto): Promise<CreateContentsOutput> {
+    try {
+      const newContents = this.contentsRepository.create({
+        imageUrl,
+        videoUrl,
+      });
+      const { id } = await this.contentsRepository.save(newContents);
+      return {
+        id,
+        ok: true,
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        error,
+      };
+    }
   }
 
   async createPosting({
@@ -101,7 +122,10 @@ export class WauService {
         ok: true,
       };
     } catch (error) {
-      return this.ErrorOutput;
+      return {
+        ok: false,
+        error,
+      };
     }
   }
 }
