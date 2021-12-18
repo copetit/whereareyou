@@ -1,4 +1,3 @@
-import React from 'react';
 import AddPosting from './AddPosting';
 
 function Posting() {
@@ -7,13 +6,13 @@ function Posting() {
       <div>
         {/* Pet Info */}
         ペットの情報
-        {/* 写真・ビデオー */}
+        {/* 写真・ビデオー TODO; 別のAPIではなく、postingに含まれるようにする*/}
         <AddPosting />
         <label className="form-label">
           名前
           <input className="text-input" type="text" name="PetName" />
         </label>
-        <label className="form-label">
+        <label className="form-label w-1/2">
           性別
           <select className="block w-full appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 mb-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
             <option value="男">男</option>
@@ -21,13 +20,13 @@ function Posting() {
             <option value="不明">不明</option>
           </select>
         </label>
-        <label className="form-label">
+        <label className="form-label w-1/2">
           年齢
           <input className="text-input" type="text" name="PetAge" />
         </label>
         <label className="form-label">
           特徴
-          <input className="text-input" type="text" name="PetInfo" />
+          <textarea className="text-input h-32" name="PetInfo"></textarea>
         </label>
         <label className="form-label">
           その他の情報
@@ -44,7 +43,7 @@ function Posting() {
         </label>
         <label className="form-label">
           離れた場所（地図で選択）
-          {/* 地図を入れる */}
+          {/* TODO: 地図を入れる */}
           <input className="text-input" type="text" name="locationinfo" />
         </label>
       </div>
