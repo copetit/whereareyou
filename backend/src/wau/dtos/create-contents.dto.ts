@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { CoreOutput } from './output.dto';
 
 export class CreateContentsDto {
   @ApiProperty({
@@ -10,4 +11,8 @@ export class CreateContentsDto {
     default: "['dummyVideo@dummy.com', 'dummyVideo2@dummy.com']",
   })
   videoUrl: string[];
+}
+
+export class CreateContentsOutput extends CoreOutput {
+  id?: number;
 }

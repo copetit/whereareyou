@@ -21,6 +21,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { CreateContentsDto } from './dtos/create-contents.dto';
 
 @ApiTags('wau')
 @Controller('')
@@ -39,8 +40,18 @@ export class WauController {
   @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Version('1')
   @Get('locations')
-  async getLocationinfo(): Promise<LocationInfo[]> {
+  getLocationinfo(): Promise<LocationInfo[]> {
     return this.wauService.getLocationInfo();
+  }
+
+  @ApiCreatedResponse({
+    description: 'The record has been successfully created.',
+  })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @Version('1')
+  @Post('contents')
+  createContents(@Body() createContentsDto: CreateContentsDto) {
+    return this.wauService.createContents(createContentsDto);
   }
 
   @ApiCreatedResponse({
@@ -72,32 +83,12 @@ export class WauController {
   })
   @Post('uploads')
   @UseInterceptors(FilesInterceptor('files', 5, { dest: './contents' }))
-  uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
-    console.log(files);
+  async uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
+    let imageUrl: string[] = [];
+    let videoUrl: string[] = [];
+    files.map((file) => imageUrl.push(file.path));
+    const result = await this.createContents({ imageUrl, videoUrl });
+    result.ok ? true : false;
+    return { imageUrl, videoUrl };
   }
-  // [TODO] Insert Conetents DB Filenames
-  // [TODO] Create API Create Contents
-  // Mock
-  // [
-  //   {
-  //     fieldname: 'files',
-  //     originalname: 'kittykitty.jpeg',
-  //     encoding: '7bit',
-  //     mimetype: 'image/jpeg',
-  //     destination: './contents',
-  //     filename: '2b5983ca6eabe22176cf07cd1c054681',
-  //     path: 'contents/2b5983ca6eabe22176cf07cd1c054681',
-  //     size: 3008271
-  //   },
-  //   {
-  //     fieldname: 'files',
-  //     originalname: 'S__83058692.png',
-  //     encoding: '7bit',
-  //     mimetype: 'image/png',
-  //     destination: './contents',
-  //     filename: 'e4dc6e358d2a460238383b2c9c23c17c',
-  //     path: 'contents/e4dc6e358d2a460238383b2c9c23c17c',
-  //     size: 490294
-  //   }
-  // ]
 }
