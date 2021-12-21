@@ -19,3 +19,7 @@
     @apply bg-blue-700;
   }
 }
+
+.react-datepicker {
+  font-weight: normal;
+}

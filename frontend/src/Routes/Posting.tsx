@@ -1,6 +1,11 @@
+import { useState } from 'react';
 import AddPosting from './AddPosting';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 function Posting() {
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+
   return (
     <form className="w-1/2 max-w-lg m-3">
       <div>
@@ -32,10 +37,16 @@ function Posting() {
           その他の情報
           <textarea className="text-input h-48" name="Detail"></textarea>
         </label>
-        <label className="form-label">
+        <label className="form-label w-1/2">
           離れた日
           {/* カレンダを入れる */}
-          <input className="text-input" type="text" name="LostDate" />
+          <DatePicker
+            className="text-input"
+            selected={startDate}
+            dateFormat="yyyy-MM-dd"
+            maxDate={new Date()}
+            onChange={(date: Date | null) => setStartDate(date)}
+          />
         </label>
         <label className="form-label">
           離れた場所
