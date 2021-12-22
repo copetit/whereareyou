@@ -40,7 +40,6 @@ function AddPosting() {
 
   return (
     <div>
-      {/* <link rel="stylesheet" href="https://unpkg.com/mvp.css"></link> */}
       <input type="file" onChange={(event) => fileOneChange(event)}></input>
       <input type="file" onChange={(event) => fileTwoChange(event)}></input>
       <input type="file" onChange={(event) => fileThreeChange(event)}></input>
