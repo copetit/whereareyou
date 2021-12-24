@@ -31,7 +31,7 @@ export class WauService {
     private readonly contentsRepository: Repository<Contents>,
   ) {}
 
-  async getPostingById(id: string): Promise<Posting[]> {
+  async getPostingById(id: number): Promise<Posting[]> {
     const posting = await this.postingRepository.find({
       where: {
         id,
@@ -130,7 +130,7 @@ export class WauService {
     }
   }
 
-  async deletePosting(id: string): Promise<CoreOutput> {
+  async deletePosting(id: number): Promise<CoreOutput> {
     try {
       const getPosting = await this.getPostingById(id);
 

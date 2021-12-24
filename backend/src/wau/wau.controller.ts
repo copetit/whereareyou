@@ -33,7 +33,7 @@ export class WauController {
   @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Version('1')
   @Get('posting/:id')
-  getPostingById(@Param('id') id: string): Promise<Posting[]> {
+  getPostingById(@Param('id') id: number): Promise<Posting[]> {
     return this.wauService.getPostingById(id);
   }
 
@@ -68,7 +68,7 @@ export class WauController {
   @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Version('1')
   @Delete('posting/:id')
-  async deletePosting(@Param('id') id: string) {
+  async deletePosting(@Param('id') id: number) {
     return this.wauService.deletePosting(id);
   }
 
