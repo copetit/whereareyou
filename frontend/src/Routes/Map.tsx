@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  InfoWindow,
+} from '@react-google-maps/api';
 import { getLocations } from '../Api';
 import { IGetLocations } from '../Types';
 
@@ -8,7 +13,14 @@ const containerStyle = {
   height: '1000px',
 };
 
+// dummyのinfowindowデザイン
+const divStyle = {
+  border: `1px solid #ccc`,
+  padding: 15,
+};
+
 function Map() {
+  const [selected, setSelected] = useState<Number | null>();
   const [location, setLocation] = useState<IGetLocations>();
   const [results, setResult] = useState([]);
 
@@ -53,10 +65,37 @@ function Map() {
               <Marker
                 key={i}
                 position={{ lat: Number(result.lat), lng: Number(result.lng) }}
-              />
+                onClick={() => {
+                  setSelected(i);
+                }}
+              >
+                {selected === i && (
+                  <InfoWindow
+                    onCloseClick={() => {
+                      setSelected(null);
+                    }}
+                  >
+                    <div style={divStyle}>
+                      <span>Something {i}</span>
+                    </div>
+                  </InfoWindow>
+                )}
+              </Marker>
             );
           })}
-          <></>
+          {/* or, この方法もありかな。。一旦レビュー参考用として残す。この方法不要だったら消す */}
+          {/* {selected ? (
+            <InfoWindow
+              position={{
+                lat: Number(selected.lat),
+                lng: Number(selected.lng),
+              }}
+            >
+              <div style={divStyle}>
+                <h1>InfoWindow</h1>
+              </div>
+            </InfoWindow>
+          ) : null} */}
         </GoogleMap>
       </LoadScript>
     </div>
