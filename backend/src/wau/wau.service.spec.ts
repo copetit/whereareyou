@@ -18,6 +18,7 @@ const mockRepository = () => ({
   find: jest.fn(),
   create: jest.fn(),
   save: jest.fn(),
+  delete: jest.fn(),
 });
 
 // Posting Table Dummy Data
@@ -125,7 +126,7 @@ describe('WauService', () => {
       // See.https://jestjs.io/ja/docs/mock-function-api#mockfnmockresolvedvalueoncevalue
       postingRepository.find.mockResolvedValueOnce([TEST_POSTING]);
 
-      const result = await service.getPostingById('1');
+      const result = await service.getPostingById(1);
 
       expect(postingRepository.find).toHaveBeenCalledTimes(1);
       // getPostingById('1') === TEST_POSTING 確認
@@ -137,7 +138,7 @@ describe('WauService', () => {
       // Mockが空の場合
       postingRepository.find.mockResolvedValueOnce([]);
 
-      const result = await service.getPostingById('1');
+      const result = await service.getPostingById(1);
       expect(postingRepository.find).toHaveBeenCalledTimes(1);
       // service.getPostingById('1') === []
       expect(result).toMatchObject([]);
@@ -214,6 +215,37 @@ describe('WauService', () => {
       expect(postingRepository.save).toHaveBeenCalledTimes(1);
       expect(postingRepository.save).toHaveBeenCalledWith(TEST_POSTING_POST);
       expect(result).toMatchObject({ ok: true, id: TEST_POSTING.id });
+    });
+  });
+
+  describe('deletePosting', () => {
+    // success
+    it('should success to return deletePosting', async () => {
+      jest
+        .spyOn(service, 'getPostingById')
+        .mockImplementationOnce(async (id) => [TEST_POSTING]);
+
+      const result = await service.deletePosting(TEST_POSTING.id);
+
+      expect(service.getPostingById).toHaveBeenCalledTimes(1);
+      expect(service.getPostingById).toHaveBeenCalledWith(TEST_POSTING.id);
+      expect(postingRepository.delete).toHaveBeenCalledTimes(1);
+      expect(result).toMatchObject({ ok: true });
+    });
+    // fail
+    it('should fail to return deletePosting', async () => {
+      jest
+        .spyOn(service, 'getPostingById')
+        .mockImplementationOnce(async (id) => [TEST_POSTING]);
+
+      postingRepository.delete.mockRejectedValueOnce(
+        'The posting doesn’t exist',
+      );
+      const result = await service.deletePosting(TEST_POSTING.id);
+      expect(service.getPostingById).toHaveBeenCalledTimes(1);
+      expect(service.getPostingById).toHaveBeenCalledWith(TEST_POSTING.id);
+      expect(postingRepository.delete).toHaveBeenCalledTimes(1);
+      expect(result).toMatchObject({ error: 'The posting doesn’t exist' });
     });
   });
 });

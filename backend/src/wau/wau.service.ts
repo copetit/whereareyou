@@ -9,6 +9,7 @@ import {
   CreatePostingDto,
   CreatePostingOutput,
 } from './dtos/create-posting.dto';
+import { CoreOutput } from './dtos/output.dto';
 import { Contents } from './entities/contents.entity';
 import { LocationInfo } from './entities/locationinfo.entity';
 import { Posting } from './entities/posting.entity';
@@ -30,12 +31,12 @@ export class WauService {
     private readonly contentsRepository: Repository<Contents>,
   ) {}
 
-  async getPostingById(id: string): Promise<Posting[]> {
+  async getPostingById(id: number): Promise<Posting[]> {
     const posting = await this.postingRepository.find({
       where: {
         id,
       },
-      relations: ['contents'],
+      relations: ['locationinfo', 'user', 'contents'],
     });
     return posting;
   }
@@ -119,6 +120,29 @@ export class WauService {
 
       return {
         id,
+        ok: true,
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        error,
+      };
+    }
+  }
+
+  async deletePosting(id: number): Promise<CoreOutput> {
+    try {
+      const getPosting = await this.getPostingById(id);
+
+      if (getPosting.length != 0) {
+        await this.postingRepository.delete(id);
+        await this.contentsRepository.delete(id);
+        await this.locationInfoRepository.delete(id);
+        await this.userRepository.delete(id);
+      } else {
+        throw 'The posting doesn’t exist';
+      }
+      return {
         ok: true,
       };
     } catch (error) {

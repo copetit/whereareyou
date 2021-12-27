@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -32,7 +33,7 @@ export class WauController {
   @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Version('1')
   @Get('posting/:id')
-  getPostingById(@Param('id') id: string): Promise<Posting[]> {
+  getPostingById(@Param('id') id: number): Promise<Posting[]> {
     return this.wauService.getPostingById(id);
   }
 
@@ -62,6 +63,13 @@ export class WauController {
   @Post('posting')
   createPosting(@Body() createPostingDto: CreatePostingDto) {
     return this.wauService.createPosting(createPostingDto);
+  }
+
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @Version('1')
+  @Delete('posting/:id')
+  async deletePosting(@Param('id') id: number) {
+    return this.wauService.deletePosting(id);
   }
 
   // see.https://docs.nestjs.com/openapi/operations#file-upload
