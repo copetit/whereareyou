@@ -69,6 +69,7 @@ function Map() {
                   setSelected(i);
                 }}
               >
+                {/* MarkerをクリックするとinfoWindowが表示される */}
                 {selected === i && (
                   <InfoWindow
                     onCloseClick={() => {
@@ -83,19 +84,6 @@ function Map() {
               </Marker>
             );
           })}
-          {/* or, この方法もありかな。。一旦レビュー参考用として残す。この方法不要だったら消す */}
-          {/* {selected ? (
-            <InfoWindow
-              position={{
-                lat: Number(selected.lat),
-                lng: Number(selected.lng),
-              }}
-            >
-              <div style={divStyle}>
-                <h1>InfoWindow</h1>
-              </div>
-            </InfoWindow>
-          ) : null} */}
         </GoogleMap>
       </LoadScript>
     </div>
