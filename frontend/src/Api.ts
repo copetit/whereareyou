@@ -7,9 +7,6 @@ export const getLocations = () =>
   api.get('/wau/v1/locations').then((response) => response.data);
 // uploadファイル用のHeader
 const headers = { 'content-type': 'multipart/form-data' };
-// Upload file
-export const uploadFile = (data: FormData) =>
-  api.post('/wau/upload', data, { headers });
 // Upload files
 export const uploadFiles = (data: FormData) =>
   api.post('/wau/uploads', data, { headers });

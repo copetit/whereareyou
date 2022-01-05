@@ -95,8 +95,6 @@ export class WauController {
     let imageUrl: string[] = [];
     let videoUrl: string[] = [];
     files.map((file) => imageUrl.push(file.path));
-    const result = await this.createContents({ imageUrl, videoUrl });
-    result.ok ? true : false;
     return { imageUrl, videoUrl };
   }
 }
