@@ -22,7 +22,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { CreateContentsDto } from './dtos/create-contents.dto';
+// import { CreateContentsDto } from './dtos/create-contents.dto';
 
 @ApiTags('wau')
 @Controller('')
@@ -45,15 +45,15 @@ export class WauController {
     return this.wauService.getLocationInfo();
   }
 
-  @ApiCreatedResponse({
-    description: 'The record has been successfully created.',
-  })
-  @ApiForbiddenResponse({ description: 'Forbidden.' })
-  @Version('1')
-  @Post('contents')
-  createContents(@Body() createContentsDto: CreateContentsDto) {
-    return this.wauService.createContents(createContentsDto);
-  }
+  // @ApiCreatedResponse({
+  //   description: 'The record has been successfully created.',
+  // })
+  // @ApiForbiddenResponse({ description: 'Forbidden.' })
+  // @Version('1')
+  // @Post('contents')
+  // createContents(@Body() createContentsDto: CreateContentsDto) {
+  //   return this.wauService.createContents(createContentsDto);
+  // }
 
   @ApiCreatedResponse({
     description: 'The record has been successfully created.',
