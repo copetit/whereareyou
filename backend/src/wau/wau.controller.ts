@@ -29,6 +29,7 @@ import { CreateContentsDto } from './dtos/create-contents.dto';
 export class WauController {
   constructor(private readonly wauService: WauService) {}
 
+  // Posting情報取得API
   @ApiOkResponse({ type: Posting })
   @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Version('1')
@@ -37,6 +38,7 @@ export class WauController {
     return this.wauService.getPostingById(id);
   }
 
+  // 全Location情報取得API
   @ApiOkResponse({ type: [LocationInfo] })
   @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Version('1')
@@ -45,6 +47,7 @@ export class WauController {
     return this.wauService.getLocationInfo();
   }
 
+  // Contents情報作成API
   @ApiCreatedResponse({
     description: 'The record has been successfully created.',
   })
@@ -55,6 +58,7 @@ export class WauController {
     return this.wauService.createContents(createContentsDto);
   }
 
+  // Posting情報作成API
   @ApiCreatedResponse({
     description: 'The record has been successfully created.',
   })
@@ -65,6 +69,7 @@ export class WauController {
     return this.wauService.createPosting(createPostingDto);
   }
 
+  // Posting情報削除API
   @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Version('1')
   @Delete('posting/:id')
