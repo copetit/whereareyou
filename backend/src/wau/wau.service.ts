@@ -45,27 +45,28 @@ export class WauService {
     return this.locationInfoRepository.find();
   }
 
-  async createContents({
-    imageUrl,
-    videoUrl,
-  }: CreateContentsDto): Promise<CreateContentsOutput> {
-    try {
-      const newContents = this.contentsRepository.create({
-        imageUrl,
-        videoUrl,
-      });
-      const { id } = await this.contentsRepository.save(newContents);
-      return {
-        id,
-        ok: true,
-      };
-    } catch (error) {
-      return {
-        ok: false,
-        error,
-      };
-    }
-  }
+  //[TODO] 実際に必要ない、一旦残して後でRefactoringの時消す
+  // async createContents({
+  //   imageUrl,
+  //   videoUrl,
+  // }: CreateContentsDto): Promise<CreateContentsOutput> {
+  //   try {
+  //     const newContents = this.contentsRepository.create({
+  //       imageUrl,
+  //       videoUrl,
+  //     });
+  //     const { id } = await this.contentsRepository.save(newContents);
+  //     return {
+  //       id,
+  //       ok: true,
+  //     };
+  //   } catch (error) {
+  //     return {
+  //       ok: false,
+  //       error,
+  //     };
+  //   }
+  // }
 
   async createPosting({
     PetName,
