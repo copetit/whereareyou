@@ -5,7 +5,7 @@ import {
   Marker,
   InfoWindow,
 } from '@react-google-maps/api';
-import { getLocations } from '../Api';
+import { getLocations, getPostingById } from '../Api';
 import { IGetLocations } from '../Types';
 
 const containerStyle = {
@@ -21,15 +21,24 @@ const divStyle = {
 
 function Map() {
   const [selected, setSelected] = useState<Number | null>();
-  const [location, setLocation] = useState<IGetLocations>();
+  const [location, setLocation] =
+    useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [results, setResult] = useState([]);
+  const [postingInfo, setPostingInfo] = useState<any>();
 
-  // Get Current Location
   async function getGeoLocation() {
     navigator.geolocation.getCurrentPosition(function (position) {
       const { latitude, longitude } = position.coords;
       setLocation({ lat: latitude, lng: longitude });
     });
+  }
+  async function getPosting(id: Number) {
+    try {
+      const [response] = await getPostingById(id);
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
   }
   async function getMap() {
     try {
@@ -60,24 +69,37 @@ function Map() {
             console.log(JSON.stringify(e.latLng!.toJSON()));
           }}
         >
-          {results.map((result: IGetLocations, i) => {
+          {results.map((result: IGetLocations) => {
             return (
               <Marker
-                key={i}
-                position={{ lat: Number(result.lat), lng: Number(result.lng) }}
+                key={result.id}
+                position={{
+                  lat: Number(result.lat),
+                  lng: Number(result.lng),
+                }}
                 onClick={() => {
-                  setSelected(i);
+                  setSelected(result.id);
+                  getPosting(result.id).then((res) => {
+                    setPostingInfo(res);
+                  });
                 }}
               >
                 {/* MarkerをクリックするとinfoWindowが表示される */}
-                {selected === i && (
+                {selected === result.id && postingInfo && (
                   <InfoWindow
                     onCloseClick={() => {
                       setSelected(null);
                     }}
                   >
                     <div style={divStyle}>
-                      <span>Something {i}</span>
+                      {result.id}の情報
+                      <br />
+                      名前: {postingInfo.PetName}
+                      <br />
+                      情報: {postingInfo.PetInfo}
+                      <br />
+                      離れた日: {postingInfo.LostDate}
+                      <br />
                     </div>
                   </InfoWindow>
                 )}
