@@ -3,7 +3,7 @@ import Map from './Map';
 
 function Main() {
   return (
-    <div>
+    <div id="container">
       <Header />
       <Map />
     </div>

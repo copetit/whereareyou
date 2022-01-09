@@ -19,7 +19,21 @@
     @apply bg-blue-700;
   }
 }
-
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+}
+div#root {
+  height: 100%;
+}
+div#container {
+  height: 100%;
+}
+nav {
+  background: #20232a;
+}
 .react-datepicker {
   font-weight: normal;
 }
