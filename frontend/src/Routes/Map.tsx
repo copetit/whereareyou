@@ -21,20 +21,21 @@ const divStyle = {
 
 function Map() {
   const [selected, setSelected] = useState<Number | null>();
-  const [location, setLocation] = useState<IGetLocations>();
+  const [location, setLocation] =
+    useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [results, setResult] = useState([]);
   const [postingInfo, setPostingInfo] = useState<any>();
 
   async function getGeoLocation() {
     navigator.geolocation.getCurrentPosition(function (position) {
       const { latitude, longitude } = position.coords;
-      setLocation({ id: 0, lat: latitude, lng: longitude });
+      setLocation({ lat: latitude, lng: longitude });
     });
   }
   async function getPosting(id: Number) {
     try {
-      const response = await getPostingById(id);
-      return response[0];
+      const [response] = await getPostingById(id);
+      return response;
     } catch (error) {
       console.error(error);
     }
@@ -68,7 +69,7 @@ function Map() {
             console.log(JSON.stringify(e.latLng!.toJSON()));
           }}
         >
-          {results.map((result: IGetLocations, i) => {
+          {results.map((result: IGetLocations) => {
             return (
               <Marker
                 key={result.id}
