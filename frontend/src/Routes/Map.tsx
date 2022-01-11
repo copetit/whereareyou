@@ -9,8 +9,7 @@ import { getLocations, getPostingById } from '../Api';
 import { IGetLocations } from '../Types';
 
 const containerStyle = {
-  width: '1000px',
-  height: '1000px',
+  height: '100%',
 };
 
 // dummyのinfowindowデザイン
@@ -55,8 +54,7 @@ function Map() {
   }, []);
 
   return (
-    <div>
-      <div className="text-indigo-600 font-bold underline">Where Are you</div>
+    <div id="map" className="h-92/100 w-full">
       <LoadScript
         googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'}
       >
@@ -112,4 +110,4 @@ function Map() {
   );
 }
 
-export default React.memo(Map);
+export default Map;
