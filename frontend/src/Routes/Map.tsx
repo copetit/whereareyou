@@ -14,8 +14,8 @@ const containerStyle = {
 
 // dummyのinfowindowデザイン
 const divStyle = {
-  border: `1px solid #ccc`,
   padding: 15,
+  // background: ` border-box red`,
 };
 
 function Map() {
@@ -92,11 +92,9 @@ function Map() {
                     <div style={divStyle}>
                       {result.id}の情報
                       <br />
-                      名前: {postingInfo.PetName}
-                      <br />
-                      情報: {postingInfo.PetInfo}
-                      <br />
-                      離れた日: {postingInfo.LostDate}
+                      <div>{postingInfo.PetName}ちゃん</div>
+                      <div>情報: {postingInfo.PetInfo}</div>
+                      <div>離れた日: {postingInfo.LostDate}</div>
                       <br />
                     </div>
                   </InfoWindow>
