@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
-  CreateContentsDto,
-  CreateContentsOutput,
-} from './dtos/create-contents.dto';
-import {
   CreatePostingDto,
   CreatePostingOutput,
 } from './dtos/create-posting.dto';
 import { CoreOutput } from './dtos/output.dto';
+import {
+  UpdatePostingDto,
+  UpdatePostingOutput,
+} from './dtos/update-posting.dto';
 import { Contents } from './entities/contents.entity';
 import { LocationInfo } from './entities/locationinfo.entity';
 import { Posting } from './entities/posting.entity';
@@ -44,29 +44,6 @@ export class WauService {
   async getLocationInfo(): Promise<LocationInfo[]> {
     return this.locationInfoRepository.find();
   }
-
-  //[TODO] 実際に必要ない、一旦残して後でRefactoringの時消す
-  // async createContents({
-  //   imageUrl,
-  //   videoUrl,
-  // }: CreateContentsDto): Promise<CreateContentsOutput> {
-  //   try {
-  //     const newContents = this.contentsRepository.create({
-  //       imageUrl,
-  //       videoUrl,
-  //     });
-  //     const { id } = await this.contentsRepository.save(newContents);
-  //     return {
-  //       id,
-  //       ok: true,
-  //     };
-  //   } catch (error) {
-  //     return {
-  //       ok: false,
-  //       error,
-  //     };
-  //   }
-  // }
 
   async createPosting({
     PetName,
@@ -123,6 +100,54 @@ export class WauService {
         id,
         ok: true,
       };
+    } catch (error) {
+      return {
+        ok: false,
+        error,
+      };
+    }
+  }
+
+  async updatePosting({
+    id,
+    PetName,
+    PetSex,
+    PetAge,
+    PetInfo,
+    Detail,
+    LostDate,
+    Address,
+    CreatedDate,
+    UpdateDate,
+    locationinfo,
+    user,
+    contents,
+  }: UpdatePostingDto): Promise<UpdatePostingOutput> {
+    try {
+      const [getPosting] = await this.getPostingById(id);
+      if (getPosting) {
+        await this.contentsRepository.update({ id }, contents);
+        await this.locationInfoRepository.update({ id }, locationinfo);
+        await this.userRepository.update({ id }, user);
+        await this.postingRepository.update(
+          { id },
+          {
+            PetName,
+            PetSex,
+            PetAge,
+            PetInfo,
+            Detail,
+            LostDate,
+            Address,
+            CreatedDate,
+            UpdateDate,
+          },
+        );
+        return {
+          id,
+          ok: true,
+        };
+      }
     } catch (error) {
       return {
         ok: false,
