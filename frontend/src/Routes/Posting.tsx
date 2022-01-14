@@ -65,6 +65,7 @@ function Posting() {
   async function handleSubmit(e: any) {
     // TODO: 転移画面決めた後に消す
     e.preventDefault();
+
     let data = new FormData();
     data.append('files', fileOne);
     data.append('files', fileTwo);
@@ -73,35 +74,36 @@ function Posting() {
     data.append('files', fileFive);
 
     try {
-      const imageUrl = await uploadFiles(data).then(
-        (res) => res.data['imageUrl'],
-      );
-      console.log(imageUrl);
-      await createPosting({
-        PetName: petName,
-        PetSex: petSex,
-        PetAge: parseInt(petAge),
-        PetInfo: petInfo,
-        Detail: detail,
-        LostDate: lostDate,
-        Address: address,
-        CreatedDate: `${nowYear}-${nowMonth}-${nowDate}`,
-        UpdateDate: `${nowYear}-${nowMonth}-${nowDate}`,
-        // TODO: Map導入後修正
-        locationinfo: {
-          lat: 35.73805386139952,
-          lng: 139.6538817110336,
-        },
-        user: {
-          Password: password,
-          MailAddress: mailladdress,
-        },
-        contents: {
-          imageUrl: imageUrl,
-          // TODO: Video導入後編集
-          videoUrl: '',
-        },
-      }).then((res) => console.log(res));
+      await uploadFiles(data)
+        .then((res) => res.data['imageUrl'])
+        .then(async (res) => {
+          console.log(res);
+          await createPosting({
+            PetName: petName,
+            PetSex: petSex,
+            PetAge: parseInt(petAge),
+            PetInfo: petInfo,
+            Detail: detail,
+            LostDate: lostDate,
+            Address: address,
+            CreatedDate: `${nowYear}-${nowMonth}-${nowDate}`,
+            UpdateDate: `${nowYear}-${nowMonth}-${nowDate}`,
+            // TODO: Map導入後修正
+            locationinfo: {
+              lat: 35.73805386139952,
+              lng: 139.6538817110336,
+            },
+            user: {
+              Password: password,
+              MailAddress: mailladdress,
+            },
+            contents: {
+              imageUrl: res,
+              // TODO: Video導入後編集
+              videoUrl: '',
+            },
+          }).then((res) => console.log(res));
+        });
     } catch (error) {
       console.log(error);
     }
