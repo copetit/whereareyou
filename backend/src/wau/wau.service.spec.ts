@@ -19,6 +19,7 @@ const mockRepository = () => ({
   create: jest.fn(),
   save: jest.fn(),
   delete: jest.fn(),
+  update: jest.fn(),
 });
 
 // Posting Table Dummy Data
@@ -218,12 +219,60 @@ describe('WauService', () => {
     });
   });
 
+  describe('updatePosting', () => {
+    // success
+    it('should success to return updatePosting', async () => {
+      jest
+        .spyOn(service, 'getPostingById')
+        .mockImplementationOnce(async () => [TEST_POSTING]);
+
+      // PetName ThunderにUpdate
+      const updateValue = {
+        ...TEST_POSTING,
+        ...{
+          PetName: 'Thunder',
+        },
+      };
+      const result = await service.updatePosting(updateValue);
+      expect(service.getPostingById).toHaveBeenCalledTimes(1);
+      expect(service.getPostingById).toHaveBeenCalledWith(TEST_POSTING.id);
+      expect(postingRepository.update).toHaveBeenCalledTimes(1);
+      // Updateされているかの確認
+      expect(updateValue).toMatchObject(
+        service.getPostingById(TEST_POSTING.id),
+      );
+      // Returnの確認
+      expect(result).toMatchObject({ ok: true, id: TEST_POSTING.id });
+    });
+
+    // fail
+    it('should fail to return updatePosting', async () => {
+      jest
+        .spyOn(service, 'getPostingById')
+        .mockImplementationOnce(async () => [TEST_POSTING]);
+
+      const updateValue = {
+        ...TEST_POSTING,
+        ...{
+          PetName: 'Thunder',
+        },
+      };
+      postingRepository.update.mockRejectedValueOnce(new Error('Mocked Error'));
+      const result = await service.updatePosting(updateValue);
+      expect(service.getPostingById).toHaveBeenCalledTimes(1);
+      expect(service.getPostingById).toHaveBeenCalledWith(TEST_POSTING.id);
+      expect(postingRepository.update).toHaveBeenCalledTimes(1);
+      // False確認
+      expect(result).toMatchObject({ ok: false });
+    });
+  });
+
   describe('deletePosting', () => {
     // success
     it('should success to return deletePosting', async () => {
       jest
         .spyOn(service, 'getPostingById')
-        .mockImplementationOnce(async (id) => [TEST_POSTING]);
+        .mockImplementationOnce(async () => [TEST_POSTING]);
 
       const result = await service.deletePosting(TEST_POSTING.id);
 
@@ -236,7 +285,7 @@ describe('WauService', () => {
     it('should fail to return deletePosting', async () => {
       jest
         .spyOn(service, 'getPostingById')
-        .mockImplementationOnce(async (id) => [TEST_POSTING]);
+        .mockImplementationOnce(async () => [TEST_POSTING]);
 
       postingRepository.delete.mockRejectedValueOnce(
         'The posting doesn’t exist',

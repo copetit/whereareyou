@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UploadedFiles,
   UseInterceptors,
   Version,
@@ -22,6 +23,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { UpdatePostingDto } from './dtos/update-posting.dto';
 // import { CreateContentsDto } from './dtos/create-contents.dto';
 
 @ApiTags('wau')
@@ -67,6 +69,14 @@ export class WauController {
   @Post('posting')
   createPosting(@Body() createPostingDto: CreatePostingDto) {
     return this.wauService.createPosting(createPostingDto);
+  }
+
+  // Posting情報更新API
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @Version('1')
+  @Put('posting/:id')
+  async updatePosting(@Body() updatePostingDto: UpdatePostingDto) {
+    return this.wauService.updatePosting(updatePostingDto);
   }
 
   // Posting情報削除API
