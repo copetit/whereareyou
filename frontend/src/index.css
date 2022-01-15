@@ -21,6 +21,7 @@
 }
 html {
   height: 100%;
+  /* font-size: 62.5%; */
 }
 body {
   height: 100%;
@@ -41,8 +42,30 @@ nav {
 /* infowindowのデザインを初期化 */
 .gm-style .gm-style-iw-c {
   padding: 0px;
+  font-size: 1rem;
 }
 
 .gm-style-iw-d {
   overflow: hidden !important;
+}
+
+.mini-profile {
+  min-height: 13rem;
+  min-width: 20rem;
+}
+
+.mini-profile > .img {
+  min-width: 60%;
+}
+.mini-profile > .img > img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  left: -1.9rem;
+  border-radius: 2rem;
+}
+
+.profile-text {
+  padding: 1rem 1rem 1rem 0;
 }
