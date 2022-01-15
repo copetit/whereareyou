@@ -90,8 +90,8 @@ export class Posting extends CoreEntity {
 
   @ApiProperty({
     default: {
-      imageUrl: "['dummyImage@dummy.com', 'dummyImage2@dummy.com']",
-      videoUrl: "['dummyVideo@dummy.com', 'dummyVideo2@dummy.com']",
+      imageUrl: 'dummyImage@dummy.com,dummyImage2@dummy.com',
+      videoUrl: 'dummyVideo@dummy.com,dummyVideo2@dummy.com',
     },
   })
   @OneToOne(() => Contents)
