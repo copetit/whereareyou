@@ -48,31 +48,29 @@ nav {
   padding: 0px;
   font-size: 1.4rem;
 }
-
 .gm-style-iw-d {
   overflow: hidden !important;
 }
-
 .mini-profile {
-  min-height: 13rem;
+  min-height: 20rem;
   min-width: 20rem;
 }
-
 .mini-profile > .img {
-  max-width: 60%;
+  min-width: 50%;
+  max-width: 50%;
 }
 .mini-profile > .img > img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  left: -1.9rem;
-  border-radius: 2rem;
+  border-top-right-radius: 90px;
+  border-bottom-right-radius: 90px;
 }
-
 .profile-text {
-  padding: 1rem 1rem 1rem 0;
+  min-width: 50%;
+  max-width: 50%;
 }
 .gm-style {
   font-family: 'Noto Sans JP', sans-serif;
+}
+/* スクロールバー非表示 */
+::-webkit-scrollbar {
+  display: none;
 }
