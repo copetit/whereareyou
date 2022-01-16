@@ -59,7 +59,7 @@ nav {
 }
 
 .mini-profile > .img {
-  min-width: 60%;
+  max-width: 60%;
 }
 .mini-profile > .img > img {
   object-fit: cover;
