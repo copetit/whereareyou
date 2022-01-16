@@ -85,12 +85,12 @@ function Map() {
                   >
                     <>
                       {/* {result.id}の情報 */}
-                      <div className="mini-profile flex max-h-72 max-w-lg">
+                      <div className="mini-profile flex max-w-3xl max-h-96">
                         <div className="img">
                           <img src={`${postingInfo.contents.imageUrl[0]}`} />
                         </div>
                         <div className="profile-text">
-                          <p className="text-2xl mb-4">
+                          <p className="font-semibold text-3xl mb-4">
                             {postingInfo.PetName}ちゃん
                           </p>
                           <p className="h-3/5 overflow-hidden">
