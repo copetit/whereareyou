@@ -14,6 +14,11 @@ function Posting() {
   const [address, setAddress] = useState('');
   const [mailladdress, setMailaddress] = useState('');
   const [password, setPassword] = useState('');
+  const [fileOne, setFileOne] = useState<string | Blob>('');
+  const [fileTwo, setFileTwo] = useState<string | Blob>('');
+  const [fileThree, setFileThree] = useState<string | Blob>('');
+  const [fileFour, setFileFour] = useState<string | Blob>('');
+  const [fileFive, setFileFive] = useState<string | Blob>('');
 
   const changePetName = (event: any) => {
     setPetName(event.target.value);
@@ -40,26 +45,26 @@ function Posting() {
     setPassword(event.target.value);
   };
 
-  let fileOne: File;
-  let fileTwo: File;
-  let fileThree: File;
-  let fileFour: File;
-  let fileFive: File;
+  // let fileOne: File;
+  // let fileTwo: File;
+  // let fileThree: File;
+  // let fileFour: File;
+  // let fileFive: File;
 
   const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && (fileOne = event.currentTarget.files[0]);
+    event.currentTarget.files && setFileOne(event.currentTarget.files[0]);
   };
   const fileTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && (fileTwo = event.currentTarget.files[0]);
+    event.currentTarget.files && setFileTwo(event.currentTarget.files[0]);
   };
   const fileThreeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && (fileThree = event.currentTarget.files[0]);
+    event.currentTarget.files && setFileThree(event.currentTarget.files[0]);
   };
   const fileFourChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && (fileFour = event.currentTarget.files[0]);
+    event.currentTarget.files && setFileFour(event.currentTarget.files[0]);
   };
   const fileFiveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && (fileFive = event.currentTarget.files[0]);
+    event.currentTarget.files && setFileFive(event.currentTarget.files[0]);
   };
 
   async function handleSubmit(e: any) {
