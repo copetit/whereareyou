@@ -90,6 +90,7 @@ function Map() {
                           <img
                             className="object-cover w-full h-full relative -left-8"
                             src={`${postingInfo.contents.imageUrl[0]}`}
+                            alt="Pet Photo"
                           />
                         </div>
                         <div className="profile-text py-4 pr-4">
