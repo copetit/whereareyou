@@ -1,34 +1,76 @@
 import { useState } from 'react';
-import { uploadFiles } from '../Api';
+import { uploadFiles, createPosting } from '../Api';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { nowDate, nowMonth, nowYear } from '../utils/getTime';
 
 function Posting() {
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [petName, setPetName] = useState('');
+  const [petSex, setPetSex] = useState('男');
+  const [petAge, setPetAge] = useState('');
+  const [petInfo, setPetInfo] = useState('');
+  const [detail, setDetail] = useState('');
+  const [lostDate, setLostDate] = useState<Date | null>(new Date());
+  const [address, setAddress] = useState('');
+  const [mailladdress, setMailaddress] = useState('');
+  const [password, setPassword] = useState('');
+  const [fileOne, setFileOne] = useState<string | Blob>('');
+  const [fileTwo, setFileTwo] = useState<string | Blob>('');
+  const [fileThree, setFileThree] = useState<string | Blob>('');
+  const [fileFour, setFileFour] = useState<string | Blob>('');
+  const [fileFive, setFileFive] = useState<string | Blob>('');
 
-  let fileOne: File;
-  let fileTwo: File;
-  let fileThree: File;
-  let fileFour: File;
-  let fileFive: File;
+  const changePetName = (event: any) => {
+    setPetName(event.target.value);
+  };
+  const changePetSex = (event: any) => {
+    setPetSex(event.target.value);
+  };
+  const changePetAge = (event: any) => {
+    setPetAge(event.target.value);
+  };
+  const changePetInfo = (event: any) => {
+    setPetInfo(event.target.value);
+  };
+  const changeDetail = (event: any) => {
+    setDetail(event.target.value);
+  };
+  const changeAddress = (event: any) => {
+    setAddress(event.target.value);
+  };
+  const changeMailaddress = (event: any) => {
+    setMailaddress(event.target.value);
+  };
+  const changePassword = (event: any) => {
+    setPassword(event.target.value);
+  };
+
+  // let fileOne: File;
+  // let fileTwo: File;
+  // let fileThree: File;
+  // let fileFour: File;
+  // let fileFive: File;
 
   const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && (fileOne = event.currentTarget.files[0]);
+    event.currentTarget.files && setFileOne(event.currentTarget.files[0]);
   };
   const fileTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && (fileTwo = event.currentTarget.files[0]);
+    event.currentTarget.files && setFileTwo(event.currentTarget.files[0]);
   };
   const fileThreeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && (fileThree = event.currentTarget.files[0]);
+    event.currentTarget.files && setFileThree(event.currentTarget.files[0]);
   };
   const fileFourChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && (fileFour = event.currentTarget.files[0]);
+    event.currentTarget.files && setFileFour(event.currentTarget.files[0]);
   };
   const fileFiveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && (fileFive = event.currentTarget.files[0]);
+    event.currentTarget.files && setFileFive(event.currentTarget.files[0]);
   };
 
-  async function submitFiles() {
+  async function handleSubmit(e: any) {
+    // TODO: 転移画面決めた後に消す
+    e.preventDefault();
+
     let data = new FormData();
     data.append('files', fileOne);
     data.append('files', fileTwo);
@@ -37,12 +79,36 @@ function Posting() {
     data.append('files', fileFive);
 
     try {
-      const imageUrl = await uploadFiles(data).then(
-        (res) => res.data['imageUrl'],
-      );
-      // TODO imageUrlをCreatePostingに入れる
-      //
-      console.log(imageUrl);
+      await uploadFiles(data)
+        .then((res) => res.data['imageUrl'])
+        .then(async (res) => {
+          console.log(res);
+          await createPosting({
+            PetName: petName,
+            PetSex: petSex,
+            PetAge: parseInt(petAge),
+            PetInfo: petInfo,
+            Detail: detail,
+            LostDate: lostDate,
+            Address: address,
+            CreatedDate: `${nowYear}-${nowMonth}-${nowDate}`,
+            UpdateDate: `${nowYear}-${nowMonth}-${nowDate}`,
+            // TODO: Map導入後修正
+            locationinfo: {
+              lat: 35.73805386139952,
+              lng: 139.6538817110336,
+            },
+            user: {
+              Password: password,
+              MailAddress: mailladdress,
+            },
+            contents: {
+              imageUrl: res,
+              // TODO: Video導入後編集
+              videoUrl: '',
+            },
+          }).then((res) => console.log(res));
+        });
     } catch (error) {
       console.log(error);
     }
@@ -72,11 +138,21 @@ function Posting() {
         </div>
         <label className="form-label">
           名前
-          <input className="text-input" type="text" name="PetName" />
+          <input
+            className="text-input"
+            type="text"
+            name="PetName"
+            value={petName}
+            onChange={changePetName}
+          />
         </label>
         <label className="form-label w-1/2">
           性別
-          <select className="block w-full appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 mb-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+          <select
+            className="block w-full appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 mb-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            value={petSex}
+            onChange={changePetSex}
+          >
             <option value="男">男</option>
             <option value="女">女</option>
             <option value="不明">不明</option>
@@ -84,30 +160,53 @@ function Posting() {
         </label>
         <label className="form-label w-1/2">
           年齢
-          <input className="text-input" type="text" name="PetAge" />
+          {/* TODO: MAX 制限必要 */}
+          <input
+            className="text-input"
+            type="number"
+            name="PetAge"
+            value={petAge}
+            onChange={changePetAge}
+          />
         </label>
         <label className="form-label">
           特徴
-          <textarea className="text-input h-32" name="PetInfo"></textarea>
+          <textarea
+            className="text-input h-32"
+            name="PetInfo"
+            value={petInfo}
+            onChange={changePetInfo}
+          ></textarea>
         </label>
         <label className="form-label">
           その他の情報
-          <textarea className="text-input h-48" name="Detail"></textarea>
+          <textarea
+            className="text-input h-48"
+            name="Detail"
+            value={detail}
+            onChange={changeDetail}
+          ></textarea>
         </label>
         <label className="form-label w-1/2">
           離れた日
           {/* カレンダを入れる */}
           <DatePicker
             className="text-input"
-            selected={startDate}
+            selected={lostDate}
             dateFormat="yyyy-MM-dd"
             maxDate={new Date()}
-            onChange={(date: Date | null) => setStartDate(date)}
+            onChange={(date: Date | null) => setLostDate(date)}
           />
         </label>
         <label className="form-label">
           離れた場所
-          <input className="text-input" type="text" name="Address" />
+          <input
+            className="text-input"
+            type="text"
+            name="Address"
+            value={address}
+            onChange={changeAddress}
+          />
         </label>
         <label className="form-label">
           離れた場所（地図で選択）
@@ -124,6 +223,8 @@ function Posting() {
           id="email"
           type="email"
           name="MailAddress"
+          value={mailladdress}
+          onChange={changeMailaddress}
         />
       </label>
       <label className="form-label">
@@ -133,14 +234,16 @@ function Posting() {
           type="password"
           id="password"
           name="Password"
+          value={password}
+          onChange={changePassword}
         />
       </label>
       {/* submit */}
       <input
         className="btn btn-blue"
-        type="submit"
-        value="Submit"
-        onClick={() => submitFiles()}
+        type="button"
+        value="submit"
+        onClick={(e) => handleSubmit(e)}
       />
     </form>
   );
