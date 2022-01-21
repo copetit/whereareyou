@@ -9,7 +9,11 @@ export const getLocations = () =>
 export const getPostingById = (id: Number) =>
   api.get(`/wau/v1/posting/${id}`).then((response) => response.data);
 // uploadファイル用のHeader
-const headers = { 'content-type': 'multipart/form-data' };
+let headers = { 'content-type': 'multipart/form-data' };
 // Upload files
 export const uploadFiles = (data: FormData) =>
   api.post('/wau/uploads', data, { headers });
+
+const postHeader = { 'content-type': 'application/json' };
+export const createPosting = (data: {}) =>
+  api.post('/wau/v1/posting', data, { headers: postHeader });
