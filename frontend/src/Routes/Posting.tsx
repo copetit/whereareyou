@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { uploadFiles, createPosting } from '../Api';
 import DatePicker from 'react-datepicker';
 import { uploadFiles, createPosting } from '../Api';
 import { nowDate, nowMonth, nowYear } from '../utils/getTime';
 import 'react-datepicker/dist/react-datepicker.css';
-import { nowDate, nowMonth, nowYear } from '../utils/getTime';
 
 function Posting() {
   const [petName, setPetName] = useState('');
