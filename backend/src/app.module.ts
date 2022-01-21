@@ -15,6 +15,7 @@ import { join } from 'path';
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'contents'),
+      serveRoot: '/contents',
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',

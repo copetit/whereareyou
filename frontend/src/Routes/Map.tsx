@@ -89,7 +89,7 @@ function Map() {
                         <div className="img">
                           <img
                             className="object-cover w-full h-full relative -left-8"
-                            src={`${postingInfo.contents.imageUrl[0]}`}
+                            src={`${process.env.REACT_APP_API_URL}/${postingInfo.contents.imageUrl[0]}`}
                             alt="Pet Photo"
                           />
                         </div>
