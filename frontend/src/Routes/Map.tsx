@@ -12,12 +12,6 @@ const containerStyle = {
   height: '100%',
 };
 
-// dummyのinfowindowデザイン
-const divStyle = {
-  border: `1px solid #ccc`,
-  padding: 15,
-};
-
 function Map() {
   const [selected, setSelected] = useState<Number | null>();
   const [location, setLocation] =
@@ -89,16 +83,29 @@ function Map() {
                       setSelected(null);
                     }}
                   >
-                    <div style={divStyle}>
-                      {result.id}の情報
-                      <br />
-                      名前: {postingInfo.PetName}
-                      <br />
-                      情報: {postingInfo.PetInfo}
-                      <br />
-                      離れた日: {postingInfo.LostDate}
-                      <br />
-                    </div>
+                    <>
+                      {/* {result.id}の情報 */}
+                      <div className="mini-profile flex max-w-3xl max-h-96">
+                        <div className="img">
+                          <img
+                            className="object-cover w-full h-full relative -left-8"
+                            src={`${postingInfo.contents.imageUrl[0]}`}
+                            alt="Pet Photo"
+                          />
+                        </div>
+                        <div className="profile-text py-4 pr-4">
+                          <p className="font-semibold text-3xl mb-4 overflow-hidden whitespace-nowrap overflow-ellipsis">
+                            {postingInfo.PetName}
+                          </p>
+                          <p className="h-3/5 overflow-scroll">
+                            {postingInfo.PetInfo}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="absolute bottom-3 right-3 text-gray-500">
+                        {new Date(postingInfo.LostDate).toLocaleDateString()}
+                      </p>
+                    </>
                   </InfoWindow>
                 )}
               </Marker>
