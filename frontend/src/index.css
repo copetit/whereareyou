@@ -51,6 +51,15 @@
 .gm-style {
   @apply font-default;
 }
+.gm-ui-hover-effect {
+  @apply top-0 !important;
+  @apply right-0 !important;
+}
+.gm-ui-hover-effect > img {
+  @apply w-10 !important;
+  @apply h-10 !important;
+  @apply m-0 !important;
+}
 
 /* mini profile (info window) */
 .mini-profile > .img {
@@ -61,6 +70,7 @@
   min-width: 50%;
   max-width: 50%;
 }
+
 /* スクロールバー非表示 */
 ::-webkit-scrollbar {
   @apply hidden;
