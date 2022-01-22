@@ -85,10 +85,10 @@ function Map() {
                   >
                     <>
                       {/* {result.id}の情報 */}
-                      <div className="mini-profile flex max-w-3xl max-h-96">
+                      <div className="mini-profile min-h-profileCard min-w-profileCard flex max-w-3xl max-h-96">
                         <div className="img">
                           <img
-                            className="object-cover w-full h-full relative -left-8"
+                            className="object-cover w-full h-full relative -left-8 rounded-r-profileCard"
                             src={`${process.env.REACT_APP_API_URL}/${postingInfo.contents.imageUrl[0]}`}
                             alt="Pet Photo"
                           />
