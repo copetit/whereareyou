@@ -8,9 +8,15 @@ import { LocationInfo } from './wau/entities/locationinfo.entity';
 import { Contents } from './wau/entities/contents.entity';
 import { CommonModule } from './common/common.module';
 import { WauModule } from './wau/wau.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'contents'),
+      serveRoot: '/contents',
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: '172.0.25.2',
