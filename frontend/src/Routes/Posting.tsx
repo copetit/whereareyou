@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import { uploadFiles, createPosting } from '../Api';
 import { nowDate, nowMonth, nowYear } from '../utils/getTime';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { IGetLocations } from '../Types';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -230,23 +230,30 @@ function Posting() {
             onChange={changeAddress}
           />
         </label>
-        <label className="form-label">
-          離れた場所
-          <div className="h-96 w-full">
-            <LoadScript
-              googleMapsApiKey={
-                process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'
-              }
+        離れた場所
+        <div className="h-96 w-full">
+          <LoadScript
+            googleMapsApiKey={
+              process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'
+            }
+          >
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={location}
+              zoom={17}
+              onClick={(e) => setLocation(e.latLng!.toJSON())}
             >
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={location}
-                zoom={17}
-                onClick={(e) => setLocation(e.latLng!.toJSON())}
-              ></GoogleMap>
-            </LoadScript>
-          </div>
-        </label>
+              {location && (
+                <Marker
+                  position={{
+                    lat: Number(location.lat),
+                    lng: Number(location.lng),
+                  }}
+                ></Marker>
+              )}
+            </GoogleMap>
+          </LoadScript>
+        </div>
       </div>
       {/* user Info */}
       飼い主の情報
