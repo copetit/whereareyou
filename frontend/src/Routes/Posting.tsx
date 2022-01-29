@@ -14,6 +14,8 @@ function Posting() {
   const [detail, setDetail] = useState('');
   const [lostDate, setLostDate] = useState<Date | null>(new Date());
   const [address, setAddress] = useState('');
+  const [currentLocation, setCurrentLocation] =
+    useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [location, setLocation] =
     useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [mailladdress, setMailaddress] = useState('');
@@ -78,7 +80,7 @@ function Posting() {
   async function getGeoLocation() {
     navigator.geolocation.getCurrentPosition(function (position) {
       const { latitude, longitude } = position.coords;
-      setLocation({ lat: latitude, lng: longitude });
+      setCurrentLocation({ lat: latitude, lng: longitude });
     });
   }
 
@@ -211,7 +213,6 @@ function Posting() {
         </label>
         <label className="form-label w-1/2">
           離れた日
-          {/* カレンダを入れる */}
           <DatePicker
             className="text-input"
             selected={lostDate}
@@ -239,7 +240,7 @@ function Posting() {
           >
             <GoogleMap
               mapContainerStyle={containerStyle}
-              center={location}
+              center={currentLocation}
               zoom={17}
               onClick={(e) => setLocation(e.latLng!.toJSON())}
             >
