@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import { uploadFiles, createPosting } from '../Api';
 import { nowDate, nowMonth, nowYear } from '../utils/getTime';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { IGetLocations } from '../Types';
 import 'react-datepicker/dist/react-datepicker.css';
 
 function Posting() {
@@ -12,6 +14,10 @@ function Posting() {
   const [detail, setDetail] = useState('');
   const [lostDate, setLostDate] = useState<Date | null>(new Date());
   const [address, setAddress] = useState('');
+  const [currentLocation, setCurrentLocation] =
+    useState<Pick<IGetLocations, 'lat' | 'lng'>>();
+  const [location, setLocation] =
+    useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [mailladdress, setMailaddress] = useState('');
   const [password, setPassword] = useState('');
   const [fileOne, setFileOne] = useState<string | Blob>('');
@@ -67,6 +73,17 @@ function Posting() {
     event.currentTarget.files && setFileFive(event.currentTarget.files[0]);
   };
 
+  const containerStyle = {
+    height: '100%',
+  };
+
+  async function getGeoLocation() {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      const { latitude, longitude } = position.coords;
+      setCurrentLocation({ lat: latitude, lng: longitude });
+    });
+  }
+
   async function handleSubmit(e: any) {
     // TODO: 転移画面決めた後に消す
     e.preventDefault();
@@ -93,11 +110,7 @@ function Posting() {
             Address: address,
             CreatedDate: `${nowYear}-${nowMonth}-${nowDate}`,
             UpdateDate: `${nowYear}-${nowMonth}-${nowDate}`,
-            // TODO: Map導入後修正
-            locationinfo: {
-              lat: 35.73805386139952,
-              lng: 139.6538817110336,
-            },
+            locationinfo: location,
             user: {
               Password: password,
               MailAddress: mailladdress,
@@ -114,28 +127,39 @@ function Posting() {
     }
   }
 
+  useEffect(() => {
+    getGeoLocation();
+  }, []);
+
   return (
     <form className="w-1/2 max-w-lg m-3">
       <div>
         {/* Pet Info */}
         ペットの情報
-        {/* 写真・ビデオー TODO; 別のAPIではなく、postingに含まれるようにする*/}
-        <div>
-          <input type="file" onChange={(event) => fileOneChange(event)}></input>
-          <input type="file" onChange={(event) => fileTwoChange(event)}></input>
-          <input
-            type="file"
-            onChange={(event) => fileThreeChange(event)}
-          ></input>
-          <input
-            type="file"
-            onChange={(event) => fileFourChange(event)}
-          ></input>
-          <input
-            type="file"
-            onChange={(event) => fileFiveChange(event)}
-          ></input>
-        </div>
+        <label className="form-label">
+          <div>
+            <input
+              type="file"
+              onChange={(event) => fileOneChange(event)}
+            ></input>
+            <input
+              type="file"
+              onChange={(event) => fileTwoChange(event)}
+            ></input>
+            <input
+              type="file"
+              onChange={(event) => fileThreeChange(event)}
+            ></input>
+            <input
+              type="file"
+              onChange={(event) => fileFourChange(event)}
+            ></input>
+            <input
+              type="file"
+              onChange={(event) => fileFiveChange(event)}
+            ></input>
+          </div>
+        </label>
         <label className="form-label">
           名前
           <input
@@ -189,7 +213,6 @@ function Posting() {
         </label>
         <label className="form-label w-1/2">
           離れた日
-          {/* カレンダを入れる */}
           <DatePicker
             className="text-input"
             selected={lostDate}
@@ -208,11 +231,30 @@ function Posting() {
             onChange={changeAddress}
           />
         </label>
-        <label className="form-label">
-          離れた場所（地図で選択）
-          {/* TODO: 地図を入れる */}
-          <input className="text-input" type="text" name="locationinfo" />
-        </label>
+        離れた場所
+        <div className="h-96 w-full">
+          <LoadScript
+            googleMapsApiKey={
+              process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'
+            }
+          >
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={currentLocation}
+              zoom={17}
+              onClick={(e) => setLocation(e.latLng!.toJSON())}
+            >
+              {location && (
+                <Marker
+                  position={{
+                    lat: Number(location.lat),
+                    lng: Number(location.lng),
+                  }}
+                ></Marker>
+              )}
+            </GoogleMap>
+          </LoadScript>
+        </div>
       </div>
       {/* user Info */}
       飼い主の情報
