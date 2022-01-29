@@ -85,9 +85,6 @@ function Posting() {
   }
 
   async function handleSubmit(e: any) {
-    // TODO: 転移画面決めた後に消す
-    e.preventDefault();
-
     let data = new FormData();
     data.append('files', fileOne);
     data.append('files', fileTwo);
@@ -120,7 +117,11 @@ function Posting() {
               // TODO: Video導入後編集
               videoUrl: '',
             },
-          }).then((res) => console.log(res));
+          })
+            .then((res) => console.log(res))
+            .then(() => {
+              window.location.href = '/wau';
+            });
         });
     } catch (error) {
       console.log(error);
@@ -280,7 +281,6 @@ function Posting() {
           onChange={changePassword}
         />
       </label>
-      {/* submit */}
       <input
         className="btn btn-blue"
         type="button"
