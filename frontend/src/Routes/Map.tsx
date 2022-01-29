@@ -90,7 +90,7 @@ function Map() {
                           <img
                             className="object-cover w-full h-full relative -left-8 rounded-r-profileCard"
                             src={`${process.env.REACT_APP_API_URL}/${postingInfo.contents.imageUrl[0]}`}
-                            alt="Pet Photo"
+                            alt="pet"
                           />
                         </div>
                         <div className="profile-text py-4 pr-4">
