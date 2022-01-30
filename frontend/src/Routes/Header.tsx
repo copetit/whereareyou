@@ -1,4 +1,4 @@
-import { ReactComponent as Logo } from '../cat_logo.svg';
+import { ReactComponent as Logo } from '../logo.svg';
 
 function Header() {
   return (
@@ -9,7 +9,7 @@ function Header() {
         <li className="mr-6">
           <a
             className="text-white hover:text-yellow-400 font-semibold"
-            href="#"
+            href="/"
           >
             List
           </a>
@@ -17,7 +17,7 @@ function Header() {
         <li className="mr-6">
           <a
             className="text-yellow-400 hover:text-white font-semibold"
-            href="#"
+            href="/"
           >
             About
           </a>
