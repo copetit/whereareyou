@@ -1,4 +1,4 @@
-import { ReactComponent as Logo } from '../cat_logo.svg';
+import { ReactComponent as Logo } from '../logo.svg';
 
 function Header() {
   return (

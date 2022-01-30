@@ -21,6 +21,9 @@ module.exports = {
       borderRadius: {
         profileCard: '10rem',
       },
+      boxShadow: {
+        btn: '6px 6px 4px rgba(0, 0, 0, 0.3);',
+      },
     },
   },
   plugins: [],

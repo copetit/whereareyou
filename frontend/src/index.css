@@ -79,13 +79,3 @@
 .react-datepicker {
   @apply font-normal;
 }
-.posting-btn {
-  position: absolute;
-  @apply h-24;
-  @apply w-24;
-  bottom: 6rem;
-  left: 1.25rem;
-}
-.posting-btn > button {
-  box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.3);
-}
