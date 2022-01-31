@@ -79,3 +79,18 @@
 .react-datepicker {
   @apply font-normal;
 }
+
+.posting-detail-info {
+  background-color: white;
+  position: absolute;
+  right: -50%;
+  transition: 0.8s ease;
+}
+
+.posting-detail-info > ul > li {
+  margin-bottom: 20px;
+}
+
+.show {
+  right: 0px;
+}
