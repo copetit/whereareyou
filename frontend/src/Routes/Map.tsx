@@ -7,6 +7,7 @@ import {
 } from '@react-google-maps/api';
 import { getLocations, getPostingById } from '../Api';
 import { IGetLocations } from '../Types';
+import DetailPage from './DetailPage';
 
 const containerStyle = {
   height: '100%',
@@ -48,72 +49,78 @@ function Map() {
   }, []);
 
   return (
-    <div id="map" className="h-92/100 w-full">
-      <LoadScript
-        googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'}
-      >
-        {/* map表示の初期値 */}
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={location}
-          zoom={17}
-          onClick={(e) => {
-            console.log(JSON.stringify(e.latLng!.toJSON()));
-          }}
+    <>
+      <div id="map" className="h-92/100 w-full">
+        <LoadScript
+          googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'}
         >
-          {results.map((result: IGetLocations) => {
-            return (
-              <Marker
-                key={result.id}
-                position={{
-                  lat: Number(result.lat),
-                  lng: Number(result.lng),
-                }}
-                onClick={() => {
-                  setSelected(result.id);
-                  getPosting(result.id).then((res) => {
-                    setPostingInfo(res);
-                  });
-                }}
-              >
-                {/* MarkerをクリックするとinfoWindowが表示される */}
-                {selected === result.id && postingInfo && (
-                  <InfoWindow
-                    onCloseClick={() => {
-                      setSelected(null);
-                    }}
-                  >
-                    <>
-                      {/* {result.id}の情報 */}
-                      <div className="mini-profile min-h-profileCard min-w-profileCard flex max-w-3xl max-h-96">
-                        <div className="img">
-                          <img
-                            className="object-cover w-full h-full relative -left-8 rounded-r-profileCard"
-                            src={`${process.env.REACT_APP_API_URL}/${postingInfo.contents.imageUrl[0]}`}
-                            alt="pet"
-                          />
+          {/* map表示の初期値 */}
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={location}
+            zoom={17}
+            onClick={(e) => {
+              console.log(JSON.stringify(e.latLng!.toJSON()));
+            }}
+          >
+            {results.map((result: IGetLocations) => {
+              return (
+                <Marker
+                  key={result.id}
+                  position={{
+                    lat: Number(result.lat),
+                    lng: Number(result.lng),
+                  }}
+                  onClick={() => {
+                    setSelected(result.id);
+                    getPosting(result.id).then((res) => {
+                      setPostingInfo(res);
+                    });
+                  }}
+                >
+                  {/* MarkerをクリックするとinfoWindowが表示される */}
+                  {selected === result.id && postingInfo && (
+                    <InfoWindow
+                      onCloseClick={() => {
+                        setSelected(null);
+                      }}
+                    >
+                      <>
+                        {/* {result.id}の情報 */}
+                        <div className="mini-profile min-h-profileCard min-w-profileCard flex max-w-3xl max-h-96">
+                          <div className="img">
+                            <img
+                              className="object-cover w-full h-full relative -left-8 rounded-r-profileCard"
+                              src={`${process.env.REACT_APP_API_URL}/${postingInfo.contents.imageUrl[0]}`}
+                              alt="pet"
+                            />
+                          </div>
+                          <div className="profile-text py-4 pr-4 relatvie">
+                            <p className="font-semibold text-3xl mb-4 overflow-hidden whitespace-nowrap overflow-ellipsis">
+                              {postingInfo.PetName}
+                            </p>
+                            <p className="h-3/5 overflow-scroll">
+                              {postingInfo.PetInfo}
+                            </p>
+                            <button className="absolute top-1/2 -right-0">
+                              detail
+                            </button>
+                          </div>
                         </div>
-                        <div className="profile-text py-4 pr-4">
-                          <p className="font-semibold text-3xl mb-4 overflow-hidden whitespace-nowrap overflow-ellipsis">
-                            {postingInfo.PetName}
-                          </p>
-                          <p className="h-3/5 overflow-scroll">
-                            {postingInfo.PetInfo}
-                          </p>
-                        </div>
-                      </div>
-                      <p className="absolute bottom-3 right-3 text-gray-500">
-                        {new Date(postingInfo.LostDate).toLocaleDateString()}
-                      </p>
-                    </>
-                  </InfoWindow>
-                )}
-              </Marker>
-            );
-          })}
-        </GoogleMap>
-      </LoadScript>
-    </div>
+                        <p className="absolute bottom-3 right-3 text-gray-500">
+                          {new Date(postingInfo.LostDate).toLocaleDateString()}
+                        </p>
+                      </>
+                    </InfoWindow>
+                  )}
+                </Marker>
+              );
+            })}
+          </GoogleMap>
+        </LoadScript>
+      </div>
+      <DetailPage />
+    </>
   );
 }
 
