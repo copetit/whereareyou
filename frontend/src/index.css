@@ -44,10 +44,10 @@
 .gm-style .gm-style-iw-c {
   @apply p-0;
   @apply text-2xl;
-  overflow: visible;
+  @apply overflow-visible;
 }
 .gm-style-iw-d {
-  overflow: visible;
+  @apply overflow-visible;
 }
 .gm-style {
   @apply font-default;
@@ -92,10 +92,7 @@
 .slide-show {
   @apply right-0;
 }
+
 .detailPageBtn {
-  width: 33px;
-  height: 50%;
   border-radius: 0 30px 30px 0;
-  top: 23%;
-  right: -33px;
 }
