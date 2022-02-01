@@ -7,7 +7,7 @@ function DetailPage(props: any) {
       <div
         className={`${
           displayFlg ? 'show' : ''
-        } posting-detail-info h-full w-6/12`}
+        } posting-detail-info h-full w-6/12 -right-1/2 bg-white absolute overflow-scroll `}
       >
         {petImgs.map((img: String) => {
           console.log(img);
