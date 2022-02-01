@@ -88,6 +88,13 @@
   @apply mb-5;
 }
 
-.show {
+.slide-show {
   @apply right-0;
+}
+.detailPageBtn {
+  /* width: 100px; */
+  height: 50%;
+  border-radius: 0 100px 100px 0;
+  background: black;
+  top: 25%;
 }

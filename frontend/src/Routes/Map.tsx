@@ -103,7 +103,7 @@ function Map() {
                                 {postingInfo.PetInfo}
                               </p>
                               <button
-                                className="absolute top-1/2 -right-0"
+                                className="detailPageBtn absolute -right-0"
                                 onClick={() => {
                                   setdisplayFlg(true);
                                 }}
