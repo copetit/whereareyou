@@ -1,5 +1,6 @@
 function DetailPage(props: any) {
   const { displayFlg, postingInfo } = props;
+  const petImgs = postingInfo.contents.imageUrl;
 
   return (
     <>
@@ -8,11 +9,17 @@ function DetailPage(props: any) {
           displayFlg ? 'show' : ''
         } posting-detail-info h-full w-6/12`}
       >
-        <img
-          src={`${process.env.REACT_APP_API_URL}/${postingInfo.contents.imageUrl[0]}`}
-          alt="pet"
-        />
+        {petImgs.map((img: String) => {
+          console.log(img);
+          return (
+            <img src={`${process.env.REACT_APP_API_URL}/${img}`} alt="pet" />
+          );
+        })}
         <ul>
+          <li>
+            連絡先:
+            {postingInfo.user.MailAddress}
+          </li>
           <li>
             名前:
             {postingInfo.PetName}
@@ -26,16 +33,16 @@ function DetailPage(props: any) {
             {postingInfo.PetAge}
           </li>
           <li>
+            離れた日:
+            {new Date(postingInfo.LostDate).toLocaleDateString()}
+          </li>
+          <li>
             特徴:
             {postingInfo.PetInfo}
           </li>
           <li>
             その他の情報:
             {postingInfo.Detail}
-          </li>
-          <li>
-            離れた日:
-            {new Date(postingInfo.LostDate).toLocaleDateString()}
           </li>
         </ul>
       </div>

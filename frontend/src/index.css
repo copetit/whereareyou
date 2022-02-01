@@ -85,6 +85,7 @@
   position: absolute;
   right: -50%;
   transition: 0.8s ease;
+  overflow: scroll;
 }
 
 .posting-detail-info > ul > li {
