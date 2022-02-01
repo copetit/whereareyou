@@ -8,6 +8,7 @@ import {
 import { getLocations, getPostingById } from '../Api';
 import { IGetLocations } from '../Types';
 import DetailPage from './DetailPage';
+import { ReactComponent as Arrow } from '../btn-arrow.svg';
 
 const containerStyle = {
   height: '100%',
@@ -103,12 +104,12 @@ function Map() {
                                 {postingInfo.PetInfo}
                               </p>
                               <button
-                                className="detailPageBtn absolute -right-0"
+                                className="detailPageBtn bg-yellow-400 absolute "
                                 onClick={() => {
                                   setdisplayFlg(true);
                                 }}
                               >
-                                detail
+                                <Arrow />
                               </button>
                             </div>
                           </div>

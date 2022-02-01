@@ -44,9 +44,10 @@
 .gm-style .gm-style-iw-c {
   @apply p-0;
   @apply text-2xl;
+  overflow: visible;
 }
 .gm-style-iw-d {
-  @apply overflow-hidden !important;
+  overflow: visible;
 }
 .gm-style {
   @apply font-default;
@@ -92,9 +93,9 @@
   @apply right-0;
 }
 .detailPageBtn {
-  /* width: 100px; */
+  width: 33px;
   height: 50%;
-  border-radius: 0 100px 100px 0;
-  background: black;
-  top: 25%;
+  border-radius: 0 30px 30px 0;
+  top: 23%;
+  right: -33px;
 }
