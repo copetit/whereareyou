@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   GoogleMap,
   LoadScript,
@@ -63,7 +63,7 @@ function Map() {
         >
           {results.map((result: IGetLocations) => {
             return (
-              <>
+              <React.Fragment key={result.id}>
                 <Marker
                   key={result.id}
                   position={{
@@ -125,7 +125,7 @@ function Map() {
                     postingInfo={postingInfo}
                   />
                 )}
-              </>
+              </React.Fragment>
             );
           })}
         </GoogleMap>
