@@ -96,3 +96,11 @@
 .detailPageBtn {
   border-radius: 0 30px 30px 0;
 }
+
+#thumbnail {
+  height: 100px;
+  max-width: 100px;
+  margin: 10px;
+  border: solid thin lightgray;
+  border-radius: 5px;
+}
