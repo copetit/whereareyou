@@ -101,13 +101,14 @@
 #thumbnail {
   height: 100px;
   max-width: 100px;
-  border: solid thin lightgray;
-  border-radius: 5px;
 }
+
 .petPhoto {
   @apply cursor-pointer;
   width: 100px;
   margin: 5px;
+  border: solid thin lightgray;
+  border-radius: 5px;
 }
 input[type='file'] {
   @apply hidden;
