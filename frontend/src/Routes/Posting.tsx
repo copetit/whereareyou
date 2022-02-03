@@ -51,12 +51,6 @@ function Posting() {
     setPassword(event.target.value);
   };
 
-  // let fileOne: File;
-  // let fileTwo: File;
-  // let fileThree: File;
-  // let fileFour: File;
-  // let fileFive: File;
-
   const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.currentTarget.files && setFileOne(event.currentTarget.files[0]);
   };
@@ -105,11 +99,8 @@ function Posting() {
             Detail: detail,
             LostDate: lostDate,
             Address: address,
-            // TODO BUGFIX: issue #101
-            CreatedDate: '2022-02-01',
-            UpdateDate: '2022-02-01',
-            // CreatedDate: `${nowYear}-${nowMonth}-${nowDate}`,
-            // UpdateDate: `${nowYear}-${nowMonth}-${nowDate}`,
+            CreatedDate: `${nowYear}-${nowMonth}-${nowDate}`,
+            UpdateDate: `${nowYear}-${nowMonth}-${nowDate}`,
             locationinfo: location,
             user: {
               Password: password,
