@@ -7,11 +7,15 @@ function DetailPage(props: any) {
       <div
         className={`${
           displayFlg ? 'slide-show' : ''
-        } posting-detail-info h-full w-6/12 -right-1/2 bg-white absolute overflow-scroll `}
+        } posting-detail-info h-full w-4/12 -right-1/2 bg-white absolute overflow-scroll `}
       >
         {petImgs.map((img: String) => {
           return (
-            <img src={`${process.env.REACT_APP_API_URL}/${img}`} alt="pet" />
+            <img
+              src={`${process.env.REACT_APP_API_URL}/${img}`}
+              alt="pet"
+              key={postingInfo.id}
+            />
           );
         })}
         <ul>
