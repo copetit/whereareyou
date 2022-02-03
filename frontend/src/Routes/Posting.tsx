@@ -56,18 +56,18 @@ function Posting() {
   // let fileThree: File;
   // let fileFour: File;
   // let fileFive: File;
-  const [imgvalue, SetImgValue] = useState('');
-  const [imgvalue2, SetImgValue2] = useState('');
-  const [imgvalue3, SetImgValue3] = useState('');
-  const [imgvalue4, SetImgValue4] = useState('');
-  const [imgvalue5, SetImgValue5] = useState('');
+  const [imgTextOne, SetImgTextOne] = useState<string>('');
+  const [imgTextTwo, SetImgTextTwo] = useState<string>('');
+  const [imgTextThree, SetImgTextThree] = useState<string>('');
+  const [imgTextFour, SetImgTextFour] = useState<string>('');
+  const [imgTextFive, SetImgTextFive] = useState<string>('');
 
   const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget.files) {
       setFileOne(event.currentTarget.files[0]);
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        SetImgValue(e.target.result);
+        SetImgTextOne(e.target.result);
       };
       reader.readAsDataURL(event.currentTarget.files[0]);
     }
@@ -77,7 +77,7 @@ function Posting() {
       setFileTwo(event.currentTarget.files[0]);
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        SetImgValue2(e.target.result);
+        SetImgTextTwo(e.target.result);
       };
       reader.readAsDataURL(event.currentTarget.files[0]);
     }
@@ -87,7 +87,7 @@ function Posting() {
       setFileThree(event.currentTarget.files[0]);
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        SetImgValue3(e.target.result);
+        SetImgTextThree(e.target.result);
       };
       reader.readAsDataURL(event.currentTarget.files[0]);
     }
@@ -97,7 +97,7 @@ function Posting() {
       setFileFour(event.currentTarget.files[0]);
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        SetImgValue4(e.target.result);
+        SetImgTextFour(e.target.result);
       };
       reader.readAsDataURL(event.currentTarget.files[0]);
     }
@@ -107,7 +107,7 @@ function Posting() {
       setFileFive(event.currentTarget.files[0]);
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        SetImgValue5(e.target.result);
+        SetImgTextFive(e.target.result);
       };
       reader.readAsDataURL(event.currentTarget.files[0]);
     }
@@ -176,46 +176,46 @@ function Posting() {
   }, []);
 
   return (
-    <form className="w-1/2 max-w-lg m-3">
+    <form className="w-1/2 max-w-5xl m-3">
       <div>
         {/* Pet Info */}
         ペットの情報
-        <div>
-          <div>
+        <div className="flex flex-wrap justify-center">
+          <label className="petPhoto">
             <input
               type="file"
               onChange={(event) => fileOneChange(event)}
             ></input>
-            <img id="thumbnail" src={imgvalue} />
-          </div>
-          <div>
+            <img id="thumbnail" src={imgTextOne} />
+          </label>
+          <label className="petPhoto">
             <input
               type="file"
               onChange={(event) => fileTwoChange(event)}
             ></input>
-            <img id="thumbnail" src={imgvalue2} />
-          </div>
-          <div>
+            <img id="thumbnail" src={imgTextTwo} />
+          </label>
+          <label className="petPhoto">
             <input
               type="file"
               onChange={(event) => fileThreeChange(event)}
             ></input>
-            <img id="thumbnail" src={imgvalue3} />
-          </div>
-          <div>
+            <img id="thumbnail" src={imgTextThree} />
+          </label>
+          <label className="petPhoto">
             <input
               type="file"
               onChange={(event) => fileFourChange(event)}
             ></input>
-            <img id="thumbnail" src={imgvalue4} />
-          </div>
-          <div>
+            <img id="thumbnail" src={imgTextFour} />
+          </label>
+          <label className="petPhoto">
             <input
               type="file"
               onChange={(event) => fileFiveChange(event)}
             ></input>
-            <img id="thumbnail" src={imgvalue5} />
-          </div>
+            <img id="thumbnail" src={imgTextFive} />
+          </label>
         </div>
         <label className="form-label">
           名前
