@@ -105,8 +105,11 @@ function Posting() {
             Detail: detail,
             LostDate: lostDate,
             Address: address,
-            CreatedDate: `${nowYear}-${nowMonth}-${nowDate}`,
-            UpdateDate: `${nowYear}-${nowMonth}-${nowDate}`,
+            // TODO BUGFIX: issue #101
+            CreatedDate: '2022-02-01',
+            UpdateDate: '2022-02-01',
+            // CreatedDate: `${nowYear}-${nowMonth}-${nowDate}`,
+            // UpdateDate: `${nowYear}-${nowMonth}-${nowDate}`,
             locationinfo: location,
             user: {
               Password: password,

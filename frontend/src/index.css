@@ -44,9 +44,10 @@
 .gm-style .gm-style-iw-c {
   @apply p-0;
   @apply text-2xl;
+  @apply overflow-visible;
 }
 .gm-style-iw-d {
-  @apply overflow-hidden !important;
+  @apply overflow-visible;
 }
 .gm-style {
   @apply font-default;
@@ -78,4 +79,20 @@
 
 .react-datepicker {
   @apply font-normal;
+}
+
+.posting-detail-info {
+  transition: 0.8s ease;
+}
+
+.posting-detail-info > ul > li {
+  @apply mb-5;
+}
+
+.slide-show {
+  @apply right-0;
+}
+
+.detailPageBtn {
+  border-radius: 0 30px 30px 0;
 }
