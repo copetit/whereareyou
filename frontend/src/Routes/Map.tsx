@@ -65,12 +65,13 @@ function Map() {
             return (
               <React.Fragment key={result.id}>
                 <Marker
-                  key={result.id}
                   position={{
                     lat: Number(result.lat),
                     lng: Number(result.lng),
                   }}
                   onClick={() => {
+                    setdisplayFlg(false);
+                    setSelected(null);
                     setSelected(result.id);
                     getPosting(result.id).then((res) => {
                       setPostingInfo(res);
