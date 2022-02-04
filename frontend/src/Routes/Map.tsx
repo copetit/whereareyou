@@ -119,17 +119,14 @@ function Map() {
                     </InfoWindow>
                   )}
                 </Marker>
-                {postingInfo && (
-                  <DetailPage
-                    displayFlg={displayFlg}
-                    postingInfo={postingInfo}
-                  />
-                )}
               </React.Fragment>
             );
           })}
         </GoogleMap>
       </LoadScript>
+      {postingInfo && (
+        <DetailPage displayFlg={displayFlg} postingInfo={postingInfo} />
+      )}
     </div>
   );
 }

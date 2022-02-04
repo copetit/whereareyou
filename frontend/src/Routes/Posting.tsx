@@ -51,20 +51,57 @@ function Posting() {
     setPassword(event.target.value);
   };
 
+  const [imgTextOne, SetImgTextOne] = useState<string>('');
+  const [imgTextTwo, SetImgTextTwo] = useState<string>('');
+  const [imgTextThree, SetImgTextThree] = useState<string>('');
+  const [imgTextFour, SetImgTextFour] = useState<string>('');
+  const [imgTextFive, SetImgTextFive] = useState<string>('');
+  const reader = new FileReader();
+
   const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && setFileOne(event.currentTarget.files[0]);
+    if (event.currentTarget.files) {
+      setFileOne(event.currentTarget.files[0]);
+      reader.onload = (e: any) => {
+        SetImgTextOne(e.target.result);
+      };
+      reader.readAsDataURL(event.currentTarget.files[0]);
+    }
   };
   const fileTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && setFileTwo(event.currentTarget.files[0]);
+    if (event.currentTarget.files) {
+      setFileTwo(event.currentTarget.files[0]);
+      reader.onload = (e: any) => {
+        SetImgTextTwo(e.target.result);
+      };
+      reader.readAsDataURL(event.currentTarget.files[0]);
+    }
   };
   const fileThreeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && setFileThree(event.currentTarget.files[0]);
+    if (event.currentTarget.files) {
+      setFileThree(event.currentTarget.files[0]);
+      reader.onload = (e: any) => {
+        SetImgTextThree(e.target.result);
+      };
+      reader.readAsDataURL(event.currentTarget.files[0]);
+    }
   };
   const fileFourChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && setFileFour(event.currentTarget.files[0]);
+    if (event.currentTarget.files) {
+      setFileFour(event.currentTarget.files[0]);
+      reader.onload = (e: any) => {
+        SetImgTextFour(e.target.result);
+      };
+      reader.readAsDataURL(event.currentTarget.files[0]);
+    }
   };
   const fileFiveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.currentTarget.files && setFileFive(event.currentTarget.files[0]);
+    if (event.currentTarget.files) {
+      setFileFive(event.currentTarget.files[0]);
+      reader.onload = (e: any) => {
+        SetImgTextFive(e.target.result);
+      };
+      reader.readAsDataURL(event.currentTarget.files[0]);
+    }
   };
 
   const containerStyle = {
@@ -127,34 +164,47 @@ function Posting() {
   }, []);
 
   return (
-    <form className="w-1/2 max-w-lg m-3">
+    <form className="w-1/2 max-w-5xl m-3">
       <div>
         {/* Pet Info */}
         ペットの情報
-        <label className="form-label">
-          <div>
+        <div className="flex flex-wrap justify-center">
+          <label className="petPhoto">
             <input
               type="file"
               onChange={(event) => fileOneChange(event)}
             ></input>
+            <img id="thumbnail" src={imgTextOne} />
+          </label>
+          <label className="petPhoto">
             <input
               type="file"
               onChange={(event) => fileTwoChange(event)}
             ></input>
+            <img id="thumbnail" src={imgTextTwo} />
+          </label>
+          <label className="petPhoto">
             <input
               type="file"
               onChange={(event) => fileThreeChange(event)}
             ></input>
+            <img id="thumbnail" src={imgTextThree} />
+          </label>
+          <label className="petPhoto">
             <input
               type="file"
               onChange={(event) => fileFourChange(event)}
             ></input>
+            <img id="thumbnail" src={imgTextFour} />
+          </label>
+          <label className="petPhoto">
             <input
               type="file"
               onChange={(event) => fileFiveChange(event)}
             ></input>
-          </div>
-        </label>
+            <img id="thumbnail" src={imgTextFive} />
+          </label>
+        </div>
         <label className="form-label">
           名前
           <input
