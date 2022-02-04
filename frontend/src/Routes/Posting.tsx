@@ -61,11 +61,11 @@ function Posting() {
   const [imgTextThree, SetImgTextThree] = useState<string>('');
   const [imgTextFour, SetImgTextFour] = useState<string>('');
   const [imgTextFive, SetImgTextFive] = useState<string>('');
+  const reader = new FileReader();
 
   const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget.files) {
       setFileOne(event.currentTarget.files[0]);
-      const reader = new FileReader();
       reader.onload = (e: any) => {
         SetImgTextOne(e.target.result);
       };
@@ -75,7 +75,6 @@ function Posting() {
   const fileTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget.files) {
       setFileTwo(event.currentTarget.files[0]);
-      const reader = new FileReader();
       reader.onload = (e: any) => {
         SetImgTextTwo(e.target.result);
       };
@@ -85,7 +84,6 @@ function Posting() {
   const fileThreeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget.files) {
       setFileThree(event.currentTarget.files[0]);
-      const reader = new FileReader();
       reader.onload = (e: any) => {
         SetImgTextThree(e.target.result);
       };
@@ -95,7 +93,6 @@ function Posting() {
   const fileFourChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget.files) {
       setFileFour(event.currentTarget.files[0]);
-      const reader = new FileReader();
       reader.onload = (e: any) => {
         SetImgTextFour(e.target.result);
       };
@@ -105,7 +102,6 @@ function Posting() {
   const fileFiveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget.files) {
       setFileFive(event.currentTarget.files[0]);
-      const reader = new FileReader();
       reader.onload = (e: any) => {
         SetImgTextFive(e.target.result);
       };
