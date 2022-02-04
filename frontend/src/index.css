@@ -91,6 +91,7 @@
 
 .slide-show {
   @apply right-0;
+  @apply bottom-0;
 }
 
 .detailPageBtn {
