@@ -104,56 +104,52 @@
   border-radius: 0 30px 30px 0;
 }
 
-/* TODO posting画面のデザイン確定時、tailwindに変更する*/
-#thumbnail {
-  height: 100px;
-  max-width: 100px;
-  position: relative;
-  z-index: 5;
+/* posting page */
+.posting-form {
+  box-shadow: rgb(17 12 46 / 15%) 0px 48px 100px 0px;
+}
+.thumbnail {
+  @apply h-36;
+  @apply relative;
+  @apply z-20;
+  max-width: 9rem;
 }
 .petPhoto {
   @apply cursor-pointer;
-  width: 100px;
-  margin: 5px;
-  border: solid thin lightgray;
-  /* border-radius: 5px; */
+  @apply w-36;
+  @apply m-2;
+  @apply relative;
   @apply rounded-lg;
-  position: relative;
-  z-index: 0;
+  @apply: z-0;
+  border: solid thin lightgray;
 }
 input[type='file'] {
   @apply hidden;
 }
 .required > p {
-  position: absolute;
-  background-color: #ff3a1a;
+  @apply absolute;
+  @apply bg-requiredTagRed;
   @apply text-white;
   @apply p-1;
   @apply text-xl;
-  border-top-left-radius: 0.5rem;
+  @apply rounded-tl-lg;
+  @apply z-30;
   top: -1px;
   left: -1px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
-
 .petPhoto > svg {
+  @apply z-10;
   transform: translate(-50%, -50%);
-  z-index: 3;
 }
-
-.posting-form {
-  box-shadow: rgb(17 12 46 / 15%) 0px 48px 100px 0px;
-}
-
 .posting-map {
   height: 32rem;
 }
-
 .posting-btn {
+  @apply justify-center;
   margin-left: auto;
   margin-right: auto;
-  justify-content: center;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }

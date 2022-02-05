@@ -177,7 +177,7 @@ function Posting() {
                 type="file"
                 onChange={(event) => fileOneChange(event)}
               ></input>
-              <img id="thumbnail" src={imgTextOne} alt="" />
+              <img className="thumbnail" src={imgTextOne} alt="" />
             </label>
             <label className="petPhoto">
               <Camera />
@@ -185,7 +185,7 @@ function Posting() {
                 type="file"
                 onChange={(event) => fileTwoChange(event)}
               ></input>
-              <img id="thumbnail" src={imgTextTwo} alt="" />
+              <img className="thumbnail" src={imgTextTwo} alt="" />
             </label>
             <label className="petPhoto">
               <Camera />
@@ -193,7 +193,7 @@ function Posting() {
                 type="file"
                 onChange={(event) => fileThreeChange(event)}
               ></input>
-              <img id="thumbnail" src={imgTextThree} alt="" />
+              <img className="thumbnail" src={imgTextThree} alt="" />
             </label>
             <label className="petPhoto">
               <Camera />
@@ -201,7 +201,7 @@ function Posting() {
                 type="file"
                 onChange={(event) => fileFourChange(event)}
               ></input>
-              <img id="thumbnail" src={imgTextFour} alt="" />
+              <img className="thumbnail" src={imgTextFour} alt="" />
             </label>
             <label className="petPhoto">
               <Camera />
@@ -209,7 +209,7 @@ function Posting() {
                 type="file"
                 onChange={(event) => fileFiveChange(event)}
               ></input>
-              <img id="thumbnail" src={imgTextFive} alt="" />
+              <img className="thumbnail" src={imgTextFive} alt="" />
             </label>
           </div>
           <label className="form-label w-1/2">

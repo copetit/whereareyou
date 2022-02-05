@@ -7,6 +7,7 @@ module.exports = {
       },
       colors: {
         black: '#20232a',
+        requiredTagRed: '#ff3a1a',
       },
       spacing: {
         '8/100': '8%',
