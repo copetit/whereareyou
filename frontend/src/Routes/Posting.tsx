@@ -4,6 +4,7 @@ import { uploadFiles, createPosting } from '../Api';
 import { nowDate, nowMonth, nowYear } from '../utils/getTime';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { IGetLocations } from '../Types';
+import { ReactComponent as Camera } from '../camera.svg';
 import 'react-datepicker/dist/react-datepicker.css';
 
 function Posting() {
@@ -169,7 +170,9 @@ function Posting() {
         <p className="section-title">ペットの情報</p>
         <div className="pet-info p-14">
           <div className="flex flex-wrap justify-center mb-10">
-            <label className="petPhoto">
+            <label className="petPhoto required">
+              <p>必須</p>
+              <Camera />
               <input
                 type="file"
                 onChange={(event) => fileOneChange(event)}
@@ -177,6 +180,7 @@ function Posting() {
               <img id="thumbnail" src={imgTextOne} alt="" />
             </label>
             <label className="petPhoto">
+              <Camera />
               <input
                 type="file"
                 onChange={(event) => fileTwoChange(event)}
@@ -184,6 +188,7 @@ function Posting() {
               <img id="thumbnail" src={imgTextTwo} alt="" />
             </label>
             <label className="petPhoto">
+              <Camera />
               <input
                 type="file"
                 onChange={(event) => fileThreeChange(event)}
@@ -191,6 +196,7 @@ function Posting() {
               <img id="thumbnail" src={imgTextThree} alt="" />
             </label>
             <label className="petPhoto">
+              <Camera />
               <input
                 type="file"
                 onChange={(event) => fileFourChange(event)}
@@ -198,6 +204,7 @@ function Posting() {
               <img id="thumbnail" src={imgTextFour} alt="" />
             </label>
             <label className="petPhoto">
+              <Camera />
               <input
                 type="file"
                 onChange={(event) => fileFiveChange(event)}
@@ -218,7 +225,7 @@ function Posting() {
           <label className="form-label w-1/2">
             性別
             <select
-              className="block w-full appearance-none bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 mb-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="select-input"
               value={petSex}
               onChange={changePetSex}
             >
@@ -326,7 +333,7 @@ function Posting() {
           </label>
         </div>
         <input
-          className="posting-btn flex justify-center text-black hover:text-white bg-yellow-400 hover:bg-black rounded-3xl w-1/2 px-6 py-3.5 mt-10 mb-10 transition ease-in duration-100 "
+          className="posting-btn flex justify-center text-black hover:text-white bg-yellow-400 hover:bg-black rounded-3xl w-1/2 px-6 py-5 mt-10 mb-10 transition ease-in duration-100 cursor-pointer"
           type="button"
           value="登録"
           onClick={(e) => handleSubmit(e)}
