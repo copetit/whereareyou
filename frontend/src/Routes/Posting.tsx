@@ -165,44 +165,44 @@ function Posting() {
 
   return (
     <div className="form-container flex justify-center">
-      <form className="w-1/2 max-w-5xl bg-gray-50 ">
+      <form className="posting-form w-1/2 max-w-5xl bg-gray-50 ">
         <p className="section-title">ペットの情報</p>
         <div className="pet-info p-14">
-          <div className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap justify-center mb-10">
             <label className="petPhoto">
               <input
                 type="file"
                 onChange={(event) => fileOneChange(event)}
               ></input>
-              <img id="thumbnail" src={imgTextOne} />
+              <img id="thumbnail" src={imgTextOne} alt="" />
             </label>
             <label className="petPhoto">
               <input
                 type="file"
                 onChange={(event) => fileTwoChange(event)}
               ></input>
-              <img id="thumbnail" src={imgTextTwo} />
+              <img id="thumbnail" src={imgTextTwo} alt="" />
             </label>
             <label className="petPhoto">
               <input
                 type="file"
                 onChange={(event) => fileThreeChange(event)}
               ></input>
-              <img id="thumbnail" src={imgTextThree} />
+              <img id="thumbnail" src={imgTextThree} alt="" />
             </label>
             <label className="petPhoto">
               <input
                 type="file"
                 onChange={(event) => fileFourChange(event)}
               ></input>
-              <img id="thumbnail" src={imgTextFour} />
+              <img id="thumbnail" src={imgTextFour} alt="" />
             </label>
             <label className="petPhoto">
               <input
                 type="file"
                 onChange={(event) => fileFiveChange(event)}
               ></input>
-              <img id="thumbnail" src={imgTextFive} />
+              <img id="thumbnail" src={imgTextFive} alt="" />
             </label>
           </div>
           <label className="form-label w-1/2">
@@ -276,7 +276,7 @@ function Posting() {
               onChange={changeAddress}
             />
           </label>
-          <div className="h-96 w-full">
+          <div className="posting-map w-full">
             <LoadScript
               googleMapsApiKey={
                 process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'
@@ -302,7 +302,7 @@ function Posting() {
         </div>
         <p className="section-title">飼い主の情報</p>
         <div className="user-info p-14">
-          <label className="form-label w-1/2">
+          <label className="form-label w-4/5">
             メールアドレス
             <input
               className="text-input"
@@ -313,7 +313,7 @@ function Posting() {
               onChange={changeMailaddress}
             />
           </label>
-          <label className="form-label w-1/2">
+          <label className="form-label w-4/5">
             パスワード
             <input
               className="text-input"
@@ -324,13 +324,13 @@ function Posting() {
               onChange={changePassword}
             />
           </label>
-          <input
-            className="posting-btn flex justify-center text-black hover:text-white bg-yellow-400 hover:bg-black rounded-full w-1/2 px-6 py-3.5 mt-10 mb-3 transition ease-in duration-100 "
-            type="button"
-            value="登録"
-            onClick={(e) => handleSubmit(e)}
-          />
         </div>
+        <input
+          className="posting-btn flex justify-center text-black hover:text-white bg-yellow-400 hover:bg-black rounded-3xl w-1/2 px-6 py-3.5 mt-10 mb-10 transition ease-in duration-100 "
+          type="button"
+          value="登録"
+          onClick={(e) => handleSubmit(e)}
+        />
       </form>
     </div>
   );
