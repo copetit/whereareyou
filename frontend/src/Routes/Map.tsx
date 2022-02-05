@@ -60,6 +60,9 @@ function Map() {
           mapContainerStyle={containerStyle}
           center={location}
           zoom={17}
+          onClick={() => {
+            setdisplayFlg(false);
+          }}
         >
           {results.map((result: IGetLocations) => {
             return (
@@ -70,7 +73,6 @@ function Map() {
                     lng: Number(result.lng),
                   }}
                   onClick={() => {
-                    setdisplayFlg(false);
                     setSelected(null);
                     setSelected(result.id);
                     getPosting(result.id).then((res) => {
