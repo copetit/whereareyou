@@ -4,6 +4,7 @@ import { uploadFiles, createPosting } from '../Api';
 import { nowDate, nowMonth, nowYear } from '../utils/getTime';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { IGetLocations } from '../Types';
+import { ReactComponent as Camera } from '../camera.svg';
 import 'react-datepicker/dist/react-datepicker.css';
 
 function Posting() {
@@ -164,174 +165,181 @@ function Posting() {
   }, []);
 
   return (
-    <form className="w-1/2 max-w-5xl m-3">
-      <div>
-        {/* Pet Info */}
-        ペットの情報
-        <div className="flex flex-wrap justify-center">
-          <label className="petPhoto">
+    <div className="form-container flex justify-center">
+      <form className="posting-form w-1/2 max-w-5xl bg-gray-50 ">
+        <p className="section-title">ペットの情報</p>
+        <div className="pet-info p-14">
+          <div className="flex flex-wrap justify-center mb-10">
+            <label className="petPhoto required">
+              <p>必須</p>
+              <Camera />
+              <input
+                type="file"
+                onChange={(event) => fileOneChange(event)}
+              ></input>
+              <img className="thumbnail" src={imgTextOne} alt="" />
+            </label>
+            <label className="petPhoto">
+              <Camera />
+              <input
+                type="file"
+                onChange={(event) => fileTwoChange(event)}
+              ></input>
+              <img className="thumbnail" src={imgTextTwo} alt="" />
+            </label>
+            <label className="petPhoto">
+              <Camera />
+              <input
+                type="file"
+                onChange={(event) => fileThreeChange(event)}
+              ></input>
+              <img className="thumbnail" src={imgTextThree} alt="" />
+            </label>
+            <label className="petPhoto">
+              <Camera />
+              <input
+                type="file"
+                onChange={(event) => fileFourChange(event)}
+              ></input>
+              <img className="thumbnail" src={imgTextFour} alt="" />
+            </label>
+            <label className="petPhoto">
+              <Camera />
+              <input
+                type="file"
+                onChange={(event) => fileFiveChange(event)}
+              ></input>
+              <img className="thumbnail" src={imgTextFive} alt="" />
+            </label>
+          </div>
+          <label className="form-label w-1/2">
+            名前
             <input
-              type="file"
-              onChange={(event) => fileOneChange(event)}
-            ></input>
-            <img id="thumbnail" src={imgTextOne} />
+              className="text-input"
+              type="text"
+              name="PetName"
+              value={petName}
+              onChange={changePetName}
+            />
           </label>
-          <label className="petPhoto">
-            <input
-              type="file"
-              onChange={(event) => fileTwoChange(event)}
-            ></input>
-            <img id="thumbnail" src={imgTextTwo} />
-          </label>
-          <label className="petPhoto">
-            <input
-              type="file"
-              onChange={(event) => fileThreeChange(event)}
-            ></input>
-            <img id="thumbnail" src={imgTextThree} />
-          </label>
-          <label className="petPhoto">
-            <input
-              type="file"
-              onChange={(event) => fileFourChange(event)}
-            ></input>
-            <img id="thumbnail" src={imgTextFour} />
-          </label>
-          <label className="petPhoto">
-            <input
-              type="file"
-              onChange={(event) => fileFiveChange(event)}
-            ></input>
-            <img id="thumbnail" src={imgTextFive} />
-          </label>
-        </div>
-        <label className="form-label">
-          名前
-          <input
-            className="text-input"
-            type="text"
-            name="PetName"
-            value={petName}
-            onChange={changePetName}
-          />
-        </label>
-        <label className="form-label w-1/2">
-          性別
-          <select
-            className="block w-full appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 mb-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            value={petSex}
-            onChange={changePetSex}
-          >
-            <option value="男">男</option>
-            <option value="女">女</option>
-            <option value="不明">不明</option>
-          </select>
-        </label>
-        <label className="form-label w-1/2">
-          年齢
-          {/* TODO: MAX 制限必要 */}
-          <input
-            className="text-input"
-            type="number"
-            name="PetAge"
-            value={petAge}
-            onChange={changePetAge}
-          />
-        </label>
-        <label className="form-label">
-          特徴
-          <textarea
-            className="text-input h-32"
-            name="PetInfo"
-            value={petInfo}
-            onChange={changePetInfo}
-          ></textarea>
-        </label>
-        <label className="form-label">
-          その他の情報
-          <textarea
-            className="text-input h-48"
-            name="Detail"
-            value={detail}
-            onChange={changeDetail}
-          ></textarea>
-        </label>
-        <label className="form-label w-1/2">
-          離れた日
-          <DatePicker
-            className="text-input"
-            selected={lostDate}
-            dateFormat="yyyy-MM-dd"
-            maxDate={new Date()}
-            onChange={(date: Date | null) => setLostDate(date)}
-          />
-        </label>
-        <label className="form-label">
-          離れた場所
-          <input
-            className="text-input"
-            type="text"
-            name="Address"
-            value={address}
-            onChange={changeAddress}
-          />
-        </label>
-        離れた場所
-        <div className="h-96 w-full">
-          <LoadScript
-            googleMapsApiKey={
-              process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'
-            }
-          >
-            <GoogleMap
-              mapContainerStyle={containerStyle}
-              center={currentLocation}
-              zoom={17}
-              onClick={(e) => setLocation(e.latLng!.toJSON())}
+          <label className="form-label w-1/2">
+            性別
+            <select
+              className="select-input"
+              value={petSex}
+              onChange={changePetSex}
             >
-              {location && (
-                <Marker
-                  position={{
-                    lat: Number(location.lat),
-                    lng: Number(location.lng),
-                  }}
-                ></Marker>
-              )}
-            </GoogleMap>
-          </LoadScript>
+              <option value="男">男</option>
+              <option value="女">女</option>
+              <option value="不明">不明</option>
+            </select>
+          </label>
+          <label className="form-label w-1/2">
+            年齢
+            {/* TODO: MAX 制限必要 */}
+            <input
+              className="text-input"
+              type="number"
+              name="PetAge"
+              value={petAge}
+              onChange={changePetAge}
+            />
+          </label>
+          <label className="form-label">
+            特徴
+            <textarea
+              className="text-input h-32"
+              name="PetInfo"
+              value={petInfo}
+              onChange={changePetInfo}
+            ></textarea>
+          </label>
+          <label className="form-label">
+            その他の情報
+            <textarea
+              className="text-input h-48"
+              name="Detail"
+              value={detail}
+              onChange={changeDetail}
+            ></textarea>
+          </label>
+          <label className="form-label w-1/2">
+            離れた日
+            <DatePicker
+              className="text-input"
+              selected={lostDate}
+              dateFormat="yyyy-MM-dd"
+              maxDate={new Date()}
+              onChange={(date: Date | null) => setLostDate(date)}
+            />
+          </label>
+          <label className="form-label">
+            離れた場所
+            <input
+              className="text-input"
+              type="text"
+              name="Address"
+              value={address}
+              onChange={changeAddress}
+            />
+          </label>
+          <div className="posting-map w-full">
+            <LoadScript
+              googleMapsApiKey={
+                process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'
+              }
+            >
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={currentLocation}
+                zoom={17}
+                onClick={(e) => setLocation(e.latLng!.toJSON())}
+              >
+                {location && (
+                  <Marker
+                    position={{
+                      lat: Number(location.lat),
+                      lng: Number(location.lng),
+                    }}
+                  ></Marker>
+                )}
+              </GoogleMap>
+            </LoadScript>
+          </div>
         </div>
-      </div>
-      {/* user Info */}
-      飼い主の情報
-      <label className="form-label">
-        メールアドレス
+        <p className="section-title">飼い主の情報</p>
+        <div className="user-info p-14">
+          <label className="form-label">
+            メールアドレス
+            <input
+              className="text-input"
+              id="email"
+              type="email"
+              name="MailAddress"
+              value={mailladdress}
+              onChange={changeMailaddress}
+            />
+          </label>
+          <label className="form-label">
+            パスワード
+            <input
+              className="text-input"
+              type="password"
+              id="password"
+              name="Password"
+              value={password}
+              onChange={changePassword}
+            />
+          </label>
+        </div>
         <input
-          className="text-input"
-          id="email"
-          type="email"
-          name="MailAddress"
-          value={mailladdress}
-          onChange={changeMailaddress}
+          className="posting-btn flex justify-center text-black hover:text-white bg-yellow-400 hover:bg-black rounded-3xl w-1/2 px-6 py-5 mt-10 mb-10 transition ease-in duration-100 cursor-pointer"
+          type="button"
+          value="登録"
+          onClick={(e) => handleSubmit(e)}
         />
-      </label>
-      <label className="form-label">
-        パスワード
-        <input
-          className="text-input"
-          type="password"
-          id="password"
-          name="Password"
-          value={password}
-          onChange={changePassword}
-        />
-      </label>
-      <input
-        className="btn btn-blue"
-        type="button"
-        value="submit"
-        onClick={(e) => handleSubmit(e)}
-      />
-    </form>
+      </form>
+    </div>
   );
 }
 
