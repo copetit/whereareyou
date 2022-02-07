@@ -60,17 +60,20 @@ function Map() {
           mapContainerStyle={containerStyle}
           center={location}
           zoom={17}
+          onClick={() => {
+            setdisplayFlg(false);
+          }}
         >
           {results.map((result: IGetLocations) => {
             return (
               <React.Fragment key={result.id}>
                 <Marker
-                  key={result.id}
                   position={{
                     lat: Number(result.lat),
                     lng: Number(result.lng),
                   }}
                   onClick={() => {
+                    setSelected(null);
                     setSelected(result.id);
                     getPosting(result.id).then((res) => {
                       setPostingInfo(res);
