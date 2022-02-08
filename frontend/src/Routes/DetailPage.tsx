@@ -14,20 +14,15 @@ function DetailPage(props: any) {
       <div
         className={`${
           displayFlg ? '' : 'slide-show'
-        } posting-detail-info h-92/100 w-4/12 -right-1/2 bg-white absolute overflow-scroll `}
+        } posting-detail-info h-92/100 w-4/12 -right-1/2 bg-white absolute overflow-scroll p-5`}
       >
-        <div className="img-slide">
+        <div className="img-slide mb-16">
           <Swiper
-            className="mySwiper"
             slidesPerView={1}
             spaceBetween={30}
             grabCursor={true}
             loop={true}
             navigation={true}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: true,
-            }}
             centeredSlides={true}
           >
             {petImgs.map((img: String, index: number) => {
