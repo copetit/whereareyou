@@ -309,7 +309,7 @@ function Posting() {
         </div>
         <p className="section-title">飼い主の情報</p>
         <div className="user-info p-14">
-          <label className="form-label w-4/5">
+          <label className="form-label">
             メールアドレス
             <input
               className="text-input"
@@ -320,7 +320,7 @@ function Posting() {
               onChange={changeMailaddress}
             />
           </label>
-          <label className="form-label w-4/5">
+          <label className="form-label">
             パスワード
             <input
               className="text-input"
