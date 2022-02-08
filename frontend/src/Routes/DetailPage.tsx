@@ -13,29 +13,40 @@ function DetailPage(props: any) {
     <>
       <div
         className={`${
-          displayFlg ? '' : 'slide-show'
+          displayFlg ? 'page-slide-show' : ''
         } posting-detail-info h-92/100 w-4/12 -right-1/2 bg-white absolute overflow-scroll p-5`}
       >
         <div className="img-slide mb-16">
-          <Swiper
-            slidesPerView={1}
-            spaceBetween={30}
-            grabCursor={true}
-            loop={true}
-            navigation={true}
-            centeredSlides={true}
-          >
-            {petImgs.map((img: String, index: number) => {
-              return (
-                <SwiperSlide key={index}>
-                  <img
-                    src={`${process.env.REACT_APP_API_URL}/${img}`}
-                    alt="pet"
-                  />
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
+          {petImgs.length === 1 ? (
+            <div className="img-box">
+              <img
+                src={`${process.env.REACT_APP_API_URL}/${petImgs[0]}`}
+                alt="pet"
+              />
+            </div>
+          ) : (
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={30}
+              grabCursor={true}
+              loop={true}
+              navigation={true}
+              centeredSlides={true}
+            >
+              {petImgs.map((img: String, index: number) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <div className="img-box">
+                      <img
+                        src={`${process.env.REACT_APP_API_URL}/${img}`}
+                        alt="pet"
+                      />
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          )}
         </div>
         <ul>
           <li>
