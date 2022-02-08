@@ -1,10 +1,10 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Autoplay } from 'swiper';
+import SwiperCore, { Navigation } from 'swiper';
 
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 
-SwiperCore.use([Navigation, Autoplay]);
+SwiperCore.use([Navigation]);
 
 function DetailPage(props: any) {
   const { displayFlg, postingInfo } = props;
