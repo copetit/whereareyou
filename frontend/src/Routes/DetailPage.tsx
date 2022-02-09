@@ -1,10 +1,10 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation } from 'swiper';
+import SwiperCore, { Pagination } from 'swiper';
 
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 
-SwiperCore.use([Navigation]);
+SwiperCore.use([Pagination]);
 
 function DetailPage(props: any) {
   const { displayFlg, postingInfo } = props;
@@ -30,8 +30,10 @@ function DetailPage(props: any) {
               spaceBetween={30}
               grabCursor={true}
               loop={true}
-              navigation={true}
               centeredSlides={true}
+              pagination={{
+                clickable: true,
+              }}
             >
               {petImgs.map((img: String, index: number) => {
                 return (
