@@ -213,7 +213,10 @@ function Posting() {
             </label>
           </div>
           <label className="form-label w-1/2">
-            名前
+            <div className="flex items-center">
+              名前
+              <span className="required-tag">必須</span>
+            </div>
             <input
               className="text-input"
               type="text"
@@ -223,7 +226,10 @@ function Posting() {
             />
           </label>
           <label className="form-label w-1/2">
-            性別
+            <div className="flex items-center">
+              性別
+              <span className="required-tag">必須</span>
+            </div>
             <select
               className="select-input"
               value={petSex}
@@ -246,7 +252,10 @@ function Posting() {
             />
           </label>
           <label className="form-label">
-            特徴
+            <div className="flex items-center">
+              特徴
+              <span className="required-tag">必須</span>
+            </div>
             <textarea
               className="text-input h-32"
               name="PetInfo"
@@ -264,7 +273,10 @@ function Posting() {
             ></textarea>
           </label>
           <label className="form-label w-1/2">
-            離れた日
+            <div className="flex items-center">
+              離れた日
+              <span className="required-tag">必須</span>
+            </div>
             <DatePicker
               className="text-input"
               selected={lostDate}
@@ -274,7 +286,10 @@ function Posting() {
             />
           </label>
           <label className="form-label">
-            離れた場所
+            <div className="flex items-center">
+              離れた場所
+              <span className="required-tag">必須</span>
+            </div>
             <input
               className="text-input"
               type="text"
@@ -310,7 +325,10 @@ function Posting() {
         <p className="section-title">飼い主の情報</p>
         <div className="user-info p-14">
           <label className="form-label">
-            メールアドレス
+            <div className="flex items-center">
+              メールアドレス
+              <span className="required-tag">必須</span>
+            </div>
             <input
               className="text-input"
               id="email"
@@ -321,7 +339,10 @@ function Posting() {
             />
           </label>
           <label className="form-label">
-            パスワード
+            <div className="flex items-center">
+              パスワード
+              <span className="required-tag">必須</span>
+            </div>
             <input
               className="text-input"
               type="password"

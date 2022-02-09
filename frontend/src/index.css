@@ -44,6 +44,9 @@
   .section-title {
     @apply flex justify-center p-4 bg-gray-200;
   }
+  .required-tag {
+    @apply bg-red-100 bg-requiredTagRed text-white text-sm text-center font-semibold ml-4 px-2.5 py-1 rounded;
+  }
 }
 
 /* infowindowのデザインを初期化 */
