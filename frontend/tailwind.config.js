@@ -11,7 +11,9 @@ module.exports = {
       },
       spacing: {
         '8/100': '8%',
+        '90/100': '90%',
         '92/100': '92%',
+        '30/100': '30%',
       },
       minHeight: {
         profileCard: '20rem',

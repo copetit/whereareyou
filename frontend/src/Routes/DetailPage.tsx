@@ -1,23 +1,55 @@
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Pagination } from 'swiper';
+
+import 'swiper/swiper-bundle.min.css';
+import 'swiper/components/navigation/navigation.min.css';
+
+SwiperCore.use([Pagination]);
+
 function DetailPage(props: any) {
   const { displayFlg, postingInfo } = props;
   const petImgs = postingInfo.contents.imageUrl;
-
   return (
     <>
       <div
         className={`${
-          displayFlg ? 'slide-show' : ''
-        } posting-detail-info h-92/100 w-4/12 -right-1/2 bg-white absolute overflow-scroll `}
+          displayFlg ? 'page-slide-show' : ''
+        } posting-detail-info h-92/100 w-4/12 -right-1/2 bg-white absolute overflow-scroll p-5`}
       >
-        {petImgs.map((img: String, index: number) => {
-          return (
-            <img
-              src={`${process.env.REACT_APP_API_URL}/${img}`}
-              alt="pet"
-              key={index}
-            />
-          );
-        })}
+        <div className="img-slide mb-16">
+          {petImgs.length === 1 ? (
+            <div className="img-box">
+              <img
+                src={`${process.env.REACT_APP_API_URL}/${petImgs[0]}`}
+                alt="pet"
+              />
+            </div>
+          ) : (
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={30}
+              grabCursor={true}
+              loop={true}
+              centeredSlides={true}
+              pagination={{
+                clickable: true,
+              }}
+            >
+              {petImgs.map((img: String, index: number) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <div className="img-box">
+                      <img
+                        src={`${process.env.REACT_APP_API_URL}/${img}`}
+                        alt="pet"
+                      />
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          )}
+        </div>
         <ul>
           <li>
             連絡先:
