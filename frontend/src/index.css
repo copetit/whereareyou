@@ -12,7 +12,7 @@
   }
   body {
     @apply h-full;
-    @apply text-3xl;
+    @apply text-2xl;
   }
   div#root {
     @apply h-full;
@@ -182,4 +182,9 @@ input[type='file'] {
 .img-box > img {
   @apply h-full;
   @apply object-cover;
+}
+table {
+  table-layout: fixed;
+  word-break: break-all;
+  word-wrap: break-all;
 }
