@@ -16,7 +16,7 @@ function DetailPage(props: any) {
           displayFlg ? 'page-slide-show' : ''
         } posting-detail-info h-92/100 w-4/12 -right-1/2 bg-white absolute overflow-scroll p-10`}
       >
-        <div className="img-slide mb-16">
+        <div className="img-slide mb-8">
           {petImgs.length === 1 ? (
             <div className="img-box">
               <img
@@ -52,14 +52,14 @@ function DetailPage(props: any) {
         </div>
         <div className="flex justify-center items-center flex-wrap ">
           <div className="pet-name">
-            <p className="text-4xl">{postingInfo.PetName}</p>
+            <p className="text-5xl p-8">{postingInfo.PetName}</p>
           </div>
           <div className="m-5 overflow-x-auto">
             <div className="inline-block py-2 min-w-full px-8">
               <div className="overflow-hidden sm:rounded-lg">
                 <table>
                   <tbody>
-                    <tr className="bg-white border-b">
+                    <tr className="bg-white border-b hover:bg-gray-100">
                       <td className="py-4 px-6 font-semibold text-gray-900 whitespace-nowrap">
                         離れた日
                       </td>
@@ -67,7 +67,7 @@ function DetailPage(props: any) {
                         {new Date(postingInfo.LostDate).toLocaleDateString()}
                       </td>
                     </tr>
-                    <tr className="bg-white border-b">
+                    <tr className="bg-white border-b hover:bg-gray-100">
                       <td className="py-4 px-6 font-semibold text-gray-900 whitespace-nowrap">
                         性別
                       </td>
@@ -75,7 +75,7 @@ function DetailPage(props: any) {
                         {postingInfo.PetSex}
                       </td>
                     </tr>
-                    <tr className="bg-white border-b">
+                    <tr className="bg-white border-b hover:bg-gray-100">
                       <td className="py-4 px-6 font-semibold text-gray-900 whitespace-nowrap">
                         年齢
                       </td>
@@ -83,7 +83,7 @@ function DetailPage(props: any) {
                         {postingInfo.PetAge}さい
                       </td>
                     </tr>
-                    <tr className="bg-white border-b">
+                    <tr className="bg-white border-b hover:bg-gray-100">
                       <td className="py-4 px-6 font-semibold text-gray-900 whitespace-nowrap">
                         連絡先
                       </td>

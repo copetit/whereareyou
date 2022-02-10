@@ -102,7 +102,7 @@ function Map() {
                             <p className="font-semibold text-3xl mb-4 overflow-hidden whitespace-nowrap overflow-ellipsis">
                               {postingInfo.PetName}
                             </p>
-                            <p className="h-3/5 overflow-scroll">
+                            <p className="h-3/5 overflow-scroll break-words">
                               {postingInfo.PetInfo}
                             </p>
                             <button
