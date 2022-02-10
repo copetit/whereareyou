@@ -155,15 +155,24 @@ input[type='file'] {
   @apply mb-5;
 }
 .img-slide {
-  @apply h-30/100;
+  @apply h-2/5;
 }
 .swiper-container {
   @apply h-full;
+}
+.swiper-wrapper {
+  @apply h-90/100;
 }
 .swiper-slide {
   @apply h-full;
   @apply flex;
   @apply justify-center;
+}
+.swiper-pagination {
+  @apply: m-0;
+}
+.swiper-pagination-bullet-active {
+  @apply bg-black;
 }
 .img-box {
   @apply h-full;
@@ -173,10 +182,4 @@ input[type='file'] {
 .img-box > img {
   @apply h-full;
   @apply object-cover;
-  max-width: 80%;
-  min-width: 80%;
-}
-.swiper-button-next,
-.swiper-button-prev {
-  @apply text-black;
 }
