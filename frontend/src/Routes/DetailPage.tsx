@@ -50,23 +50,15 @@ function DetailPage(props: any) {
             </Swiper>
           )}
         </div>
-        <div className="pet-info-section flex justify-center items-center flex-wrap ">
+        <div className="pet-info-section flex justify-center items-center flex-wrap mb-8">
           <div className="pet-name">
-            <p className="text-5xl p-5">{postingInfo.PetName}</p>
+            <p className="text-5xl 2xl:text-6xl p-5">{postingInfo.PetName}</p>
           </div>
           <div className="m-5 overflow-x-auto">
             <div className="inline-block py-2 min-w-full px-8">
               <div className="overflow-hidden">
-                <table>
+                <table className="table-fixed break-all">
                   <tbody>
-                    <tr className="bg-white border-b hover:bg-gray-100">
-                      <td className="py-4 px-6 font-semibold text-gray-900 whitespace-nowrap">
-                        離れた日
-                      </td>
-                      <td className="py-4 px-6 text-gray-600 whitespace-nowrap ">
-                        {new Date(postingInfo.LostDate).toLocaleDateString()}
-                      </td>
-                    </tr>
                     <tr className="bg-white border-b hover:bg-gray-100">
                       <td className="py-4 px-6 font-semibold text-gray-900 whitespace-nowrap">
                         性別
@@ -80,7 +72,15 @@ function DetailPage(props: any) {
                         年齢
                       </td>
                       <td className="py-4 px-6 text-gray-600 whitespace-nowrap">
-                        {postingInfo.PetAge}さい
+                        {postingInfo.PetAge} 歳
+                      </td>
+                    </tr>
+                    <tr className="bg-white border-b hover:bg-gray-100">
+                      <td className="py-4 px-6 font-semibold text-gray-900 whitespace-nowrap">
+                        離れた日
+                      </td>
+                      <td className="py-4 px-6 text-gray-600 whitespace-nowrap ">
+                        {new Date(postingInfo.LostDate).toLocaleDateString()}
                       </td>
                     </tr>
                     <tr className="bg-white border-b hover:bg-gray-100">
@@ -98,15 +98,15 @@ function DetailPage(props: any) {
           </div>
         </div>
         <div className="pet-info-detail-section w-full">
-          <div className="pet-info my-6">
-            <p className="font-semibold px-8 py-2">特徴</p>
-            <p className="text-gray-600 px-8 py-2 w-full break-words">
+          <div className="pet-info my-6 2xl:my-12">
+            <p className="text-3xl font-semibold px-8 py-2">特徴</p>
+            <p className="text-gray-600 px-8 py-2 2xl:py-8 w-full break-words">
               {postingInfo.PetInfo}
             </p>
           </div>
-          <div className="pet-detail my-6 ">
-            <p className="font-semibold px-8 py-2">その他の情報</p>
-            <p className="text-gray-600 px-8 py-2 w-full break-words">
+          <div className="pet-detail my-6 xl:my-12">
+            <p className="text-3xl font-semibold px-8 py-2">その他の情報</p>
+            <p className="text-gray-600 px-8 py-2 2xl:py-8 w-full break-words">
               {postingInfo.Detail}
             </p>
           </div>

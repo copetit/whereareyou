@@ -12,7 +12,7 @@
   }
   body {
     @apply h-full;
-    @apply text-2xl xl:text-3xl;
+    @apply text-2xl 2xl:text-3xl;
   }
   div#root {
     @apply h-full;
@@ -80,7 +80,6 @@
   min-width: 50%;
   max-width: 50%;
 }
-
 /* スクロールバー非表示 */
 ::-webkit-scrollbar {
   @apply hidden;
@@ -184,7 +183,5 @@ input[type='file'] {
   @apply object-cover;
 }
 table {
-  table-layout: fixed;
-  word-break: break-all;
   word-wrap: break-all;
 }

@@ -241,7 +241,10 @@ function Posting() {
             </select>
           </label>
           <label className="form-label w-1/2">
-            年齢
+            <div className="flex items-center">
+              年齢
+              <span className="required-tag">必須</span>
+            </div>
             {/* TODO: MAX 制限必要 */}
             <input
               className="text-input"
