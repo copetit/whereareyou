@@ -233,7 +233,7 @@ function Posting() {
               {...register('PetName', {
                 required: 'ペットの名前を入力してください',
                 maxLength: {
-                  value: 255,
+                  value: 50,
                   message: 'ペットの名前は255文字まで入力可能です。',
                 },
                 onChange: (event) => changePetName(event),
