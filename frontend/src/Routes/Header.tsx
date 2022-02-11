@@ -8,7 +8,7 @@ function Header() {
       <ul className="flex">
         <li className="mr-6">
           <a
-            className="text-white hover:text-yellow-400 font-semibold"
+            className="text-white hover:text-yellow-400 font-semibold text-3xl"
             href="/"
           >
             List
@@ -16,7 +16,7 @@ function Header() {
         </li>
         <li className="mr-6">
           <a
-            className="text-yellow-400 hover:text-white font-semibold"
+            className="text-yellow-400 hover:text-white font-semibold text-3xl"
             href="/"
           >
             About
