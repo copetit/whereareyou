@@ -234,7 +234,7 @@ function Posting() {
                 required: 'ペットの名前を入力してください',
                 maxLength: {
                   value: 50,
-                  message: 'ペットの名前は255文字まで入力可能です。',
+                  message: 'ペットの名前は50文字まで入力可能です。',
                 },
                 onChange: (event) => changePetName(event),
               })}
