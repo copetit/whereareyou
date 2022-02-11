@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import { uploadFiles, createPosting } from '../Api';
 import { nowDate, nowMonth, nowYear } from '../utils/getTime';
@@ -8,6 +9,11 @@ import { ReactComponent as Camera } from '../camera.svg';
 import 'react-datepicker/dist/react-datepicker.css';
 
 function Posting() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [petName, setPetName] = useState('');
   const [petSex, setPetSex] = useState('男');
   const [petAge, setPetAge] = useState('');
@@ -26,6 +32,7 @@ function Posting() {
   const [fileThree, setFileThree] = useState<string | Blob>('');
   const [fileFour, setFileFour] = useState<string | Blob>('');
   const [fileFive, setFileFive] = useState<string | Blob>('');
+  const [errorLocation, setErrorLocation] = useState<Boolean>(true);
 
   const changePetName = (event: any) => {
     setPetName(event.target.value);
@@ -116,7 +123,7 @@ function Posting() {
     });
   }
 
-  async function handleSubmit(e: any) {
+  async function onSubmit(e: any) {
     let data = new FormData();
     data.append('files', fileOne);
     data.append('files', fileTwo);
@@ -174,8 +181,11 @@ function Posting() {
               <p>必須</p>
               <Camera />
               <input
+                {...register('fileOne', {
+                  required: '写真1枚目は必須です',
+                  onChange: (event) => fileOneChange(event),
+                })}
                 type="file"
-                onChange={(event) => fileOneChange(event)}
               ></input>
               <img className="thumbnail" src={imgTextOne} alt="" />
             </label>
@@ -211,23 +221,36 @@ function Posting() {
               ></input>
               <img className="thumbnail" src={imgTextFive} alt="" />
             </label>
+            {errors.fileOne && (
+              <p className="text-white bg-red-500">{errors.fileOne.message}</p>
+            )}
           </div>
           <label className="form-label w-1/2">
             名前
             <input
               className="text-input"
               type="text"
-              name="PetName"
-              value={petName}
-              onChange={changePetName}
+              {...register('PetName', {
+                required: 'ペットの名前を入力してください',
+                maxLength: {
+                  value: 50,
+                  message: 'ペットの名前は50文字まで入力可能です。',
+                },
+                onChange: (event) => changePetName(event),
+              })}
+              // value={petName}
             />
+            {errors.PetName && (
+              <p className="text-white bg-red-500">{errors.PetName.message}</p>
+            )}
           </label>
           <label className="form-label w-1/2">
             性別
             <select
               className="select-input"
-              value={petSex}
-              onChange={changePetSex}
+              {...register('PetSex', {
+                onChange: (event) => changePetSex(event),
+              })}
             >
               <option value="男">男</option>
               <option value="女">女</option>
@@ -236,32 +259,54 @@ function Posting() {
           </label>
           <label className="form-label w-1/2">
             年齢
-            {/* TODO: MAX 制限必要 */}
             <input
               className="text-input"
               type="number"
-              name="PetAge"
+              {...register('PetAge', {
+                required: 'ペットの年齢を入力してください。',
+                min: { value: 0, message: '0~100歳まで入力可能です。' },
+                max: { value: 100, message: '0~100歳まで入力可能です。' },
+                onChange: (event) => changePetAge(event),
+              })}
               value={petAge}
-              onChange={changePetAge}
             />
+            {errors.PetAge && (
+              <p className="text-white bg-red-500">{errors.PetAge.message}</p>
+            )}
           </label>
           <label className="form-label">
             特徴
             <textarea
               className="text-input h-32"
-              name="PetInfo"
-              value={petInfo}
-              onChange={changePetInfo}
+              {...register('PetInfo', {
+                required: '特徴を入力してください',
+                maxLength: {
+                  value: 255,
+                  message: '特徴は255文字まで入力可能です。',
+                },
+                onChange: (event) => changePetInfo(event),
+              })}
+              // value={petInfo}
             ></textarea>
+            {errors.PetInfo && (
+              <p className="text-white bg-red-500">{errors.PetInfo.message}</p>
+            )}
           </label>
           <label className="form-label">
             その他の情報
             <textarea
               className="text-input h-48"
-              name="Detail"
-              value={detail}
-              onChange={changeDetail}
+              {...register('Detail', {
+                maxLength: {
+                  value: 255,
+                  message: 'その他の情報は255文字まで入力可能です。',
+                },
+                onChange: (event) => changeDetail(event),
+              })}
             ></textarea>
+            {errors.Detail && (
+              <p className="text-white bg-red-500">{errors.Detail.message}</p>
+            )}
           </label>
           <label className="form-label w-1/2">
             離れた日
@@ -278,10 +323,19 @@ function Posting() {
             <input
               className="text-input"
               type="text"
-              name="Address"
+              {...register('Address', {
+                required: '離れた場所を入力してください',
+                maxLength: {
+                  value: 255,
+                  message: '離れた場所は255文字まで入力可能です。',
+                },
+                onChange: (event) => changeAddress(event),
+              })}
               value={address}
-              onChange={changeAddress}
             />
+            {errors.Address && (
+              <p className="text-white bg-red-500">{errors.Address.message}</p>
+            )}
           </label>
           <div className="posting-map w-full">
             <LoadScript
@@ -293,7 +347,10 @@ function Posting() {
                 mapContainerStyle={containerStyle}
                 center={currentLocation}
                 zoom={17}
-                onClick={(e) => setLocation(e.latLng!.toJSON())}
+                onClick={(e) => {
+                  setLocation(e.latLng!.toJSON());
+                  setErrorLocation(false);
+                }}
               >
                 {location && (
                   <Marker
@@ -305,6 +362,11 @@ function Posting() {
                 )}
               </GoogleMap>
             </LoadScript>
+            {errorLocation && (
+              <p className="text-white bg-red-500">
+                離れた場所をクリックしてください。
+              </p>
+            )}
           </div>
         </div>
         <p className="section-title">飼い主の情報</p>
@@ -315,10 +377,21 @@ function Posting() {
               className="text-input"
               id="email"
               type="email"
-              name="MailAddress"
-              value={mailladdress}
-              onChange={changeMailaddress}
+              {...register('MailAddress', {
+                required: 'メールアドレスを入力してください',
+                pattern: {
+                  value:
+                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                  message: '正しいメールアドレスを入力してください',
+                },
+                onChange: (event) => changeMailaddress(event),
+              })}
             />
+            {errors.MailAddress && (
+              <p className="text-white bg-red-500">
+                {errors.MailAddress.message}
+              </p>
+            )}
           </label>
           <label className="form-label">
             パスワード
@@ -326,17 +399,25 @@ function Posting() {
               className="text-input"
               type="password"
               id="password"
-              name="Password"
-              value={password}
-              onChange={changePassword}
+              {...register('Password', {
+                required: 'パスワードを入力してください',
+                maxLength: {
+                  value: 255,
+                  message: 'パスワードは255文字まで入力可能です。',
+                },
+                onChange: (event) => changePassword(event),
+              })}
             />
+            {errors.Password && (
+              <p className="text-white bg-red-500">{errors.Password.message}</p>
+            )}
           </label>
         </div>
         <input
           className="posting-btn flex justify-center text-black hover:text-white bg-yellow-400 hover:bg-black rounded-3xl w-1/2 px-6 py-5 mt-10 mb-10 transition ease-in duration-100 cursor-pointer"
           type="button"
           value="登録"
-          onClick={(e) => handleSubmit(e)}
+          onClick={(e) => handleSubmit(onSubmit)()}
         />
       </form>
     </div>
