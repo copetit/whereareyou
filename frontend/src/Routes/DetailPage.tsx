@@ -51,7 +51,7 @@ function DetailPage(props: any) {
           )}
         </div>
         <div className="pet-info-section flex justify-center items-center flex-wrap mb-8">
-          <div className="pet-name">
+          <div className="pet-name break-words">
             <p className="text-5xl 2xl:text-6xl p-5">{postingInfo.PetName}</p>
           </div>
           <div className="m-5 overflow-x-auto">
