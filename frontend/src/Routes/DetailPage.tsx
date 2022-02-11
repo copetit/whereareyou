@@ -16,7 +16,7 @@ function DetailPage(props: any) {
           displayFlg ? 'page-slide-show' : ''
         } posting-detail-info h-92/100 w-4/12 -right-1/2 bg-white absolute overflow-scroll p-10`}
       >
-        <div className="img-slide mb-8">
+        <div className="pet-img-slide-section mb-8">
           {petImgs.length === 1 ? (
             <div className="img-box">
               <img
@@ -50,13 +50,13 @@ function DetailPage(props: any) {
             </Swiper>
           )}
         </div>
-        <div className="flex justify-center items-center flex-wrap ">
+        <div className="pet-info-section flex justify-center items-center flex-wrap ">
           <div className="pet-name">
-            <p className="text-5xl p-8">{postingInfo.PetName}</p>
+            <p className="text-5xl p-5">{postingInfo.PetName}</p>
           </div>
           <div className="m-5 overflow-x-auto">
             <div className="inline-block py-2 min-w-full px-8">
-              <div className="overflow-hidden sm:rounded-lg">
+              <div className="overflow-hidden">
                 <table>
                   <tbody>
                     <tr className="bg-white border-b hover:bg-gray-100">
@@ -97,7 +97,7 @@ function DetailPage(props: any) {
             </div>
           </div>
         </div>
-        <div className="pet-info-section w-full">
+        <div className="pet-info-detail-section w-full">
           <div className="pet-info my-6">
             <p className="font-semibold px-8 py-2">特徴</p>
             <p className="text-gray-600 px-8 py-2 w-full break-words">

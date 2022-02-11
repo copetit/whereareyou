@@ -12,7 +12,7 @@
   }
   body {
     @apply h-full;
-    @apply text-2xl;
+    @apply text-2xl xl:text-3xl;
   }
   div#root {
     @apply h-full;
@@ -154,7 +154,7 @@ input[type='file'] {
 .posting-detail-info > ul > li {
   @apply mb-5;
 }
-.img-slide {
+.pet-img-slide-section {
   @apply h-2/5;
 }
 .swiper-container {
