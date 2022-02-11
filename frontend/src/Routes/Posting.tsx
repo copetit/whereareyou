@@ -236,8 +236,8 @@ function Posting() {
               {...register('PetName', {
                 required: 'ペットの名前を入力してください',
                 maxLength: {
-                  value: 50,
-                  message: 'ペットの名前は50文字まで入力可能です。',
+                  value: 20,
+                  message: 'ペットの名前は20文字まで入力可能です。',
                 },
                 onChange: (event) => changePetName(event),
               })}
@@ -258,9 +258,9 @@ function Posting() {
                 onChange: (event) => changePetSex(event),
               })}
             >
+              <option value="不明">不明</option>
               <option value="男">男</option>
               <option value="女">女</option>
-              <option value="不明">不明</option>
             </select>
           </label>
           <label className="form-label w-1/2">
