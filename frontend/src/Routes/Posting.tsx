@@ -186,6 +186,7 @@ function Posting() {
                   onChange: (event) => fileOneChange(event),
                 })}
                 type="file"
+                accept="image/png, image/jpeg, image/jpg"
               ></input>
               <img className="thumbnail" src={imgTextOne} alt="" />
             </label>
@@ -193,6 +194,7 @@ function Posting() {
               <Camera />
               <input
                 type="file"
+                accept="image/png, image/jpeg, image/jpg"
                 onChange={(event) => fileTwoChange(event)}
               ></input>
               <img className="thumbnail" src={imgTextTwo} alt="" />
@@ -201,6 +203,7 @@ function Posting() {
               <Camera />
               <input
                 type="file"
+                accept="image/png, image/jpeg, image/jpg"
                 onChange={(event) => fileThreeChange(event)}
               ></input>
               <img className="thumbnail" src={imgTextThree} alt="" />
@@ -209,6 +212,7 @@ function Posting() {
               <Camera />
               <input
                 type="file"
+                accept="image/png, image/jpeg, image/jpg"
                 onChange={(event) => fileFourChange(event)}
               ></input>
               <img className="thumbnail" src={imgTextFour} alt="" />
@@ -217,6 +221,7 @@ function Posting() {
               <Camera />
               <input
                 type="file"
+                accept="image/png, image/jpeg, image/jpg"
                 onChange={(event) => fileFiveChange(event)}
               ></input>
               <img className="thumbnail" src={imgTextFive} alt="" />
