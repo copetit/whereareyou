@@ -6,6 +6,7 @@ import { nowDate, nowMonth, nowYear } from '../utils/getTime';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { IGetLocations } from '../Types';
 import { ReactComponent as Camera } from '../camera.svg';
+import { ReactComponent as InfoMark } from '../info_mark.svg';
 import 'react-datepicker/dist/react-datepicker.css';
 
 function Posting() {
@@ -176,59 +177,75 @@ function Posting() {
       <form className="posting-form w-1/2 max-w-5xl bg-gray-50 ">
         <p className="section-title">ペットの情報</p>
         <div className="pet-info p-14">
-          <div className="flex flex-wrap justify-center mb-10">
-            <label className="petPhoto required">
-              <p>必須</p>
-              <Camera />
-              <input
-                {...register('fileOne', {
-                  required: '写真1枚目は必須です',
-                  onChange: (event) => fileOneChange(event),
-                })}
-                type="file"
-                accept="image/png, image/jpeg, image/jpg"
-              ></input>
-              <img className="thumbnail" src={imgTextOne} alt="" />
-            </label>
-            <label className="petPhoto">
-              <Camera />
-              <input
-                type="file"
-                accept="image/png, image/jpeg, image/jpg"
-                onChange={(event) => fileTwoChange(event)}
-              ></input>
-              <img className="thumbnail" src={imgTextTwo} alt="" />
-            </label>
-            <label className="petPhoto">
-              <Camera />
-              <input
-                type="file"
-                accept="image/png, image/jpeg, image/jpg"
-                onChange={(event) => fileThreeChange(event)}
-              ></input>
-              <img className="thumbnail" src={imgTextThree} alt="" />
-            </label>
-            <label className="petPhoto">
-              <Camera />
-              <input
-                type="file"
-                accept="image/png, image/jpeg, image/jpg"
-                onChange={(event) => fileFourChange(event)}
-              ></input>
-              <img className="thumbnail" src={imgTextFour} alt="" />
-            </label>
-            <label className="petPhoto">
-              <Camera />
-              <input
-                type="file"
-                accept="image/png, image/jpeg, image/jpg"
-                onChange={(event) => fileFiveChange(event)}
-              ></input>
-              <img className="thumbnail" src={imgTextFive} alt="" />
-            </label>
-            {errors.fileOne && (
-              <p className="text-white bg-red-500">{errors.fileOne.message}</p>
-            )}
+          <div className="mb-10">
+            <div className="flex flex-wrap justify-center mb-4">
+              <label className="petPhoto required">
+                <p>必須</p>
+                <Camera />
+                <input
+                  {...register('fileOne', {
+                    required: '写真1枚目は必須です',
+                    onChange: (event) => fileOneChange(event),
+                  })}
+                  type="file"
+                  accept="image/png, image/jpeg, image/jpg, image/gif"
+                ></input>
+                <img className="thumbnail" src={imgTextOne} alt="" />
+              </label>
+              <label className="petPhoto">
+                <Camera />
+                <input
+                  type="file"
+                  accept="image/png, image/jpeg, image/jpg, image/gif"
+                  onChange={(event) => fileTwoChange(event)}
+                ></input>
+                <img className="thumbnail" src={imgTextTwo} alt="" />
+              </label>
+              <label className="petPhoto">
+                <Camera />
+                <input
+                  type="file"
+                  accept="image/png, image/jpeg, image/jpg, image/gif"
+                  onChange={(event) => fileThreeChange(event)}
+                ></input>
+                <img className="thumbnail" src={imgTextThree} alt="" />
+              </label>
+              <label className="petPhoto">
+                <Camera />
+                <input
+                  type="file"
+                  accept="image/png, image/jpeg, image/jpg, image/gif"
+                  onChange={(event) => fileFourChange(event)}
+                ></input>
+                <img className="thumbnail" src={imgTextFour} alt="" />
+              </label>
+              <label className="petPhoto">
+                <Camera />
+                <input
+                  type="file"
+                  accept="image/png, image/jpeg, image/jpg, image/gif"
+                  onChange={(event) => fileFiveChange(event)}
+                ></input>
+                <img className="thumbnail" src={imgTextFive} alt="" />
+              </label>
+              {errors.fileOne && (
+                <p className="text-white bg-red-500">
+                  {errors.fileOne.message}
+                </p>
+              )}
+            </div>
+            <div
+              className="flex p-4 mb-4 text-lg text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800"
+              role="alert"
+            >
+              <InfoMark />
+              <div>
+                <span>
+                  ペットの画像は「JPG」「JPEG」「PNG」「GIF」
+                  のいずれかのファイル形式のみです。
+                </span>
+              </div>
+            </div>
           </div>
           <label className="form-label w-1/2">
             <div className="flex items-center">
