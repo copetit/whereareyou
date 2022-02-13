@@ -8,7 +8,7 @@ import {
 import { getLocations, getPostingById } from '../Api';
 import { IGetLocations } from '../Types';
 import DetailPage from './DetailPage';
-import { ReactComponent as Arrow } from '../btn-arrow.svg';
+import { ReactComponent as Arrow } from '../btn_arrow.svg';
 
 const containerStyle = {
   height: '100%',
