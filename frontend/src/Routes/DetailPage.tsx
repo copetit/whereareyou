@@ -3,6 +3,8 @@ import SwiperCore, { Pagination } from 'swiper';
 
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/components/navigation/navigation.min.css';
+import { ReactComponent as EditMark } from '../edit_mark.svg';
+import { ReactComponent as DeleteMark } from '../delete_mark.svg';
 
 SwiperCore.use([Pagination]);
 
@@ -16,6 +18,15 @@ function DetailPage(props: any) {
           displayFlg ? 'page-slide-show' : ''
         } posting-detail-info h-92/100 w-4/12 -right-1/2 bg-white absolute overflow-scroll p-10`}
       >
+        {/* 更新画面、削除モーダルにすすめるように設定する */}
+        <div className="icon-section flex justify-end items-center mb-8">
+          <a href="/wau/posting">
+            <EditMark />
+          </a>
+          <a href="#">
+            <DeleteMark />
+          </a>
+        </div>
         <div className="pet-img-slide-section mb-8">
           {petImgs.length === 1 ? (
             <div className="img-box">
