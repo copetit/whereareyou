@@ -71,7 +71,7 @@ function Posting() {
   const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       event.currentTarget.files &&
-      event.currentTarget.files[0]?.size < 10485760
+      event.currentTarget.files[0]?.size <= 10485760
     ) {
       setFileSizeError(false);
       setFileOne(event.currentTarget.files[0]);
@@ -86,7 +86,7 @@ function Posting() {
   const fileTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       event.currentTarget.files &&
-      event.currentTarget.files[0]?.size < 10485760
+      event.currentTarget.files[0]?.size <= 10485760
     ) {
       setFileSizeError(false);
       setFileTwo(event.currentTarget.files[0]);
@@ -101,7 +101,7 @@ function Posting() {
   const fileThreeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       event.currentTarget.files &&
-      event.currentTarget.files[0]?.size < 10485760
+      event.currentTarget.files[0]?.size <= 10485760
     ) {
       setFileThree(event.currentTarget.files[0]);
       reader.onload = (e: any) => {
@@ -115,7 +115,7 @@ function Posting() {
   const fileFourChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       event.currentTarget.files &&
-      event.currentTarget.files[0]?.size < 10485760
+      event.currentTarget.files[0]?.size <= 10485760
     ) {
       setFileFour(event.currentTarget.files[0]);
       reader.onload = (e: any) => {
@@ -129,7 +129,7 @@ function Posting() {
   const fileFiveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       event.currentTarget.files &&
-      event.currentTarget.files[0]?.size < 10485760
+      event.currentTarget.files[0]?.size <= 10485760
     ) {
       setFileFive(event.currentTarget.files[0]);
       reader.onload = (e: any) => {
