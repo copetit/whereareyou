@@ -34,6 +34,7 @@ function Posting() {
   const [fileFour, setFileFour] = useState<string | Blob>('');
   const [fileFive, setFileFive] = useState<string | Blob>('');
   const [errorLocation, setErrorLocation] = useState<Boolean>(true);
+  const [fileSizeError, setFileSizeError] = useState<Boolean>(false);
 
   const changePetName = (event: any) => {
     setPetName(event.target.value);
@@ -68,48 +69,75 @@ function Posting() {
   const reader = new FileReader();
 
   const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.currentTarget.files) {
+    if (
+      event.currentTarget.files &&
+      event.currentTarget.files[0]?.size < 10485760
+    ) {
+      setFileSizeError(false);
       setFileOne(event.currentTarget.files[0]);
       reader.onload = (e: any) => {
         SetImgTextOne(e.target.result);
       };
       reader.readAsDataURL(event.currentTarget.files[0]);
+    } else {
+      setFileSizeError(true);
     }
   };
   const fileTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.currentTarget.files) {
+    if (
+      event.currentTarget.files &&
+      event.currentTarget.files[0]?.size < 10485760
+    ) {
+      setFileSizeError(false);
       setFileTwo(event.currentTarget.files[0]);
       reader.onload = (e: any) => {
         SetImgTextTwo(e.target.result);
       };
       reader.readAsDataURL(event.currentTarget.files[0]);
+    } else {
+      setFileSizeError(true);
     }
   };
   const fileThreeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.currentTarget.files) {
+    if (
+      event.currentTarget.files &&
+      event.currentTarget.files[0]?.size < 10485760
+    ) {
       setFileThree(event.currentTarget.files[0]);
       reader.onload = (e: any) => {
         SetImgTextThree(e.target.result);
       };
       reader.readAsDataURL(event.currentTarget.files[0]);
+    } else {
+      setFileSizeError(true);
     }
   };
   const fileFourChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.currentTarget.files) {
+    if (
+      event.currentTarget.files &&
+      event.currentTarget.files[0]?.size < 10485760
+    ) {
       setFileFour(event.currentTarget.files[0]);
       reader.onload = (e: any) => {
         SetImgTextFour(e.target.result);
       };
       reader.readAsDataURL(event.currentTarget.files[0]);
+    } else {
+      setFileSizeError(true);
     }
   };
   const fileFiveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.currentTarget.files) {
+    if (
+      event.currentTarget.files &&
+      event.currentTarget.files[0]?.size < 10485760
+    ) {
       setFileFive(event.currentTarget.files[0]);
       reader.onload = (e: any) => {
         SetImgTextFive(e.target.result);
       };
       reader.readAsDataURL(event.currentTarget.files[0]);
+    } else {
+      setFileSizeError(true);
     }
   };
 
@@ -231,6 +259,11 @@ function Posting() {
               {errors.fileOne && (
                 <p className="text-white bg-red-500">
                   {errors.fileOne.message}
+                </p>
+              )}
+              {fileSizeError && (
+                <p className="text-white bg-red-500">
+                  イメージは10MBまでアップロード可能です
                 </p>
               )}
             </div>
