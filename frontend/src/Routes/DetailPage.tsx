@@ -5,12 +5,18 @@ import 'swiper/swiper-bundle.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import { ReactComponent as EditMark } from '../edit_mark.svg';
 import { ReactComponent as DeleteMark } from '../delete_mark.svg';
+import { useState } from 'react';
+import PasswordChkModal from './PasswordChkModal';
 
 SwiperCore.use([Pagination]);
 
 function DetailPage(props: any) {
   const { displayFlg, postingInfo } = props;
   const petImgs = postingInfo.contents.imageUrl;
+  const [showModal, setShowModal] = useState<Boolean>(false);
+  const openModal = () => {
+    setShowModal(true);
+  };
   return (
     <>
       <div
@@ -18,9 +24,13 @@ function DetailPage(props: any) {
           displayFlg ? 'page-slide-show' : ''
         } posting-detail-info h-92/100 w-4/12 -right-1/2 bg-white absolute overflow-scroll p-10`}
       >
+        {/* {console.log(showModal)} */}
+        {showModal && (
+          <PasswordChkModal isOpen={showModal} setShowModal={setShowModal} />
+        )}
         {/* 更新画面、削除モーダルにすすめるように設定する */}
         <div className="icon-section flex justify-end items-center mb-8">
-          <a href="/wau/posting">
+          <a href="#" onClick={openModal}>
             <EditMark />
           </a>
           <a href="#">
