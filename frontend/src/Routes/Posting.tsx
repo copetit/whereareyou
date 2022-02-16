@@ -9,6 +9,8 @@ import { ReactComponent as Camera } from '../camera.svg';
 import { ReactComponent as InfoMark } from '../info_mark.svg';
 import 'react-datepicker/dist/react-datepicker.css';
 
+const ALLOWED_IMG_SIZE: number = 10485760;
+
 function Posting() {
   const {
     register,
@@ -71,7 +73,7 @@ function Posting() {
   const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       event.currentTarget.files &&
-      event.currentTarget.files[0]?.size <= 10485760
+      event.currentTarget.files[0]?.size <= ALLOWED_IMG_SIZE
     ) {
       setFileSizeError(false);
       setFileOne(event.currentTarget.files[0]);
@@ -86,7 +88,7 @@ function Posting() {
   const fileTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       event.currentTarget.files &&
-      event.currentTarget.files[0]?.size <= 10485760
+      event.currentTarget.files[0]?.size <= ALLOWED_IMG_SIZE
     ) {
       setFileSizeError(false);
       setFileTwo(event.currentTarget.files[0]);
@@ -101,7 +103,7 @@ function Posting() {
   const fileThreeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       event.currentTarget.files &&
-      event.currentTarget.files[0]?.size <= 10485760
+      event.currentTarget.files[0]?.size <= ALLOWED_IMG_SIZE
     ) {
       setFileThree(event.currentTarget.files[0]);
       reader.onload = (e: any) => {
@@ -115,7 +117,7 @@ function Posting() {
   const fileFourChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       event.currentTarget.files &&
-      event.currentTarget.files[0]?.size <= 10485760
+      event.currentTarget.files[0]?.size <= ALLOWED_IMG_SIZE
     ) {
       setFileFour(event.currentTarget.files[0]);
       reader.onload = (e: any) => {
@@ -129,7 +131,7 @@ function Posting() {
   const fileFiveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       event.currentTarget.files &&
-      event.currentTarget.files[0]?.size <= 10485760
+      event.currentTarget.files[0]?.size <= ALLOWED_IMG_SIZE
     ) {
       setFileFive(event.currentTarget.files[0]);
       reader.onload = (e: any) => {
