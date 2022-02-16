@@ -190,3 +190,8 @@ table {
 .pet-name {
   max-width: 40%;
 }
+
+.modal,
+.modal-bg {
+  z-index: 999;
+}

@@ -19,15 +19,14 @@ function DetailPage(props: any) {
   };
   return (
     <>
+      {showModal && (
+        <PasswordChkModal isOpen={showModal} setShowModal={setShowModal} />
+      )}
       <div
         className={`${
           displayFlg ? 'page-slide-show' : ''
         } posting-detail-info h-92/100 w-4/12 -right-1/2 bg-white absolute overflow-scroll p-10`}
       >
-        {/* {console.log(showModal)} */}
-        {showModal && (
-          <PasswordChkModal isOpen={showModal} setShowModal={setShowModal} />
-        )}
         {/* 更新画面、削除モーダルにすすめるように設定する */}
         <div className="icon-section flex justify-end items-center mb-8">
           <a href="#" onClick={openModal}>
