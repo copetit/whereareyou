@@ -12,11 +12,9 @@ SwiperCore.use([Pagination]);
 
 function DetailPage(props: any) {
   const { displayFlg, postingInfo } = props;
-  const petImgs = postingInfo.contents.imageUrl;
   const [showModal, setShowModal] = useState<Boolean>(false);
-  const openModal = () => {
-    setShowModal(true);
-  };
+  const petImgs = postingInfo.contents.imageUrl;
+
   return (
     <>
       {showModal && (
@@ -29,7 +27,7 @@ function DetailPage(props: any) {
       >
         {/* 更新画面、削除モーダルにすすめるように設定する */}
         <div className="icon-section flex justify-end items-center mb-8">
-          <a href="#" onClick={openModal}>
+          <a href="#" onClick={() => setShowModal(true)}>
             <EditMark />
           </a>
           <a href="#">
