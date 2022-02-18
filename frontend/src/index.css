@@ -190,3 +190,12 @@ table {
 .pet-name {
   max-width: 40%;
 }
+
+/* password check modal */
+.modal,
+.modal-bg {
+  z-index: 999;
+}
+.modal-btn {
+  margin-top: auto !important;
+}
