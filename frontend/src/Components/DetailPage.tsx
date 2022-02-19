@@ -1,14 +1,8 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Pagination } from 'swiper';
-
-import 'swiper/swiper-bundle.min.css';
-import 'swiper/components/navigation/navigation.min.css';
 import { ReactComponent as EditMark } from '../images/edit_icon.svg';
 import { ReactComponent as DeleteMark } from '../images/delete_icon.svg';
 import { useState } from 'react';
 import PasswordChkModal from './PasswordChkModal';
-
-SwiperCore.use([Pagination]);
+import { PetImgSlide } from './PetImgSlide';
 
 export interface DetailPageProps {
   name: string;
@@ -63,40 +57,7 @@ function DetailPage(props: any) {
             <DeleteMark />
           </a>
         </div>
-        <div className="pet-img-slide-section mb-8">
-          {petImgs.length === 1 ? (
-            <div className="img-box">
-              <img
-                src={`${process.env.REACT_APP_API_URL}/${petImgs[0]}`}
-                alt="pet"
-              />
-            </div>
-          ) : (
-            <Swiper
-              slidesPerView={1}
-              spaceBetween={30}
-              grabCursor={true}
-              loop={true}
-              centeredSlides={true}
-              pagination={{
-                clickable: true,
-              }}
-            >
-              {petImgs.map((img: String, index: number) => {
-                return (
-                  <SwiperSlide key={index}>
-                    <div className="img-box">
-                      <img
-                        src={`${process.env.REACT_APP_API_URL}/${img}`}
-                        alt="pet"
-                      />
-                    </div>
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          )}
-        </div>
+        <PetImgSlide petImgs={petImgs} />
         <div className="pet-info-section flex justify-center items-center flex-wrap mb-8">
           <div className="pet-name break-words">
             <p className="text-5xl 2xl:text-6xl p-5">{postingInfo.PetName}</p>
