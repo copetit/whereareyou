@@ -1,6 +1,6 @@
-import { IPasswordChkModal } from '../Types';
-import { ReactComponent as BtnCancel } from '../btn_cancel.svg';
-import { ReactComponent as LockMark } from '../lock_mark.svg';
+import { IPasswordChkModal } from '../types/Interface';
+import { ReactComponent as BtnCancel } from '../images/btn_cancel_icon.svg';
+import { ReactComponent as LockMark } from '../images/lock_icon.svg';
 
 function PasswordChkModal(props: Required<IPasswordChkModal>) {
   const { isOpen, setShowModal } = props;

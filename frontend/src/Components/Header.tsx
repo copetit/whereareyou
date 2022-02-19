@@ -1,6 +1,6 @@
-import { ReactComponent as Logo } from '../logo.svg';
+import { ReactComponent as Logo } from '../images/logo.svg';
 
-function Header() {
+export function Header() {
   return (
     <nav className="flex h-8/100 px-5 items-center justify-between bg-black">
       {/* TODO dummyのリンク,デザインなので相談して内容を変える*/}
@@ -26,5 +26,3 @@ function Header() {
     </nav>
   );
 }
-
-export default Header;

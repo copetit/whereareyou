@@ -1,4 +1,4 @@
-import { ReactComponent as Plus } from '../btn_plus.svg';
+import { ReactComponent as Plus } from '../images/btn_plus_icon.svg';
 
 function PostingButton() {
   // TODO hrefを使うよりいい方法はないかを調査

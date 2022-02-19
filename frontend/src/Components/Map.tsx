@@ -6,9 +6,9 @@ import {
   InfoWindow,
 } from '@react-google-maps/api';
 import { getLocations, getPostingById } from '../Api';
-import { IGetLocations } from '../Types';
+import { IGetLocations } from '../types/Interface';
 import DetailPage from './DetailPage';
-import { ReactComponent as Arrow } from '../btn_arrow.svg';
+import { ReactComponent as Arrow } from '../images/btn_arrow_icon.svg';
 
 const containerStyle = {
   height: '100%',

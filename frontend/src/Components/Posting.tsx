@@ -4,9 +4,9 @@ import DatePicker from 'react-datepicker';
 import { uploadFiles, createPosting } from '../Api';
 import { nowDate, nowMonth, nowYear } from '../utils/getTime';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { IGetLocations } from '../Types';
-import { ReactComponent as Camera } from '../camera.svg';
-import { ReactComponent as InfoMark } from '../info_mark.svg';
+import { IGetLocations } from '../types/Interface';
+import { ReactComponent as Camera } from '../images/camera_icon.svg';
+import { ReactComponent as InfoMark } from '../images/info_icon.svg';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const ALLOWED_IMG_SIZE: number = 10485760;

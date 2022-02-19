@@ -3,8 +3,8 @@ import SwiperCore, { Pagination } from 'swiper';
 
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/components/navigation/navigation.min.css';
-import { ReactComponent as EditMark } from '../edit_mark.svg';
-import { ReactComponent as DeleteMark } from '../delete_mark.svg';
+import { ReactComponent as EditMark } from '../images/edit_icon.svg';
+import { ReactComponent as DeleteMark } from '../images/delete_icon.svg';
 import { useState } from 'react';
 import PasswordChkModal from './PasswordChkModal';
 
