@@ -263,16 +263,16 @@ function Posting() {
             {fileSizeError && (
               <AlertMessage
                 msg="イメージは10MBまでアップロード可能です"
-                danger={true}
+                error={true}
               />
             )}
             {errors.fileOne && (
-              <AlertMessage msg={errors.fileOne.message} danger={true} />
+              <AlertMessage msg={errors.fileOne.message} error={true} />
             )}
             <AlertMessage
               msg="ペットの画像は「JPG」「JPEG」「PNG」「GIF」
           のいずれかのファイル形式のみです"
-              danger={false}
+              error={false}
             />
           </div>
           <label className="form-label w-1/2">
@@ -294,7 +294,7 @@ function Posting() {
               // value={petName}
             />
             {errors.PetName && (
-              <AlertMessage msg={errors.PetName.message} danger={true} />
+              <AlertMessage msg={errors.PetName.message} error={true} />
             )}
           </label>
           <label className="form-label w-1/2">
@@ -330,7 +330,7 @@ function Posting() {
               value={petAge}
             />
             {errors.PetAge && (
-              <AlertMessage msg={errors.PetAge.message} danger={true} />
+              <AlertMessage msg={errors.PetAge.message} error={true} />
             )}
           </label>
           <label className="form-label">
@@ -351,7 +351,7 @@ function Posting() {
               // value={petInfo}
             ></textarea>
             {errors.PetInfo && (
-              <AlertMessage msg={errors.PetInfo.message} danger={true} />
+              <AlertMessage msg={errors.PetInfo.message} error={true} />
             )}
           </label>
           <label className="form-label">
@@ -367,7 +367,7 @@ function Posting() {
               })}
             ></textarea>
             {errors.Detail && (
-              <AlertMessage msg={errors.Detail.message} danger={true} />
+              <AlertMessage msg={errors.Detail.message} error={true} />
             )}
           </label>
           <label className="form-label w-1/2">
@@ -402,7 +402,7 @@ function Posting() {
               value={address}
             />
             {errors.Address && (
-              <AlertMessage msg={errors.Address.message} danger={true} />
+              <AlertMessage msg={errors.Address.message} error={true} />
             )}
           </label>
           <div className="posting-map w-full mb-7">
@@ -434,7 +434,7 @@ function Posting() {
           {errorLocation && (
             <AlertMessage
               msg="離れた場所をクリックしてください"
-              danger={false}
+              error={false}
             />
           )}
         </div>
@@ -460,7 +460,7 @@ function Posting() {
               })}
             />
             {errors.MailAddress && (
-              <AlertMessage msg={errors.MailAddress.message} danger={true} />
+              <AlertMessage msg={errors.MailAddress.message} error={true} />
             )}
           </label>
           <label className="form-label">
@@ -482,7 +482,7 @@ function Posting() {
               })}
             />
             {errors.Password && (
-              <AlertMessage msg={errors.Password.message} danger={true} />
+              <AlertMessage msg={errors.Password.message} error={true} />
             )}
           </label>
         </div>

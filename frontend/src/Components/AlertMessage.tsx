@@ -2,12 +2,12 @@ import { ReactComponent as InfoMark } from '../images/info_icon.svg';
 
 export interface IAlertMessageProps {
   msg: string;
-  danger: boolean;
+  error: boolean;
 }
 
 export const AlertMessage = (props: IAlertMessageProps) => {
-  const { msg, danger } = props;
-  const color = danger ? 'red' : 'blue';
+  const { msg, error } = props;
+  const color = error ? 'red' : 'blue';
 
   return (
     <div
