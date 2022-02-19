@@ -10,10 +10,39 @@ import PasswordChkModal from './PasswordChkModal';
 
 SwiperCore.use([Pagination]);
 
+export interface DetailPageProps {
+  name: string;
+  value: string;
+}
+
 function DetailPage(props: any) {
   const { displayFlg, postingInfo } = props;
   const [showModal, setShowModal] = useState<Boolean>(false);
   const petImgs = postingInfo.contents.imageUrl;
+
+  const TableRecord = (props: DetailPageProps) => {
+    const { name, value } = props;
+    return (
+      <tr className="bg-white border-b hover:bg-gray-100">
+        <td className="py-4 px-6 font-semibold text-gray-900 whitespace-nowrap">
+          {name}
+        </td>
+        <td className="py-4 px-6 text-gray-600 whitespace-nowrap">{value}</td>
+      </tr>
+    );
+  };
+
+  const TextArea = (props: DetailPageProps) => {
+    const { name, value } = props;
+    return (
+      <div className="my-6 2xl:my-12">
+        <p className="text-3xl font-semibold px-8 py-2">{name}</p>
+        <p className="text-gray-600 px-8 py-2 2xl:py-8 w-full break-words">
+          {value}
+        </p>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -77,38 +106,21 @@ function DetailPage(props: any) {
               <div className="overflow-hidden">
                 <table className="table-fixed break-all">
                   <tbody>
-                    <tr className="bg-white border-b hover:bg-gray-100">
-                      <td className="py-4 px-6 font-semibold text-gray-900 whitespace-nowrap">
-                        性別
-                      </td>
-                      <td className="py-4 px-6 text-gray-600 whitespace-nowrap">
-                        {postingInfo.PetSex}
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b hover:bg-gray-100">
-                      <td className="py-4 px-6 font-semibold text-gray-900 whitespace-nowrap">
-                        年齢
-                      </td>
-                      <td className="py-4 px-6 text-gray-600 whitespace-nowrap">
-                        {postingInfo.PetAge} 歳
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b hover:bg-gray-100">
-                      <td className="py-4 px-6 font-semibold text-gray-900 whitespace-nowrap">
-                        離れた日
-                      </td>
-                      <td className="py-4 px-6 text-gray-600 whitespace-nowrap ">
-                        {new Date(postingInfo.LostDate).toLocaleDateString()}
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b hover:bg-gray-100">
-                      <td className="py-4 px-6 font-semibold text-gray-900 whitespace-nowrap">
-                        連絡先
-                      </td>
-                      <td className="py-4 px-6 text-gray-600">
-                        {postingInfo.user.MailAddress}
-                      </td>
-                    </tr>
+                    <TableRecord name="性別" value={postingInfo.PetSex} />
+                    <TableRecord
+                      name="年齢"
+                      value={`${postingInfo.PetAge} 歳`}
+                    />
+                    <TableRecord
+                      name="離れた日"
+                      value={new Date(
+                        postingInfo.LostDate,
+                      ).toLocaleDateString()}
+                    />
+                    <TableRecord
+                      name="連絡先"
+                      value={postingInfo.user.MailAddress}
+                    />
                   </tbody>
                 </table>
               </div>
@@ -116,18 +128,8 @@ function DetailPage(props: any) {
           </div>
         </div>
         <div className="pet-info-detail-section w-full">
-          <div className="pet-info my-6 2xl:my-12">
-            <p className="text-3xl font-semibold px-8 py-2">特徴</p>
-            <p className="text-gray-600 px-8 py-2 2xl:py-8 w-full break-words">
-              {postingInfo.PetInfo}
-            </p>
-          </div>
-          <div className="pet-detail my-6 xl:my-12">
-            <p className="text-3xl font-semibold px-8 py-2">その他の情報</p>
-            <p className="text-gray-600 px-8 py-2 2xl:py-8 w-full break-words">
-              {postingInfo.Detail}
-            </p>
-          </div>
+          <TextArea name="特徴" value={postingInfo.PetInfo} />
+          <TextArea name="その他の情報" value={postingInfo.Detail} />
         </div>
       </div>
     </>

@@ -6,18 +6,18 @@ export interface HeaderMenuListProps {
   link: string;
 }
 
-const HeaderMenuList = (props: HeaderMenuListProps) => {
-  const { classList, value, link } = props;
-  return (
-    <li className="mr-6">
-      <a className={classList} href={link}>
-        {value}
-      </a>
-    </li>
-  );
-};
-
 export function Header() {
+  const HeaderMenuList = (props: HeaderMenuListProps) => {
+    const { classList, value, link } = props;
+    return (
+      <li className="mr-6">
+        <a className={classList} href={link}>
+          {value}
+        </a>
+      </li>
+    );
+  };
+
   return (
     <nav className="flex h-8/100 px-5 items-center justify-between bg-black">
       <Logo />
