@@ -9,6 +9,7 @@ import { getLocations, getPostingById } from '../Api';
 import { IGetLocations } from '../types/Interface';
 import DetailPage from './DetailPage';
 import { ReactComponent as Arrow } from '../images/btn_arrow_icon.svg';
+import { Button } from './Button';
 
 const containerStyle = {
   height: '100%',
@@ -105,14 +106,13 @@ function Map() {
                             <p className="h-3/5 overflow-scroll break-words">
                               {postingInfo.PetInfo}
                             </p>
-                            <button
-                              className="detailPageBtn w-12 top-1/4 -right-12 bg-yellow-400 absolute h-1/2"
+                            <Button
+                              classList="detailPageBtn w-12 top-1/4 -right-12 bg-yellow-400 absolute h-1/2"
+                              value={<Arrow />}
                               onClick={() => {
                                 setdisplayFlg(true);
                               }}
-                            >
-                              <Arrow />
-                            </button>
+                            />
                           </div>
                         </div>
                         <p className="absolute bottom-3 right-3 text-gray-500 ">

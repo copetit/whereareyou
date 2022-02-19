@@ -8,6 +8,7 @@ import { IGetLocations } from '../types/Interface';
 import { ReactComponent as Camera } from '../images/camera_icon.svg';
 import { ReactComponent as InfoMark } from '../images/info_icon.svg';
 import 'react-datepicker/dist/react-datepicker.css';
+import { Button } from './Button';
 
 const ALLOWED_IMG_SIZE: number = 10485760;
 
@@ -494,11 +495,10 @@ function Posting() {
             )}
           </label>
         </div>
-        <input
-          className="posting-btn flex justify-center text-black hover:text-white bg-yellow-400 hover:bg-black rounded-3xl w-1/2 px-6 py-5 mt-10 mb-10 transition ease-in duration-100 cursor-pointer"
-          type="button"
+        <Button
+          classList="posting-btn flex justify-center text-black hover:text-white bg-yellow-400 hover:bg-black rounded-3xl w-1/2 px-6 py-5 mt-10 mb-10 transition ease-in duration-100 cursor-pointer"
           value="登録"
-          onClick={(e) => handleSubmit(onSubmit)()}
+          onClick={handleSubmit(onSubmit)}
         />
       </form>
     </div>

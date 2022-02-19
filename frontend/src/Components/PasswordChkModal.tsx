@@ -1,8 +1,9 @@
-import { IPasswordChkModal } from '../types/Interface';
+import { IPasswordChkModalProps } from '../types/Interface';
 import { ReactComponent as BtnCancel } from '../images/btn_cancel_icon.svg';
 import { ReactComponent as LockMark } from '../images/lock_icon.svg';
+import { Button } from './Button';
 
-function PasswordChkModal(props: Required<IPasswordChkModal>) {
+function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
   const { isOpen, setShowModal } = props;
 
   if (isOpen) {
@@ -12,14 +13,11 @@ function PasswordChkModal(props: Required<IPasswordChkModal>) {
         <div className="modal bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
           <div className="flex flex-col justify-between h-96 relative bg-white w-full max-w-2xl rounded-lg shadow">
             <div className="absolute right-2 top-2">
-              <button
-                type="button"
-                className="text-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center "
-                data-modal-toggle="authentication-modal"
+              <Button
+                classList="text-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                value={<BtnCancel />}
                 onClick={() => setShowModal(false)}
-              >
-                <BtnCancel />
-              </button>
+              />
             </div>
             <form
               className="flex flex-col h-full px-10 py-8 space-y-5 xl:pb-8"
@@ -37,13 +35,11 @@ function PasswordChkModal(props: Required<IPasswordChkModal>) {
                 id="password"
                 className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               />
-
-              <button
-                type="submit"
-                className="modal-btn w-full bg-yellow-400 hover:text-white hover:bg-black font-medium rounded-lg px-5 py-5 text-center transition ease-in duration-100 cursor-pointer"
-              >
-                修正
-              </button>
+              <Button
+                classList="modal-btn w-full bg-yellow-400 hover:text-white hover:bg-black font-medium rounded-lg px-5 py-5 text-center transition ease-in duration-100 cursor-pointer"
+                value="修正"
+                onClick={() => {}}
+              />
             </form>
           </div>
         </div>
