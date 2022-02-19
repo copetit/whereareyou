@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Main from '../Routes/Main';
-import Posting from '../Routes/Posting';
+import { Main } from '../Components/Main';
+import Posting from '../Components/Posting';
 
 const Router = () => {
   return (
