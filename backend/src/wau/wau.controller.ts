@@ -103,7 +103,6 @@ export class WauController {
   }
 
   // InputPWとDBのHashPWの比較
-  @Version('1')
   @ApiBody({
     schema: {
       type: 'object',

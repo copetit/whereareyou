@@ -18,7 +18,11 @@ function DetailPage(props: any) {
   return (
     <>
       {showModal && (
-        <PasswordChkModal isOpen={showModal} setShowModal={setShowModal} />
+        <PasswordChkModal
+          userId={postingInfo.id}
+          isOpen={showModal}
+          setShowModal={setShowModal}
+        />
       )}
       <div
         className={`${

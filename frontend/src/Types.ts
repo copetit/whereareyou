@@ -7,6 +7,7 @@ export interface IGetLocations {
 }
 
 export interface IPasswordChkModal {
+  userId: string;
   isOpen: Boolean;
   setShowModal: Dispatch<SetStateAction<Boolean>>;
 }
