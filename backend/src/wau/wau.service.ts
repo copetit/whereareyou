@@ -182,17 +182,15 @@ export class WauService {
 
   async getUser(id: number) {
     const user = await this.userRepository.find({
-      where: {
-        id,
-      },
+      id,
     });
     return user;
   }
 
-  async canActivate(inputPW: string, id: number) {
+  async isCorrectPassword(inputPW: string, id: number) {
     const [getUser] = await this.getUser(id);
     const userPW = getUser.Password;
-    const reuslt = bcrypt.compareSync(inputPW, userPW);
-    return reuslt ? true : false;
+    const result = bcrypt.compareSync(inputPW, userPW);
+    return result ? true : false;
   }
 }

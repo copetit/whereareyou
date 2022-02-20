@@ -114,7 +114,7 @@ export class WauController {
   })
   @Post('canActivate')
   canActivate(@Body() { inputPW, id }) {
-    const result = this.wauService.canActivate(inputPW, id);
+    const result = this.wauService.isCorrectPassword(inputPW, id);
     return result;
   }
 }
