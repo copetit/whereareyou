@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 import {
   CreatePostingDto,
   CreatePostingOutput,
@@ -177,5 +178,19 @@ export class WauService {
         error,
       };
     }
+  }
+
+  async getUser(id: number) {
+    const user = await this.userRepository.find({
+      id,
+    });
+    return user;
+  }
+
+  async isCorrectPassword(inputPW: string, id: number) {
+    const [getUser] = await this.getUser(id);
+    const userPW = getUser.Password;
+    const result = bcrypt.compareSync(inputPW, userPW);
+    return result ? true : false;
   }
 }
