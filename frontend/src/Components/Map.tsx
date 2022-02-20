@@ -89,6 +89,9 @@ function Map() {
                   {/* MarkerをクリックするとinfoWindowが表示される */}
                   {selected === result.id && postingInfo && (
                     <InfoWindow
+                      options={{
+                        pixelOffset: new window.google.maps.Size(0, -15),
+                      }}
                       onCloseClick={() => {
                         setdisplayFlg(false);
                         setSelected(null);
