@@ -6,9 +6,9 @@ import { nowDate, nowMonth, nowYear } from '../utils/getTime';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { IGetLocations } from '../types/Interface';
 import { ReactComponent as Camera } from '../images/camera_icon.svg';
-import { ReactComponent as InfoMark } from '../images/info_icon.svg';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Button } from './Button';
+import { AlertMessage } from './AlertMessage';
 
 const ALLOWED_IMG_SIZE: number = 10485760;
 
@@ -259,29 +259,21 @@ function Posting() {
                 ></input>
                 <img className="thumbnail" src={imgTextFive} alt="" />
               </label>
-              {errors.fileOne && (
-                <p className="text-white bg-red-500">
-                  {errors.fileOne.message}
-                </p>
-              )}
-              {fileSizeError && (
-                <p className="text-white bg-red-500">
-                  イメージは10MBまでアップロード可能です
-                </p>
-              )}
             </div>
-            <div
-              className="flex p-4 mb-4 text-lg text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800"
-              role="alert"
-            >
-              <InfoMark />
-              <div>
-                <span>
-                  ペットの画像は「JPG」「JPEG」「PNG」「GIF」
-                  のいずれかのファイル形式のみです。
-                </span>
-              </div>
-            </div>
+            {fileSizeError && (
+              <AlertMessage
+                msg="イメージは10MBまでアップロード可能です"
+                color="red"
+              />
+            )}
+            {errors.fileOne && (
+              <AlertMessage msg={errors.fileOne.message} color="red" />
+            )}
+            <AlertMessage
+              msg="ペットの画像は「JPG」「JPEG」「PNG」「GIF」
+          のいずれかのファイル形式のみです"
+              color="blue"
+            />
           </div>
           <label className="form-label w-1/2">
             <div className="flex items-center">
@@ -295,14 +287,14 @@ function Posting() {
                 required: 'ペットの名前を入力してください',
                 maxLength: {
                   value: 20,
-                  message: 'ペットの名前は20文字まで入力可能です。',
+                  message: 'ペットの名前は20文字まで入力可能です',
                 },
                 onChange: (event) => changePetName(event),
               })}
               // value={petName}
             />
             {errors.PetName && (
-              <p className="text-white bg-red-500">{errors.PetName.message}</p>
+              <AlertMessage msg={errors.PetName.message} color="red" />
             )}
           </label>
           <label className="form-label w-1/2">
@@ -330,15 +322,15 @@ function Posting() {
               className="text-input"
               type="number"
               {...register('PetAge', {
-                required: 'ペットの年齢を入力してください。',
-                min: { value: 0, message: '0~100歳まで入力可能です。' },
-                max: { value: 100, message: '0~100歳まで入力可能です。' },
+                required: 'ペットの年齢を入力してください',
+                min: { value: 0, message: '0~100歳まで入力可能です' },
+                max: { value: 100, message: '0~100歳まで入力可能です' },
                 onChange: (event) => changePetAge(event),
               })}
               value={petAge}
             />
             {errors.PetAge && (
-              <p className="text-white bg-red-500">{errors.PetAge.message}</p>
+              <AlertMessage msg={errors.PetAge.message} color="red" />
             )}
           </label>
           <label className="form-label">
@@ -349,17 +341,17 @@ function Posting() {
             <textarea
               className="text-input h-32"
               {...register('PetInfo', {
-                required: '特徴を入力してください',
+                required: 'ペットの特徴を入力してください',
                 maxLength: {
                   value: 255,
-                  message: '特徴は255文字まで入力可能です。',
+                  message: 'ペットの特徴は255文字まで入力可能です',
                 },
                 onChange: (event) => changePetInfo(event),
               })}
               // value={petInfo}
             ></textarea>
             {errors.PetInfo && (
-              <p className="text-white bg-red-500">{errors.PetInfo.message}</p>
+              <AlertMessage msg={errors.PetInfo.message} color="red" />
             )}
           </label>
           <label className="form-label">
@@ -369,13 +361,13 @@ function Posting() {
               {...register('Detail', {
                 maxLength: {
                   value: 255,
-                  message: 'その他の情報は255文字まで入力可能です。',
+                  message: 'その他の情報は255文字まで入力可能です',
                 },
                 onChange: (event) => changeDetail(event),
               })}
             ></textarea>
             {errors.Detail && (
-              <p className="text-white bg-red-500">{errors.Detail.message}</p>
+              <AlertMessage msg={errors.Detail.message} color="red" />
             )}
           </label>
           <label className="form-label w-1/2">
@@ -403,17 +395,17 @@ function Posting() {
                 required: '離れた場所を入力してください',
                 maxLength: {
                   value: 255,
-                  message: '離れた場所は255文字まで入力可能です。',
+                  message: '離れた場所は255文字まで入力可能です',
                 },
                 onChange: (event) => changeAddress(event),
               })}
               value={address}
             />
             {errors.Address && (
-              <p className="text-white bg-red-500">{errors.Address.message}</p>
+              <AlertMessage msg={errors.Address.message} color="red" />
             )}
           </label>
-          <div className="posting-map w-full">
+          <div className="posting-map w-full mb-7">
             <LoadScript
               googleMapsApiKey={
                 process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'
@@ -438,12 +430,10 @@ function Posting() {
                 )}
               </GoogleMap>
             </LoadScript>
-            {errorLocation && (
-              <p className="text-white bg-red-500">
-                離れた場所をクリックしてください。
-              </p>
-            )}
           </div>
+          {errorLocation && (
+            <AlertMessage msg="離れた場所をクリックしてください" color="blue" />
+          )}
         </div>
         <p className="section-title">飼い主の情報</p>
         <div className="user-info p-14">
@@ -467,9 +457,7 @@ function Posting() {
               })}
             />
             {errors.MailAddress && (
-              <p className="text-white bg-red-500">
-                {errors.MailAddress.message}
-              </p>
+              <AlertMessage msg={errors.MailAddress.message} color="red" />
             )}
           </label>
           <label className="form-label">
@@ -484,14 +472,18 @@ function Posting() {
               {...register('Password', {
                 required: 'パスワードを入力してください',
                 maxLength: {
-                  value: 255,
-                  message: 'パスワードは255文字まで入力可能です。',
+                  value: 32,
+                  message: 'パスワードは32文字以下まで設定可能です',
+                },
+                minLength: {
+                  value: 8,
+                  message: 'パスワードは8文字以上から設定可能です',
                 },
                 onChange: (event) => changePassword(event),
               })}
             />
             {errors.Password && (
-              <p className="text-white bg-red-500">{errors.Password.message}</p>
+              <AlertMessage msg={errors.Password.message} color="red" />
             )}
           </label>
         </div>
