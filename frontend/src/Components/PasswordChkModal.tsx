@@ -1,10 +1,33 @@
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { canActivate } from '../Api';
 import { IPasswordChkModalProps } from '../types/Interface';
 import { ReactComponent as BtnCancel } from '../images/btn_cancel_icon.svg';
 import { ReactComponent as LockMark } from '../images/lock_icon.svg';
 import { Button } from './Button';
 
 function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
-  const { isOpen, setShowModal } = props;
+  const { isOpen, setShowModal, userId } = props;
+  const [inputPW, setInputPW] = useState('');
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  async function onSubmit(e: any) {
+    try {
+      const { data: result } = await canActivate({ id: userId, inputPW });
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const changePassword = (event: any) => {
+    setInputPW(event.target.value);
+  };
 
   if (isOpen) {
     return (
@@ -31,14 +54,17 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
               </h3>
               <input
                 type="password"
-                name="password"
                 id="password"
                 className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                {...register('password', {
+                  required: 'パスワードを入力してください',
+                  onChange: (event) => changePassword(event),
+                })}
               />
               <Button
                 classList="modal-btn w-full bg-yellow-400 hover:text-white hover:bg-black font-medium rounded-lg px-5 py-5 text-center transition ease-in duration-100 cursor-pointer"
                 value="修正"
-                onClick={() => {}}
+                onClick={() => handleSubmit(onSubmit)()}
               />
             </form>
           </div>

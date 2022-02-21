@@ -16,3 +16,6 @@ export const uploadFiles = (data: FormData) =>
 const postHeader = { 'content-type': 'application/json' };
 export const createPosting = (data: {}) =>
   api.post('/wau/v1/posting', data, { headers: postHeader });
+
+export const canActivate = (data: {}) =>
+  api.post('/wau/canActivate', data, { headers: postHeader });

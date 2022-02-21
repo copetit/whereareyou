@@ -263,16 +263,16 @@ function Posting() {
             {fileSizeError && (
               <AlertMessage
                 msg="イメージは10MBまでアップロード可能です"
-                error={true}
+                color="red"
               />
             )}
             {errors.fileOne && (
-              <AlertMessage msg={errors.fileOne.message} error={true} />
+              <AlertMessage msg={errors.fileOne.message} color="red" />
             )}
             <AlertMessage
               msg="ペットの画像は「JPG」「JPEG」「PNG」「GIF」
           のいずれかのファイル形式のみです"
-              error={false}
+              color="blue"
             />
           </div>
           <label className="form-label w-1/2">
@@ -294,7 +294,7 @@ function Posting() {
               // value={petName}
             />
             {errors.PetName && (
-              <AlertMessage msg={errors.PetName.message} error={true} />
+              <AlertMessage msg={errors.PetName.message} color="red" />
             )}
           </label>
           <label className="form-label w-1/2">
@@ -330,7 +330,7 @@ function Posting() {
               value={petAge}
             />
             {errors.PetAge && (
-              <AlertMessage msg={errors.PetAge.message} error={true} />
+              <AlertMessage msg={errors.PetAge.message} color="red" />
             )}
           </label>
           <label className="form-label">
@@ -351,7 +351,7 @@ function Posting() {
               // value={petInfo}
             ></textarea>
             {errors.PetInfo && (
-              <AlertMessage msg={errors.PetInfo.message} error={true} />
+              <AlertMessage msg={errors.PetInfo.message} color="red" />
             )}
           </label>
           <label className="form-label">
@@ -367,7 +367,7 @@ function Posting() {
               })}
             ></textarea>
             {errors.Detail && (
-              <AlertMessage msg={errors.Detail.message} error={true} />
+              <AlertMessage msg={errors.Detail.message} color="red" />
             )}
           </label>
           <label className="form-label w-1/2">
@@ -402,7 +402,7 @@ function Posting() {
               value={address}
             />
             {errors.Address && (
-              <AlertMessage msg={errors.Address.message} error={true} />
+              <AlertMessage msg={errors.Address.message} color="red" />
             )}
           </label>
           <div className="posting-map w-full mb-7">
@@ -432,10 +432,7 @@ function Posting() {
             </LoadScript>
           </div>
           {errorLocation && (
-            <AlertMessage
-              msg="離れた場所をクリックしてください"
-              error={false}
-            />
+            <AlertMessage msg="離れた場所をクリックしてください" color="blue" />
           )}
         </div>
         <p className="section-title">飼い主の情報</p>
@@ -460,7 +457,7 @@ function Posting() {
               })}
             />
             {errors.MailAddress && (
-              <AlertMessage msg={errors.MailAddress.message} error={true} />
+              <AlertMessage msg={errors.MailAddress.message} color="red" />
             )}
           </label>
           <label className="form-label">
@@ -475,14 +472,18 @@ function Posting() {
               {...register('Password', {
                 required: 'パスワードを入力してください',
                 maxLength: {
-                  value: 255,
-                  message: 'パスワードは255文字まで入力可能です',
+                  value: 32,
+                  message: 'パスワードは32文字以下まで設定可能です',
+                },
+                minLength: {
+                  value: 8,
+                  message: 'パスワードは8文字以上から設定可能です',
                 },
                 onChange: (event) => changePassword(event),
               })}
             />
             {errors.Password && (
-              <AlertMessage msg={errors.Password.message} error={true} />
+              <AlertMessage msg={errors.Password.message} color="red" />
             )}
           </label>
         </div>

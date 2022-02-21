@@ -49,17 +49,6 @@ export class WauController {
     return this.wauService.getLocationInfo();
   }
 
-  // // Contents情報作成API
-  // @ApiCreatedResponse({
-  //   description: 'The record has been successfully created.',
-  // })
-  // @ApiForbiddenResponse({ description: 'Forbidden.' })
-  // @Version('1')
-  // @Post('contents')
-  // createContents(@Body() createContentsDto: CreateContentsDto) {
-  //   return this.wauService.createContents(createContentsDto);
-  // }
-
   // Posting情報作成API
   @ApiCreatedResponse({
     description: 'The record has been successfully created.',
@@ -111,5 +100,21 @@ export class WauController {
     let videoUrl: string[] = [];
     files.map((file) => imageUrl.push(file.path));
     return { imageUrl, videoUrl };
+  }
+
+  // InputPWとDBのHashPWの比較
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        inputPW: { type: 'string', example: '12345678' },
+        id: { type: 'number', example: 1 },
+      },
+    },
+  })
+  @Post('canActivate')
+  canActivate(@Body() { inputPW, id }) {
+    const result = this.wauService.isCorrectPassword(inputPW, id);
+    return result;
   }
 }
