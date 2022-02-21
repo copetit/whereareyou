@@ -475,8 +475,12 @@ function Posting() {
               {...register('Password', {
                 required: 'パスワードを入力してください',
                 maxLength: {
-                  value: 255,
-                  message: 'パスワードは255文字まで入力可能です',
+                  value: 32,
+                  message: 'パスワードは32文字以下まで設定可能です',
+                },
+                minLength: {
+                  value: 8,
+                  message: 'パスワードは8文字以上から設定可能です',
                 },
                 onChange: (event) => changePassword(event),
               })}
