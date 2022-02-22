@@ -492,7 +492,7 @@ function Posting() {
           </label>
         </div>
         <Button
-          classList="posting-btn flex justify-center text-black hover:text-white bg-yellow-400 hover:bg-black rounded-3xl w-1/2 px-6 py-5 mt-10 mb-10 transition ease-in duration-100 cursor-pointer"
+          classList="posting-btn flex justify-center w-1/2 p-5 mt-10 mb-10"
           value="登録"
           onClick={handleSubmit(onSubmit)}
         />

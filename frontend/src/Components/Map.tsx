@@ -117,7 +117,7 @@ function Map() {
                               {postingInfo.PetInfo}
                             </p>
                             <Button
-                              classList="detailPageBtn w-12 top-1/4 -right-12 bg-yellow-400 absolute h-1/2"
+                              classList="detailPageBtn w-12 h-1/2 top-1/4 -right-12 absolute"
                               value={<Arrow />}
                               onClick={() => {
                                 setdisplayFlg(true);
@@ -125,7 +125,7 @@ function Map() {
                             />
                           </div>
                         </div>
-                        <p className="absolute bottom-3 right-3 text-gray-500 ">
+                        <p className="absolute bottom-3 right-3 text-gray-500">
                           {new Date(postingInfo.LostDate).toLocaleDateString()}
                         </p>
                       </>

@@ -32,15 +32,6 @@
   .form-label {
     @apply block uppercase text-gray-700 text-2xl font-bold mb-7;
   }
-  .btn {
-    @apply font-bold py-2 px-4 rounded;
-  }
-  .btn-blue {
-    @apply bg-blue-500 text-white;
-  }
-  .btn-blue:hover {
-    @apply bg-blue-700;
-  }
   .section-title {
     @apply flex justify-center p-4 bg-gray-200;
   }
