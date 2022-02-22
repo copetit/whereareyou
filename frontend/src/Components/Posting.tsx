@@ -500,7 +500,7 @@ function Posting() {
           </label>
         </div>
         <Button
-          classList="posting-btn flex justify-center w-1/2 p-5 mb-10"
+          classList="posting-btn"
           value="登録"
           onClick={handleSubmit(onSubmit)}
         />

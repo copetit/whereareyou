@@ -123,7 +123,11 @@ input[type='file'] {
   height: 32rem;
 }
 .posting-btn {
+  @apply flex;
   @apply justify-center;
+  @apply w-1/2;
+  @apply p-5;
+  @apply mb-10;
   margin-left: auto;
   margin-right: auto;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
@@ -131,8 +135,13 @@ input[type='file'] {
 }
 
 /* detail slide page */
-.detailPageBtn {
+.detail-page-btn {
   border-radius: 0 30px 30px 0;
+  @apply w-12;
+  @apply h-1/2;
+  @apply top-1/4;
+  @apply -right-12;
+  @apply absolute;
 }
 .page-slide-show {
   @apply right-0;
@@ -189,4 +198,5 @@ table {
 }
 .modal-btn {
   margin-top: auto !important;
+  @apply p-5;
 }

@@ -129,7 +129,7 @@ function Map() {
                               {postingInfo.PetInfo}
                             </p>
                             <Button
-                              classList="detailPageBtn w-12 h-1/2 top-1/4 -right-12 absolute"
+                              classList="detail-page-btn"
                               value={<Arrow />}
                               onClick={() => {
                                 setdisplayFlg(true);

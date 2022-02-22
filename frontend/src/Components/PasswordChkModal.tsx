@@ -37,7 +37,7 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
           <div className="flex flex-col justify-between h-96 relative bg-white w-full max-w-2xl rounded-lg shadow">
             <div className="absolute right-2 top-2">
               <CancelButton
-                classList="inline-flex items-center p-1.5 ml-auto "
+                classList="p-1.5"
                 value={<BtnCancel />}
                 onClick={() => setShowModal(false)}
               />
@@ -62,7 +62,7 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
                 })}
               />
               <Button
-                classList="modal-btn p-5"
+                classList="modal-btn"
                 value="修正"
                 onClick={() => handleSubmit(onSubmit)()}
               />
