@@ -18,8 +18,10 @@ const containerStyle = {
 
 function Map() {
   const [selected, setSelected] = useState<Number | null>();
-  const [location, setLocation] =
-    useState<Pick<IGetLocations, 'lat' | 'lng'>>();
+  const [location, setLocation] = useState<Pick<IGetLocations, 'lat' | 'lng'>>({
+    lat: 35.68183,
+    lng: 139.76728,
+  });
   const [results, setResult] = useState([]);
   const [postingInfo, setPostingInfo] = useState<any>();
   const [displayFlg, setdisplayFlg] = useState<Boolean>(false);

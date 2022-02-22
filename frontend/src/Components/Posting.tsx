@@ -25,8 +25,12 @@ function Posting() {
   const [detail, setDetail] = useState('');
   const [lostDate, setLostDate] = useState<Date | null>(new Date());
   const [address, setAddress] = useState('');
-  const [currentLocation, setCurrentLocation] =
-    useState<Pick<IGetLocations, 'lat' | 'lng'>>();
+  const [currentLocation, setCurrentLocation] = useState<
+    Pick<IGetLocations, 'lat' | 'lng'>
+  >({
+    lat: 35.68183,
+    lng: 139.76728,
+  });
   const [location, setLocation] =
     useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [mailladdress, setMailaddress] = useState('');
