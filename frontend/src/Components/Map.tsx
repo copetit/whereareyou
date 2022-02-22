@@ -18,20 +18,31 @@ const containerStyle = {
 
 function Map() {
   const [selected, setSelected] = useState<Number | null>();
-  const [location, setLocation] = useState<Pick<IGetLocations, 'lat' | 'lng'>>({
-    lat: 35.68183,
-    lng: 139.76728,
-  });
+  const [location, setLocation] =
+    useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [results, setResult] = useState([]);
   const [postingInfo, setPostingInfo] = useState<any>();
   const [displayFlg, setdisplayFlg] = useState<Boolean>(false);
 
   async function getGeoLocation() {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      const { latitude, longitude } = position.coords;
-      setLocation({ lat: latitude, lng: longitude });
-    });
+    if (navigator.geolocation) {
+      // TODO 位置情報許可の窓が表示されるタイミングなので、Loading中だと表示させる
+      console.log('Locating...');
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          const { latitude, longitude } = position.coords;
+          setLocation({ lat: latitude, lng: longitude });
+        },
+        () => {
+          setLocation({
+            lat: 35.68183,
+            lng: 139.76728,
+          });
+        },
+      );
+    }
   }
+
   async function getPosting(id: Number) {
     try {
       const [response] = await getPostingById(id);
@@ -40,6 +51,7 @@ function Map() {
       console.error(error);
     }
   }
+
   async function getMap() {
     try {
       const response = await getLocations();
