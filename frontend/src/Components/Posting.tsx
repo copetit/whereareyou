@@ -149,10 +149,22 @@ function Posting() {
   };
 
   async function getGeoLocation() {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      const { latitude, longitude } = position.coords;
-      setCurrentLocation({ lat: latitude, lng: longitude });
-    });
+    if (navigator.geolocation) {
+      // TODO 位置情報許可の窓が表示されるタイミングなので、Loading中だと表示させる
+      console.log('Locating...');
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          const { latitude, longitude } = position.coords;
+          setCurrentLocation({ lat: latitude, lng: longitude });
+        },
+        () => {
+          setCurrentLocation({
+            lat: 35.68183,
+            lng: 139.76728,
+          });
+        },
+      );
+    }
   }
 
   async function onSubmit(e: any) {
@@ -205,7 +217,7 @@ function Posting() {
 
   return (
     <div className="form-container flex justify-center">
-      <form className="posting-form w-1/2 max-w-5xl bg-gray-50 ">
+      <form className="posting-form w-1/2 max-w-5xl bg-gray-50">
         <p className="section-title">ペットの情報</p>
         <div className="pet-info p-14">
           <div className="mb-10">
@@ -488,7 +500,7 @@ function Posting() {
           </label>
         </div>
         <Button
-          classList="posting-btn flex justify-center text-black hover:text-white bg-yellow-400 hover:bg-black rounded-3xl w-1/2 px-6 py-5 mt-10 mb-10 transition ease-in duration-100 cursor-pointer"
+          classList="posting-btn"
           value="登録"
           onClick={handleSubmit(onSubmit)}
         />

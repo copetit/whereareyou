@@ -4,7 +4,7 @@ import { canActivate } from '../Api';
 import { IPasswordChkModalProps } from '../types/Interface';
 import { ReactComponent as BtnCancel } from '../images/btn_cancel_icon.svg';
 import { ReactComponent as LockMark } from '../images/lock_icon.svg';
-import { Button } from './Button';
+import { Button, CancelButton } from './Button';
 
 function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
   const { isOpen, setShowModal, userId } = props;
@@ -36,8 +36,8 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
         <div className="modal bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
           <div className="flex flex-col justify-between h-96 relative bg-white w-full max-w-2xl rounded-lg shadow">
             <div className="absolute right-2 top-2">
-              <Button
-                classList="text-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+              <CancelButton
+                classList="p-1.5"
                 value={<BtnCancel />}
                 onClick={() => setShowModal(false)}
               />
@@ -62,7 +62,7 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
                 })}
               />
               <Button
-                classList="modal-btn w-full bg-yellow-400 hover:text-white hover:bg-black font-medium rounded-lg px-5 py-5 text-center transition ease-in duration-100 cursor-pointer"
+                classList="modal-btn"
                 value="修正"
                 onClick={() => handleSubmit(onSubmit)()}
               />

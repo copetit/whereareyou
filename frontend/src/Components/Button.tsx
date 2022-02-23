@@ -12,7 +12,7 @@ export function PostingButton() {
   return (
     <div className="absolute h-24 w-24 bottom-24 left-5">
       <Button
-        classList="p-0 w-24 h-24 bg-yellow-400 rounded-full hover:bg-black transition ease-in duration-200 focus:outline-none shadow-btn"
+        classList="shadow-btn p-0 w-24 h-24 bg-yellow-400 rounded-full"
         value={<Plus />}
         onClick={clickHandler}
       />
@@ -23,9 +23,24 @@ export function PostingButton() {
 export function Button(props: IButtonProps) {
   const { classList, value, onClick } = props;
   return (
-    <button type="button" className={classList} onClick={onClick}>
+    <button
+      type="button"
+      className={` bg-yellow-400 hover:bg-black text-black hover:text-white rounded-lg transition ease-in duration-100 cursor-pointer ${classList}`}
+      onClick={onClick}
+    >
       {value}
     </button>
   );
 }
-export function CancelButton() {}
+export function CancelButton(props: IButtonProps) {
+  const { classList, value, onClick } = props;
+  return (
+    <button
+      type="button"
+      className={`text-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg ${classList}`}
+      onClick={onClick}
+    >
+      {value}
+    </button>
+  );
+}

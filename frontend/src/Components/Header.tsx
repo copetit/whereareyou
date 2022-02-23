@@ -20,7 +20,9 @@ export function Header() {
 
   return (
     <nav className="flex h-8/100 px-5 items-center justify-between bg-black">
-      <Logo />
+      <a className="h-3/5" href="/wau">
+        <Logo />
+      </a>
       <ul className="flex">
         <HeaderMenuList
           classList="text-white hover:text-yellow-400 font-semibold text-3xl 2xl:text-4xl"

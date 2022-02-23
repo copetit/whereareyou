@@ -32,15 +32,6 @@
   .form-label {
     @apply block uppercase text-gray-700 text-2xl font-bold mb-7;
   }
-  .btn {
-    @apply font-bold py-2 px-4 rounded;
-  }
-  .btn-blue {
-    @apply bg-blue-500 text-white;
-  }
-  .btn-blue:hover {
-    @apply bg-blue-700;
-  }
   .section-title {
     @apply flex justify-center p-4 bg-gray-200;
   }
@@ -132,7 +123,11 @@ input[type='file'] {
   height: 32rem;
 }
 .posting-btn {
+  @apply flex;
   @apply justify-center;
+  @apply w-1/2;
+  @apply p-5;
+  @apply mb-10;
   margin-left: auto;
   margin-right: auto;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
@@ -140,8 +135,13 @@ input[type='file'] {
 }
 
 /* detail slide page */
-.detailPageBtn {
+.detail-page-btn {
   border-radius: 0 30px 30px 0;
+  @apply w-12;
+  @apply h-1/2;
+  @apply top-1/4;
+  @apply -right-12;
+  @apply absolute;
 }
 .page-slide-show {
   @apply right-0;
@@ -198,4 +198,5 @@ table {
 }
 .modal-btn {
   margin-top: auto !important;
+  @apply p-5;
 }
