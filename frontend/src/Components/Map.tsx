@@ -9,6 +9,7 @@ import { getLocations, getPostingById } from '../Api';
 import { IGetLocations } from '../types/Interface';
 import DetailPage from './DetailPage';
 import { ReactComponent as Arrow } from '../images/btn_arrow_icon.svg';
+import mapPin from '../images/map_pin.png';
 import { Button } from './Button';
 
 const containerStyle = {
@@ -69,6 +70,10 @@ function Map() {
             return (
               <React.Fragment key={result.id}>
                 <Marker
+                  icon={{
+                    url: mapPin,
+                    scaledSize: new window.google.maps.Size(38, 55),
+                  }}
                   position={{
                     lat: Number(result.lat),
                     lng: Number(result.lng),
@@ -84,6 +89,9 @@ function Map() {
                   {/* MarkerをクリックするとinfoWindowが表示される */}
                   {selected === result.id && postingInfo && (
                     <InfoWindow
+                      options={{
+                        pixelOffset: new window.google.maps.Size(0, -15),
+                      }}
                       onCloseClick={() => {
                         setdisplayFlg(false);
                         setSelected(null);
