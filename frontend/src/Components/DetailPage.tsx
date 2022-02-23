@@ -12,6 +12,7 @@ export interface DetailPageProps {
 function DetailPage(props: any) {
   const { displayFlg, postingInfo } = props;
   const [showModal, setShowModal] = useState<Boolean>(false);
+  const [modalType, setModalType] = useState<string>('');
   const petImgs = postingInfo.contents.imageUrl;
 
   const TableRecord = (props: DetailPageProps) => {
@@ -38,6 +39,11 @@ function DetailPage(props: any) {
     );
   };
 
+  const setStatesModal = (type: string) => {
+    setShowModal(true);
+    setModalType(type);
+  };
+
   return (
     <>
       {showModal && (
@@ -45,6 +51,7 @@ function DetailPage(props: any) {
           userId={postingInfo.id}
           isOpen={showModal}
           setShowModal={setShowModal}
+          modalType={modalType}
         />
       )}
       <div
@@ -54,10 +61,10 @@ function DetailPage(props: any) {
       >
         {/* 更新画面、削除モーダルにすすめるように設定する */}
         <div className="icon-section flex justify-end items-center mb-8">
-          <a href="#" onClick={() => setShowModal(true)}>
+          <a href="#" onClick={() => setStatesModal('修正')}>
             <EditMark />
           </a>
-          <a href="#">
+          <a href="#" onClick={() => setStatesModal('削除')}>
             <DeleteMark />
           </a>
         </div>
