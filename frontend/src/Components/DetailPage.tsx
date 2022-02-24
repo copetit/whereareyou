@@ -72,39 +72,41 @@ function DetailPage(props: any) {
           </a>
         </div>
         <PetImgSlide petImgs={petImgs} />
-        <div className="pet-info-section flex justify-center items-center flex-wrap mb-8">
-          <div className="pet-name break-words">
-            <p className="text-5xl 2xl:text-6xl p-5">{postingInfo.PetName}</p>
-          </div>
-          <div className="m-5 overflow-x-auto">
-            <div className="inline-block py-2 min-w-full px-8">
-              <div className="overflow-hidden">
-                <table className="table-fixed break-all">
-                  <tbody>
-                    <TableRecord name="性別" value={postingInfo.PetSex} />
-                    <TableRecord
-                      name="年齢"
-                      value={`${postingInfo.PetAge} 歳`}
-                    />
-                    <TableRecord
-                      name="離れた日"
-                      value={new Date(
-                        postingInfo.LostDate,
-                      ).toLocaleDateString()}
-                    />
-                    <TableRecord
-                      name="連絡先"
-                      value={postingInfo.user.MailAddress}
-                    />
-                  </tbody>
-                </table>
+        <div className="pet-info-section flex flex-col mx-auto">
+          <div className="flex justify-center items-center flex-wrap mb-8">
+            <div className="pet-name break-words">
+              <p className="text-5xl 2xl:text-6xl p-5">{postingInfo.PetName}</p>
+            </div>
+            <div className="m-5 overflow-x-auto">
+              <div className="inline-block py-2 min-w-full px-8">
+                <div className="overflow-hidden">
+                  <table className="table-fixed break-all">
+                    <tbody>
+                      <TableRecord name="性別" value={postingInfo.PetSex} />
+                      <TableRecord
+                        name="年齢"
+                        value={`${postingInfo.PetAge} 歳`}
+                      />
+                      <TableRecord
+                        name="離れた日"
+                        value={new Date(
+                          postingInfo.LostDate,
+                        ).toLocaleDateString()}
+                      />
+                      <TableRecord
+                        name="連絡先"
+                        value={postingInfo.user.MailAddress}
+                      />
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="pet-info-detail-section w-full">
-          <TextArea name="特徴" value={postingInfo.PetInfo} />
-          <TextArea name="その他の情報" value={postingInfo.Detail} />
+          <div className="pet-detail-info border-l border-r border-solid divide-gray-400">
+            <TextArea name="特徴" value={postingInfo.PetInfo} />
+            <TextArea name="その他の情報" value={postingInfo.Detail} />
+          </div>
         </div>
       </div>
     </>

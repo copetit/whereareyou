@@ -16,7 +16,7 @@ module.exports = {
         '30/100': '30%',
       },
       minHeight: {
-        profileCard: '20rem',
+        profileCard: '22rem',
       },
       minWidth: {
         profileCard: '20rem',
