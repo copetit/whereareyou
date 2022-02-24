@@ -503,6 +503,7 @@ function Posting() {
           classList="posting-btn"
           value="登録"
           onClick={handleSubmit(onSubmit)}
+          btnColor="bg-yellow-400"
         />
       </form>
     </div>
