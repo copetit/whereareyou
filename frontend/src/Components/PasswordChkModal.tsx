@@ -7,7 +7,7 @@ import { ReactComponent as LockMark } from '../images/lock_icon.svg';
 import { Button, CancelButton } from './Button';
 
 function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
-  const { isOpen, setShowModal, userId, modalType } = props;
+  const { isOpen, setShowModal, userId, modalType, btnColor } = props;
   const [inputPW, setInputPW] = useState('');
 
   const {
@@ -65,6 +65,7 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
                 classList="modal-btn"
                 value={modalType}
                 onClick={() => handleSubmit(onSubmit)()}
+                btnColor={btnColor}
               />
             </form>
           </div>

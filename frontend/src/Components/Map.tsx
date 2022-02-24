@@ -134,6 +134,7 @@ function Map() {
                               onClick={() => {
                                 setdisplayFlg(true);
                               }}
+                              btnColor="bg-yellow-400"
                             />
                           </div>
                         </div>

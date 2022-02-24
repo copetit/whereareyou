@@ -13,6 +13,7 @@ function DetailPage(props: any) {
   const { displayFlg, postingInfo } = props;
   const [showModal, setShowModal] = useState<Boolean>(false);
   const [modalType, setModalType] = useState<string>('');
+  const [btnColor, setbtnColor] = useState<string>('');
   const petImgs = postingInfo.contents.imageUrl;
 
   const TableRecord = (props: DetailPageProps) => {
@@ -39,9 +40,10 @@ function DetailPage(props: any) {
     );
   };
 
-  const setStatesModal = (type: string) => {
+  const setStatesModal = (type: string, btnColor: string) => {
     setShowModal(true);
     setModalType(type);
+    setbtnColor(btnColor);
   };
 
   return (
@@ -52,6 +54,7 @@ function DetailPage(props: any) {
           isOpen={showModal}
           setShowModal={setShowModal}
           modalType={modalType}
+          btnColor={btnColor}
         />
       )}
       <div
@@ -61,10 +64,10 @@ function DetailPage(props: any) {
       >
         {/* 更新画面、削除モーダルにすすめるように設定する */}
         <div className="icon-section flex justify-end items-center mb-8">
-          <a href="#" onClick={() => setStatesModal('修正')}>
+          <a href="#" onClick={() => setStatesModal('修正', 'bg-yellow-400')}>
             <EditMark />
           </a>
-          <a href="#" onClick={() => setStatesModal('削除')}>
+          <a href="#" onClick={() => setStatesModal('削除', 'bg-red-500')}>
             <DeleteMark />
           </a>
         </div>

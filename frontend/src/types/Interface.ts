@@ -11,4 +11,5 @@ export interface IPasswordChkModalProps {
   setShowModal: Dispatch<SetStateAction<Boolean>>;
   userId: number;
   modalType: string;
+  btnColor: string;
 }
