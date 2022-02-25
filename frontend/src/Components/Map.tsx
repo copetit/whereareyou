@@ -23,6 +23,17 @@ function Map() {
   const [results, setResult] = useState([]);
   const [postingInfo, setPostingInfo] = useState<any>();
   const [displayFlg, setdisplayFlg] = useState<Boolean>(false);
+  const [pixelOffset, setPixelOffset] = useState<undefined | google.maps.Size>(
+    undefined,
+  );
+  const [scaledSize, setScaledSize] = useState<undefined | google.maps.Size>(
+    undefined,
+  );
+
+  const createSize = () => {
+    setPixelOffset(new window.google.maps.Size(0, -15));
+    setScaledSize(new window.google.maps.Size(35, 50));
+  };
 
   async function getGeoLocation() {
     if (navigator.geolocation) {
@@ -70,6 +81,7 @@ function Map() {
     <div id="map" className="h-94/100 w-full">
       <LoadScript
         googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'}
+        onLoad={() => createSize()}
       >
         {/* map表示の初期値 */}
         <GoogleMap
@@ -86,7 +98,7 @@ function Map() {
                 <Marker
                   icon={{
                     url: mapPin,
-                    scaledSize: new window.google.maps.Size(38, 55),
+                    scaledSize: scaledSize,
                   }}
                   position={{
                     lat: Number(result.lat),
@@ -100,11 +112,10 @@ function Map() {
                     });
                   }}
                 >
-                  {/* MarkerをクリックするとinfoWindowが表示される */}
                   {selected === result.id && postingInfo && (
                     <InfoWindow
                       options={{
-                        pixelOffset: new window.google.maps.Size(0, -15),
+                        pixelOffset: pixelOffset,
                       }}
                       onCloseClick={() => {
                         setdisplayFlg(false);
@@ -112,7 +123,6 @@ function Map() {
                       }}
                     >
                       <>
-                        {/* {result.id}の情報 */}
                         <div className="mini-profile min-h-profileCard min-w-profileCard flex max-w-3xl max-h-96">
                           <div className="img">
                             <img
