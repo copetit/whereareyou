@@ -23,6 +23,7 @@ function Map() {
   const [results, setResult] = useState([]);
   const [postingInfo, setPostingInfo] = useState<any>();
   const [displayFlg, setdisplayFlg] = useState<Boolean>(false);
+  const [mapsObject, setMapsObject] = useState<any>();
 
   async function getGeoLocation() {
     if (navigator.geolocation) {
@@ -55,6 +56,8 @@ function Map() {
   async function getMap() {
     try {
       const response = await getLocations();
+      const map = window.google.maps;
+      setMapsObject(map);
       setResult(response);
     } catch (error) {
       console.error(error);
@@ -86,7 +89,7 @@ function Map() {
                 <Marker
                   icon={{
                     url: mapPin,
-                    scaledSize: new window.google.maps.Size(38, 55),
+                    scaledSize: new mapsObject.Size(38, 55),
                   }}
                   position={{
                     lat: Number(result.lat),
@@ -104,7 +107,7 @@ function Map() {
                   {selected === result.id && postingInfo && (
                     <InfoWindow
                       options={{
-                        pixelOffset: new window.google.maps.Size(0, -15),
+                        pixelOffset: new mapsObject.Size(0, -15),
                       }}
                       onCloseClick={() => {
                         setdisplayFlg(false);
