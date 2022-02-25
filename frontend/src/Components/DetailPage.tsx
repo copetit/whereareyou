@@ -60,7 +60,7 @@ function DetailPage(props: any) {
       <div
         className={`${
           displayFlg ? 'page-slide-show' : ''
-        } posting-detail-info h-92/100 w-4/12 -right-1/2 bg-white absolute overflow-scroll p-10`}
+        } posting-detail-info h-94/100 w-4/12 -right-1/2 bg-white absolute overflow-scroll p-10`}
       >
         {/* 更新画面、削除モーダルにすすめるように設定する */}
         <div className="icon-section flex justify-end items-center mb-8">

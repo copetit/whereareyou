@@ -67,7 +67,7 @@ function Map() {
   }, []);
 
   return (
-    <div id="map" className="h-92/100 w-full">
+    <div id="map" className="h-94/100 w-full">
       <LoadScript
         googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'}
       >
