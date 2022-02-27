@@ -180,7 +180,6 @@ function Posting() {
       await uploadFiles(data)
         .then((res) => res.data['imageUrl'])
         .then(async (res) => {
-          console.log(res);
           await createPosting({
             PetName: petName,
             PetSex: petSex,
@@ -201,11 +200,9 @@ function Posting() {
               // TODO: Video導入後編集
               videoUrl: '',
             },
-          })
-            .then((res) => console.log(res))
-            .then(() => {
-              window.location.href = '/wau';
-            });
+          }).then(() => {
+            window.location.href = '/wau';
+          });
         });
     } catch (error) {
       console.log(error);
