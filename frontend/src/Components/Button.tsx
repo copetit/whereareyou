@@ -11,9 +11,9 @@ export function PostingButton() {
   const clickHandler = () => (document.location.href = '/wau/posting');
 
   return (
-    <div className="absolute h-24 w-24 bottom-24 left-5">
+    <div className="absolute h-24 w-24 2xl:h-32 2xl:w-32 bottom-24 left-10">
       <Button
-        classList="shadow-btn p-0 w-24 h-24 rounded-full"
+        classList="shadow-btn p-0 w-full h-full rounded-full"
         value={<Plus />}
         onClick={clickHandler}
         btnColor="bg-yellow-400"

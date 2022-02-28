@@ -9,6 +9,7 @@ import { ReactComponent as Camera } from '../images/camera_icon.svg';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Button } from './Button';
 import { AlertMessage } from './AlertMessage';
+import { Header } from './Header';
 
 const ALLOWED_IMG_SIZE: number = 10485760;
 
@@ -179,7 +180,6 @@ function Posting() {
       await uploadFiles(data)
         .then((res) => res.data['imageUrl'])
         .then(async (res) => {
-          console.log(res);
           await createPosting({
             PetName: petName,
             PetSex: petSex,
@@ -200,11 +200,9 @@ function Posting() {
               // TODO: Video導入後編集
               videoUrl: '',
             },
-          })
-            .then((res) => console.log(res))
-            .then(() => {
-              window.location.href = '/wau';
-            });
+          }).then(() => {
+            window.location.href = '/wau';
+          });
         });
     } catch (error) {
       console.log(error);
@@ -216,297 +214,307 @@ function Posting() {
   }, []);
 
   return (
-    <div className="form-container flex justify-center">
-      <form className="posting-form w-1/2 max-w-5xl bg-gray-50">
-        <p className="section-title">ペットの情報</p>
-        <div className="pet-info p-14">
-          <div className="mb-10">
-            <div className="flex flex-wrap justify-center mb-4">
-              <label className="petPhoto required">
-                <p>必須</p>
-                <Camera />
-                <input
-                  {...register('fileOne', {
-                    required: '写真1枚目は必須です',
-                    onChange: (event) => fileOneChange(event),
-                  })}
-                  type="file"
-                  accept="image/png, image/jpeg, image/jpg, image/gif"
-                ></input>
-                <img className="thumbnail" src={imgTextOne} alt="" />
-              </label>
-              <label className="petPhoto">
-                <Camera />
-                <input
-                  type="file"
-                  accept="image/png, image/jpeg, image/jpg, image/gif"
-                  onChange={(event) => fileTwoChange(event)}
-                ></input>
-                <img className="thumbnail" src={imgTextTwo} alt="" />
-              </label>
-              <label className="petPhoto">
-                <Camera />
-                <input
-                  type="file"
-                  accept="image/png, image/jpeg, image/jpg, image/gif"
-                  onChange={(event) => fileThreeChange(event)}
-                ></input>
-                <img className="thumbnail" src={imgTextThree} alt="" />
-              </label>
-              <label className="petPhoto">
-                <Camera />
-                <input
-                  type="file"
-                  accept="image/png, image/jpeg, image/jpg, image/gif"
-                  onChange={(event) => fileFourChange(event)}
-                ></input>
-                <img className="thumbnail" src={imgTextFour} alt="" />
-              </label>
-              <label className="petPhoto">
-                <Camera />
-                <input
-                  type="file"
-                  accept="image/png, image/jpeg, image/jpg, image/gif"
-                  onChange={(event) => fileFiveChange(event)}
-                ></input>
-                <img className="thumbnail" src={imgTextFive} alt="" />
-              </label>
-            </div>
-            {fileSizeError && (
+    <>
+      <Header />
+      <div className="form-container flex justify-center">
+        <form className="posting-form w-1/2 max-w-5xl bg-gray-50 my-10">
+          <p className="section-title">ペットの情報</p>
+          <div className="pet-info p-14">
+            <div className="mb-10">
+              <div className="flex flex-wrap justify-center mb-4">
+                <label className="petPhoto required">
+                  <p>必須</p>
+                  <Camera />
+                  <input
+                    {...register('fileOne', {
+                      required: '写真1枚目は必須です',
+                      onChange: (event) => fileOneChange(event),
+                    })}
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg, image/gif"
+                  ></input>
+                  <img className="thumbnail" src={imgTextOne} alt="" />
+                </label>
+                <label className="petPhoto">
+                  <Camera />
+                  <input
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg, image/gif"
+                    onChange={(event) => fileTwoChange(event)}
+                  ></input>
+                  <img className="thumbnail" src={imgTextTwo} alt="" />
+                </label>
+                <label className="petPhoto">
+                  <Camera />
+                  <input
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg, image/gif"
+                    onChange={(event) => fileThreeChange(event)}
+                  ></input>
+                  <img className="thumbnail" src={imgTextThree} alt="" />
+                </label>
+                <label className="petPhoto">
+                  <Camera />
+                  <input
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg, image/gif"
+                    onChange={(event) => fileFourChange(event)}
+                  ></input>
+                  <img className="thumbnail" src={imgTextFour} alt="" />
+                </label>
+                <label className="petPhoto">
+                  <Camera />
+                  <input
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg, image/gif"
+                    onChange={(event) => fileFiveChange(event)}
+                  ></input>
+                  <img className="thumbnail" src={imgTextFive} alt="" />
+                </label>
+              </div>
+              {fileSizeError && (
+                <AlertMessage
+                  msg="イメージは10MBまでアップロード可能です"
+                  color="red"
+                />
+              )}
+              {errors.fileOne && (
+                <AlertMessage msg={errors.fileOne.message} color="red" />
+              )}
               <AlertMessage
-                msg="イメージは10MBまでアップロード可能です"
-                color="red"
+                msg="ペットの画像は「JPG」「JPEG」「PNG」「GIF」
+          のいずれかのファイル形式のみです"
+                color="blue"
+              />
+            </div>
+            <label className="form-label w-1/2">
+              <div className="flex items-center">
+                名前
+                <span className="required-tag">必須</span>
+              </div>
+              <input
+                className="text-input"
+                type="text"
+                {...register('PetName', {
+                  required: 'ペットの名前を入力してください',
+                  maxLength: {
+                    value: 20,
+                    message: 'ペットの名前は20文字まで入力可能です',
+                  },
+                  onChange: (event) => changePetName(event),
+                })}
+                // value={petName}
+              />
+              {errors.PetName && (
+                <AlertMessage msg={errors.PetName.message} color="red" />
+              )}
+            </label>
+            <label className="form-label w-1/2">
+              <div className="flex items-center">
+                性別
+                <span className="required-tag">必須</span>
+              </div>
+              <select
+                className="select-input"
+                {...register('PetSex', {
+                  onChange: (event) => changePetSex(event),
+                })}
+              >
+                <option value="不明">不明</option>
+                <option value="男">男</option>
+                <option value="女">女</option>
+              </select>
+            </label>
+            <label className="form-label w-1/2">
+              <div className="flex items-center">
+                年齢
+                <span className="required-tag">必須</span>
+              </div>
+              <input
+                className="text-input"
+                type="number"
+                {...register('PetAge', {
+                  required: 'ペットの年齢を入力してください',
+                  min: { value: 0, message: '0~100歳まで入力可能です' },
+                  max: { value: 100, message: '0~100歳まで入力可能です' },
+                  onChange: (event) => changePetAge(event),
+                })}
+                value={petAge}
+              />
+              {errors.PetAge && (
+                <AlertMessage msg={errors.PetAge.message} color="red" />
+              )}
+            </label>
+            <label className="form-label">
+              <div className="flex items-center">
+                特徴
+                <span className="required-tag">必須</span>
+              </div>
+              <textarea
+                className="text-input h-32"
+                {...register('PetInfo', {
+                  required: 'ペットの特徴を入力してください',
+                  maxLength: {
+                    value: 255,
+                    message: 'ペットの特徴は255文字まで入力可能です',
+                  },
+                  onChange: (event) => changePetInfo(event),
+                })}
+                // value={petInfo}
+              ></textarea>
+              {errors.PetInfo && (
+                <AlertMessage msg={errors.PetInfo.message} color="red" />
+              )}
+            </label>
+            <label className="form-label">
+              その他の情報
+              <textarea
+                className="text-input h-48"
+                {...register('Detail', {
+                  maxLength: {
+                    value: 255,
+                    message: 'その他の情報は255文字まで入力可能です',
+                  },
+                  onChange: (event) => changeDetail(event),
+                })}
+              ></textarea>
+              {errors.Detail && (
+                <AlertMessage msg={errors.Detail.message} color="red" />
+              )}
+            </label>
+            <label className="form-label w-1/2">
+              <div className="flex items-center">
+                離れた日
+                <span className="required-tag">必須</span>
+              </div>
+              <DatePicker
+                className="text-input"
+                selected={lostDate}
+                dateFormat="yyyy-MM-dd"
+                maxDate={new Date()}
+                onChange={(date: Date | null) => setLostDate(date)}
+              />
+            </label>
+            <label className="form-label">
+              <div className="flex items-center">
+                離れた場所
+                <span className="required-tag">必須</span>
+              </div>
+              <input
+                className="text-input"
+                type="text"
+                {...register('Address', {
+                  required: '離れた場所を入力してください',
+                  maxLength: {
+                    value: 255,
+                    message: '離れた場所は255文字まで入力可能です',
+                  },
+                  onChange: (event) => changeAddress(event),
+                })}
+                value={address}
+              />
+              {errors.Address && (
+                <AlertMessage msg={errors.Address.message} color="red" />
+              )}
+            </label>
+            <div className="posting-map w-full mb-7">
+              <LoadScript
+                googleMapsApiKey={
+                  process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'
+                }
+              >
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={currentLocation}
+                  zoom={17}
+                  onClick={(e) => {
+                    setLocation(e.latLng!.toJSON());
+                    setErrorLocation(false);
+                  }}
+                >
+                  {location && (
+                    <Marker
+                      position={{
+                        lat: Number(location.lat),
+                        lng: Number(location.lng),
+                      }}
+                    ></Marker>
+                  )}
+                </GoogleMap>
+              </LoadScript>
+            </div>
+            {errorLocation && (
+              <AlertMessage
+                msg="離れた場所をクリックしてください"
+                color="blue"
               />
             )}
-            {errors.fileOne && (
-              <AlertMessage msg={errors.fileOne.message} color="red" />
-            )}
-            <AlertMessage
-              msg="ペットの画像は「JPG」「JPEG」「PNG」「GIF」
-          のいずれかのファイル形式のみです"
-              color="blue"
-            />
           </div>
-          <label className="form-label w-1/2">
-            <div className="flex items-center">
-              名前
-              <span className="required-tag">必須</span>
-            </div>
-            <input
-              className="text-input"
-              type="text"
-              {...register('PetName', {
-                required: 'ペットの名前を入力してください',
-                maxLength: {
-                  value: 20,
-                  message: 'ペットの名前は20文字まで入力可能です',
-                },
-                onChange: (event) => changePetName(event),
-              })}
-              // value={petName}
-            />
-            {errors.PetName && (
-              <AlertMessage msg={errors.PetName.message} color="red" />
-            )}
-          </label>
-          <label className="form-label w-1/2">
-            <div className="flex items-center">
-              性別
-              <span className="required-tag">必須</span>
-            </div>
-            <select
-              className="select-input"
-              {...register('PetSex', {
-                onChange: (event) => changePetSex(event),
-              })}
-            >
-              <option value="不明">不明</option>
-              <option value="男">男</option>
-              <option value="女">女</option>
-            </select>
-          </label>
-          <label className="form-label w-1/2">
-            <div className="flex items-center">
-              年齢
-              <span className="required-tag">必須</span>
-            </div>
-            <input
-              className="text-input"
-              type="number"
-              {...register('PetAge', {
-                required: 'ペットの年齢を入力してください',
-                min: { value: 0, message: '0~100歳まで入力可能です' },
-                max: { value: 100, message: '0~100歳まで入力可能です' },
-                onChange: (event) => changePetAge(event),
-              })}
-              value={petAge}
-            />
-            {errors.PetAge && (
-              <AlertMessage msg={errors.PetAge.message} color="red" />
-            )}
-          </label>
-          <label className="form-label">
-            <div className="flex items-center">
-              特徴
-              <span className="required-tag">必須</span>
-            </div>
-            <textarea
-              className="text-input h-32"
-              {...register('PetInfo', {
-                required: 'ペットの特徴を入力してください',
-                maxLength: {
-                  value: 255,
-                  message: 'ペットの特徴は255文字まで入力可能です',
-                },
-                onChange: (event) => changePetInfo(event),
-              })}
-              // value={petInfo}
-            ></textarea>
-            {errors.PetInfo && (
-              <AlertMessage msg={errors.PetInfo.message} color="red" />
-            )}
-          </label>
-          <label className="form-label">
-            その他の情報
-            <textarea
-              className="text-input h-48"
-              {...register('Detail', {
-                maxLength: {
-                  value: 255,
-                  message: 'その他の情報は255文字まで入力可能です',
-                },
-                onChange: (event) => changeDetail(event),
-              })}
-            ></textarea>
-            {errors.Detail && (
-              <AlertMessage msg={errors.Detail.message} color="red" />
-            )}
-          </label>
-          <label className="form-label w-1/2">
-            <div className="flex items-center">
-              離れた日
-              <span className="required-tag">必須</span>
-            </div>
-            <DatePicker
-              className="text-input"
-              selected={lostDate}
-              dateFormat="yyyy-MM-dd"
-              maxDate={new Date()}
-              onChange={(date: Date | null) => setLostDate(date)}
-            />
-          </label>
-          <label className="form-label">
-            <div className="flex items-center">
-              離れた場所
-              <span className="required-tag">必須</span>
-            </div>
-            <input
-              className="text-input"
-              type="text"
-              {...register('Address', {
-                required: '離れた場所を入力してください',
-                maxLength: {
-                  value: 255,
-                  message: '離れた場所は255文字まで入力可能です',
-                },
-                onChange: (event) => changeAddress(event),
-              })}
-              value={address}
-            />
-            {errors.Address && (
-              <AlertMessage msg={errors.Address.message} color="red" />
-            )}
-          </label>
-          <div className="posting-map w-full mb-7">
-            <LoadScript
-              googleMapsApiKey={
-                process.env.REACT_APP_GOOGLE_MAP_API_KEY || 'dummy'
-              }
-            >
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={currentLocation}
-                zoom={17}
-                onClick={(e) => {
-                  setLocation(e.latLng!.toJSON());
-                  setErrorLocation(false);
-                }}
-              >
-                {location && (
-                  <Marker
-                    position={{
-                      lat: Number(location.lat),
-                      lng: Number(location.lng),
-                    }}
-                  ></Marker>
-                )}
-              </GoogleMap>
-            </LoadScript>
+          <p className="section-title">飼い主の情報</p>
+          <div className="user-info p-14">
+            <label className="form-label">
+              <div className="flex items-center">
+                連絡先メールアドレス
+                <span className="required-tag">必須</span>
+              </div>
+              <input
+                className="text-input"
+                id="email"
+                type="email"
+                {...register('MailAddress', {
+                  required: 'メールアドレスを入力してください',
+                  pattern: {
+                    value:
+                      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                    message: '正しいメールアドレスを入力してください',
+                  },
+                  onChange: (event) => changeMailaddress(event),
+                })}
+              />
+              {errors.MailAddress && (
+                <AlertMessage msg={errors.MailAddress.message} color="red" />
+              )}
+            </label>
+            <label className="form-label">
+              <div className="flex items-center">
+                パスワード
+                <span className="required-tag">必須</span>
+              </div>
+              <input
+                className="text-input"
+                type="password"
+                id="password"
+                {...register('Password', {
+                  required: 'パスワードを入力してください',
+                  maxLength: {
+                    value: 32,
+                    message: 'パスワードは32文字以下まで設定可能です',
+                  },
+                  minLength: {
+                    value: 8,
+                    message: 'パスワードは8文字以上から設定可能です',
+                  },
+                  onChange: (event) => changePassword(event),
+                })}
+              />
+              {errors.Password && (
+                <AlertMessage msg={errors.Password.message} color="red" />
+              )}
+              <AlertMessage
+                msg="パスワードは記事を修正、削除するときに利用します"
+                color="blue"
+              />
+            </label>
           </div>
-          {errorLocation && (
-            <AlertMessage msg="離れた場所をクリックしてください" color="blue" />
-          )}
-        </div>
-        <p className="section-title">飼い主の情報</p>
-        <div className="user-info p-14">
-          <label className="form-label">
-            <div className="flex items-center">
-              メールアドレス
-              <span className="required-tag">必須</span>
-            </div>
-            <input
-              className="text-input"
-              id="email"
-              type="email"
-              {...register('MailAddress', {
-                required: 'メールアドレスを入力してください',
-                pattern: {
-                  value:
-                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                  message: '正しいメールアドレスを入力してください',
-                },
-                onChange: (event) => changeMailaddress(event),
-              })}
-            />
-            {errors.MailAddress && (
-              <AlertMessage msg={errors.MailAddress.message} color="red" />
-            )}
-          </label>
-          <label className="form-label">
-            <div className="flex items-center">
-              パスワード
-              <span className="required-tag">必須</span>
-            </div>
-            <input
-              className="text-input"
-              type="password"
-              id="password"
-              {...register('Password', {
-                required: 'パスワードを入力してください',
-                maxLength: {
-                  value: 32,
-                  message: 'パスワードは32文字以下まで設定可能です',
-                },
-                minLength: {
-                  value: 8,
-                  message: 'パスワードは8文字以上から設定可能です',
-                },
-                onChange: (event) => changePassword(event),
-              })}
-            />
-            {errors.Password && (
-              <AlertMessage msg={errors.Password.message} color="red" />
-            )}
-          </label>
-        </div>
-        <Button
-          classList="posting-btn"
-          value="登録"
-          onClick={handleSubmit(onSubmit)}
-          btnColor="bg-yellow-400"
-        />
-      </form>
-    </div>
+          <Button
+            classList="posting-btn"
+            value="登録"
+            onClick={handleSubmit(onSubmit)}
+            btnColor="bg-yellow-400"
+          />
+        </form>
+      </div>
+    </>
   );
 }
 

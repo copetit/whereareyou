@@ -45,6 +45,7 @@
   @apply p-0;
   @apply text-2xl;
   @apply overflow-visible;
+  @apply rounded-none !important;
 }
 .gm-style-iw-d {
   @apply overflow-visible;
@@ -148,6 +149,7 @@ input[type='file'] {
   @apply bottom-0;
 }
 .posting-detail-info {
+  max-width: 60rem;
   transition: 0.8s ease;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
     rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;

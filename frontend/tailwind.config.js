@@ -10,13 +10,13 @@ module.exports = {
         requiredTagRed: '#ff3a1a',
       },
       spacing: {
-        '8/100': '8%',
+        '6/100': '6%',
         '90/100': '90%',
-        '92/100': '92%',
+        '94/100': '94%',
         '30/100': '30%',
       },
       minHeight: {
-        profileCard: '20rem',
+        profileCard: '22rem',
       },
       minWidth: {
         profileCard: '20rem',
