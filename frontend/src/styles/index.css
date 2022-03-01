@@ -199,6 +199,5 @@ table {
   z-index: 999;
 }
 .modal-btn {
-  margin-top: auto !important;
   @apply p-5;
 }
