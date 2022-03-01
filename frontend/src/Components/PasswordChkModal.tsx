@@ -18,7 +18,7 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
   } = useForm();
 
   // TODO 更新、削除処理
-  async function onSubmit(e: any) {
+  async function onSubmit() {
     console.log('clicked btn');
   }
 
@@ -31,8 +31,8 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
     }
   }
 
-  const changePassword = (event: any) => {
-    setInputPW(event.target.value);
+  const changePassword = (pw: string) => {
+    setInputPW(pw);
   };
 
   if (isOpen) {
@@ -68,8 +68,8 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
                     checkPassword: async () =>
                       (await checkPassword()) || 'パスワードが一致しません',
                   },
-                  onChange: (event) => changePassword(event),
                 })}
+                onChange={(e) => changePassword(e.target.value)}
               />
               {errors.password && (
                 <AlertMessage msg={errors.password.message} color="red" />
