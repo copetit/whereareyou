@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { canActivate } from '../Api';
+import { canActivate, deletePostingById } from '../Api';
 import { IPasswordChkModalProps } from '../types/Interface';
 import { ReactComponent as BtnCancel } from '../images/btn_cancel_icon.svg';
 import { ReactComponent as LockMark } from '../images/lock_icon.svg';
@@ -19,7 +19,16 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
 
   // TODO 更新、削除処理
   async function onSubmit() {
-    console.log('clicked btn');
+    const canActivate = await checkPassword();
+    // 削除ケース
+    canActivate &&
+      modalType === '削除' &&
+      (await deletePostingById(userId)
+        .then(() => (window.location.href = '/wau'))
+        .catch((err) => console.log(`Can't Delte Posting: ${err}`)));
+
+    // 修正ケース
+    canActivate && modalType === '修正' && console.log('Not Yet');
   }
 
   async function checkPassword() {
