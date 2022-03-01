@@ -5,6 +5,7 @@ import { IPasswordChkModalProps } from '../types/Interface';
 import { ReactComponent as BtnCancel } from '../images/btn_cancel_icon.svg';
 import { ReactComponent as LockMark } from '../images/lock_icon.svg';
 import { Button, CancelButton } from './Button';
+import { AlertMessage } from './AlertMessage';
 
 function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
   const { isOpen, setShowModal, userId, modalType, btnColor } = props;
@@ -16,10 +17,15 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
     formState: { errors },
   } = useForm();
 
+  // TODO 更新、削除処理
   async function onSubmit(e: any) {
+    console.log('clicked btn');
+  }
+
+  async function checkPassword() {
     try {
       const { data: result } = await canActivate({ id: userId, inputPW });
-      console.log(result);
+      return result;
     } catch (error) {
       console.log(error);
     }
@@ -34,7 +40,7 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
       <>
         <div className="modal-bg w-full h-full bg-black absolute top-0 left-0 bg-opacity-90"></div>
         <div className="modal bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
-          <div className="flex flex-col justify-between h-96 relative bg-white w-full max-w-2xl rounded-lg shadow">
+          <div className="flex flex-col justify-between h-auto relative bg-white w-full max-w-2xl rounded-lg shadow">
             <div className="absolute right-2 top-2">
               <CancelButton
                 classList="p-1.5"
@@ -55,14 +61,21 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
               <input
                 type="password"
                 id="password"
-                className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="text-input"
                 {...register('password', {
                   required: 'パスワードを入力してください',
+                  validate: {
+                    checkPassword: async () =>
+                      (await checkPassword()) || 'パスワードが一致しません',
+                  },
                   onChange: (event) => changePassword(event),
                 })}
               />
+              {errors.password && (
+                <AlertMessage msg={errors.password.message} color="red" />
+              )}
               <Button
-                classList="modal-btn"
+                classList="modal-btn mt-5"
                 value={modalType}
                 onClick={() => handleSubmit(onSubmit)()}
                 btnColor={btnColor}
