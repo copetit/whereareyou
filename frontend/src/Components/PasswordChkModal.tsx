@@ -66,7 +66,8 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
                   required: 'パスワードを入力してください',
                   validate: {
                     checkPassword: async () =>
-                      (await checkPassword()) || 'パスワードが一致しません',
+                      (await checkPassword()) ||
+                      '登録したパスワードと一致しません',
                   },
                 })}
                 onChange={(e) => changePassword(e.target.value)}
