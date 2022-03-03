@@ -217,7 +217,15 @@ function Posting() {
     <>
       <Header />
       <div className="form-container flex justify-center">
-        <form className="posting-form w-1/2 max-w-5xl bg-gray-50 my-10">
+        <form
+          className="posting-form w-1/2 max-w-5xl bg-gray-50 my-10"
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              handleSubmit(onSubmit)();
+            }
+          }}
+        >
           <p className="section-title">ペットの情報</p>
           <div className="pet-info p-14">
             <div className="mb-10">

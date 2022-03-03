@@ -59,7 +59,12 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
             </div>
             <form
               className="flex flex-col h-full px-10 py-8 space-y-5 xl:pb-8"
-              action="#"
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleSubmit(onSubmit)();
+                }
+              }}
             >
               <div className="flex w-full justify-center h-1/4 mb-2">
                 <LockMark />
