@@ -62,7 +62,6 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
               onKeyPress={(e) => {
                 if (e.key === 'Enter') {
                   e.preventDefault();
-                  handleSubmit(onSubmit)();
                 }
               }}
             >
