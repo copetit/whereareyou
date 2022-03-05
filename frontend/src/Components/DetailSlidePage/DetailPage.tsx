@@ -1,7 +1,7 @@
-import { ReactComponent as EditMark } from '../images/edit_icon.svg';
-import { ReactComponent as DeleteMark } from '../images/delete_icon.svg';
+import { ReactComponent as EditMark } from '../../images/edit_icon.svg';
+import { ReactComponent as DeleteMark } from '../../images/delete_icon.svg';
 import { useState } from 'react';
-import PasswordChkModal from './PasswordChkModal';
+import PasswordChkModal from '../PasswordChkModal';
 import { PetImgSlide } from './PetImgSlide';
 
 export interface DetailPageProps {
@@ -50,9 +50,9 @@ function DetailPage(props: any) {
     <>
       {showModal && (
         <PasswordChkModal
-          userId={postingInfo.id}
           isOpen={showModal}
           setShowModal={setShowModal}
+          userId={postingInfo.id}
           modalType={modalType}
           btnColor={btnColor}
         />

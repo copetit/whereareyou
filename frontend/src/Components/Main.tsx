@@ -1,6 +1,6 @@
 import { Header } from './Header';
-import Map from './Map';
-import { PostingButton } from './Button';
+import { Map } from './MainPage/Map';
+import { PostingButton } from './Parts/Button';
 
 export function Main() {
   return (

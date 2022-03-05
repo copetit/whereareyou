@@ -5,19 +5,18 @@ import {
   Marker,
   InfoWindow,
 } from '@react-google-maps/api';
-import { getLocations, getPostingById } from '../Api';
-import { IGetLocations } from '../types/Interface';
-import DetailPage from './DetailPage';
-import { ReactComponent as Arrow } from '../images/btn_arrow_icon.svg';
-import mapPin from '../images/map_pin.png';
-import { Button } from './Button';
+import { getLocations, getPostingById } from '../../Api';
+import { IGetLocations } from '../../types/Interface';
+import DetailPage from '../DetailSlidePage/DetailPage';
+import mapPin from '../../images/map_pin.png';
+import { PetInfoWindow } from './InfoWindow';
 
 const containerStyle = {
   height: '100%',
 };
 
-function Map() {
-  const [selected, setSelected] = useState<Number | null>();
+export function Map() {
+  const [selected, setSelected] = useState<Number | null | undefined>();
   const [location, setLocation] =
     useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [results, setResult] = useState([]);
@@ -122,36 +121,10 @@ function Map() {
                         setSelected(null);
                       }}
                     >
-                      <>
-                        <div className="mini-profile min-h-profileCard min-w-profileCard flex max-w-3xl max-h-96">
-                          <div className="img">
-                            <img
-                              className="object-cover w-full h-full relative -left-8 rounded-br-profileCard"
-                              src={`${process.env.REACT_APP_API_URL}/${postingInfo.contents.imageUrl[0]}`}
-                              alt="pet"
-                            />
-                          </div>
-                          <div className="profile-text py-4 pr-4 relatvie">
-                            <p className="font-semibold text-3xl mb-4 overflow-hidden whitespace-nowrap overflow-ellipsis">
-                              {postingInfo.PetName}
-                            </p>
-                            <p className="h-3/5 overflow-scroll break-words">
-                              {postingInfo.PetInfo}
-                            </p>
-                            <Button
-                              classList="detail-page-btn"
-                              value={<Arrow />}
-                              onClick={() => {
-                                setdisplayFlg(true);
-                              }}
-                              btnColor="bg-yellow-400"
-                            />
-                          </div>
-                        </div>
-                        <p className="absolute bottom-3 right-3 text-gray-500">
-                          {new Date(postingInfo.LostDate).toLocaleDateString()}
-                        </p>
-                      </>
+                      <PetInfoWindow
+                        setdisplayFlg={setdisplayFlg}
+                        postingInfo={postingInfo}
+                      />
                     </InfoWindow>
                   )}
                 </Marker>
@@ -166,5 +139,3 @@ function Map() {
     </div>
   );
 }
-
-export default Map;

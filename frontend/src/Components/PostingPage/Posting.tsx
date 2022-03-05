@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
-import { uploadFiles, createPosting } from '../Api';
-import { nowDate, nowMonth, nowYear } from '../utils/getTime';
+import { uploadFiles, createPosting } from '../../Api';
+import { nowDate, nowMonth, nowYear } from '../../utils/getTime';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { IGetLocations } from '../types/Interface';
-import { ReactComponent as Camera } from '../images/camera_icon.svg';
+import { IGetLocations } from '../../types/Interface';
+import { ReactComponent as Camera } from '../../images/camera_icon.svg';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Button } from './Button';
-import { AlertMessage } from './AlertMessage';
-import { Header } from './Header';
+import { Button } from '../Parts/Button';
+import { AlertMessage } from '../Parts/AlertMessage';
+import { Header } from '../Header';
 
 const ALLOWED_IMG_SIZE: number = 10485760;
 

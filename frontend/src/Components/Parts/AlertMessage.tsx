@@ -1,4 +1,4 @@
-import { ReactComponent as InfoMark } from '../images/info_icon.svg';
+import { ReactComponent as InfoMark } from '../../images/info_icon.svg';
 
 export interface IAlertMessageProps {
   msg: string;
