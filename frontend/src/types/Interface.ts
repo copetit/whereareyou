@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 
 export interface IGetLocations {
   id: number;
@@ -12,4 +12,10 @@ export interface IPasswordChkModalProps {
   userId: number;
   modalType: string;
   btnColor: string;
+}
+
+export interface IModalProps {
+  isOpen: Boolean;
+  setShowModal: Dispatch<SetStateAction<Boolean>>;
+  children: ReactNode;
 }

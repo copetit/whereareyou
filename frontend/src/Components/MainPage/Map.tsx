@@ -5,12 +5,12 @@ import {
   Marker,
   InfoWindow,
 } from '@react-google-maps/api';
-import { getLocations, getPostingById } from '../Api';
-import { IGetLocations } from '../types/Interface';
-import DetailPage from './DetailPage';
-import { ReactComponent as Arrow } from '../images/btn_arrow_icon.svg';
-import mapPin from '../images/map_pin.png';
-import { Button } from './Button';
+import { getLocations, getPostingById } from '../../Api';
+import { IGetLocations } from '../../types/Interface';
+import DetailPage from '../DetailSlidePage/DetailPage';
+import { ReactComponent as Arrow } from '../../images/btn_arrow_icon.svg';
+import mapPin from '../../images/map_pin.png';
+import { Button } from '../Parts/Button';
 
 const containerStyle = {
   height: '100%',

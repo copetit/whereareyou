@@ -1,4 +1,4 @@
-import { ReactComponent as Plus } from '../images/btn_plus_icon.svg';
+import { ReactComponent as Plus } from '../../images/btn_plus_icon.svg';
 
 export interface IButtonProps {
   classList: string;
