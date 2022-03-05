@@ -19,3 +19,8 @@ export interface IModalProps {
   setShowModal: Dispatch<SetStateAction<Boolean>>;
   children: ReactNode;
 }
+
+export interface IPetInfoWindowProps {
+  setdisplayFlg: Dispatch<SetStateAction<Boolean>>;
+  postingInfo: any;
+}
