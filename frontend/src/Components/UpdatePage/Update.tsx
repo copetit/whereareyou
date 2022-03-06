@@ -20,7 +20,7 @@ export function Update() {
     formState: { errors },
   } = useForm();
   const [petName, setPetName] = useState('');
-  const [petSex, setPetSex] = useState('男');
+  const [petSex, setPetSex] = useState('不明');
   const [petAge, setPetAge] = useState('');
   const [petInfo, setPetInfo] = useState('');
   const [detail, setDetail] = useState('');
@@ -338,6 +338,7 @@ export function Update() {
                   {...register('PetSex', {
                     onChange: (event) => changePetSex(event),
                   })}
+                  value={petSex}
                 >
                   <option value="不明">不明</option>
                   <option value="男">男</option>
