@@ -26,7 +26,7 @@ export function Update() {
   const [detail, setDetail] = useState('');
   const [lostDate, setLostDate] = useState<Date | null>(new Date());
   const [address, setAddress] = useState('');
-  const [currentLocation, setCurrentLocation] =
+  const [initialLocation, setInitialLocation] =
     useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [location, setLocation] =
     useState<Pick<IGetLocations, 'lat' | 'lng'>>();
@@ -224,7 +224,7 @@ export function Update() {
       setDetail(res.Detail);
       setLostDate(new Date(res.LostDate));
       setAddress(res.Address);
-      setCurrentLocation({ lat: Number(lat), lng: Number(lng) });
+      setInitialLocation({ lat: Number(lat), lng: Number(lng) });
       setLocation({ lat: Number(lat), lng: Number(lng) });
       setMailaddress(res.user.MailAddress);
       setPostingInfo(res);
@@ -446,7 +446,7 @@ export function Update() {
                 >
                   <GoogleMap
                     mapContainerStyle={containerStyle}
-                    center={currentLocation}
+                    center={initialLocation}
                     zoom={17}
                     onClick={(e) => {
                       setLocation(e.latLng!.toJSON());
