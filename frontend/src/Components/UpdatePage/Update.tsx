@@ -1,4 +1,4 @@
-import { useState, useEffect, SetStateAction } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import { uploadFiles, createPosting, getPostingById } from '../../Api';
@@ -203,10 +203,11 @@ export function Update() {
 
   useEffect(() => {
     // TODO ここは更新モーダルからidを受けるるようにする
-    getPosting(9).then((res) => {
+    // 今はid,10番のものを固定で表示しています
+    getPosting(10).then((res) => {
+      const { lat, lng } = res.locationinfo;
       const imgsFullUrl: string[] = [];
       const imgsUrl = res.contents.imageUrl;
-
       imgsUrl.map((imgUrl: string) =>
         imgsFullUrl.push(`${process.env.REACT_APP_API_URL}/${imgUrl}`),
       );
@@ -216,20 +217,13 @@ export function Update() {
       imgsFullUrl[3] ? SetImgTextFour(imgsFullUrl[3]) : SetImgTextFour('');
       imgsFullUrl[4] ? SetImgTextFive(imgsFullUrl[4]) : SetImgTextFive('');
 
-      console.log(imgsFullUrl);
       setPetName(res.PetName);
       setPetSex(res.PetSex);
       setPetAge(res.PetAge);
       setPetInfo(res.PetInfo);
       setDetail(res.Detail);
-      // TODO Make date change
-      // setLostDate(res.LostDate);
-
-      SetImgTextOne(
-        `${process.env.REACT_APP_API_URL}/${res.contents.imageUrl[0]}`,
-      );
+      setLostDate(new Date(res.LostDate));
       setAddress(res.Address);
-      const { lat, lng } = res.locationinfo;
       setCurrentLocation({ lat: Number(lat), lng: Number(lng) });
       setLocation({ lat: Number(lat), lng: Number(lng) });
       setMailaddress(res.user.MailAddress);

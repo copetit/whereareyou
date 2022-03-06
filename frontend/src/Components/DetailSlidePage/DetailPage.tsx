@@ -64,10 +64,10 @@ function DetailPage(props: any) {
       >
         {/* 更新画面、削除モーダルにすすめるように設定する */}
         <div className="icon-section flex justify-end items-center mb-8">
-          <a href="#" onClick={() => setStatesModal('修正', 'bg-yellow-400')}>
+          <a href="#!" onClick={() => setStatesModal('修正', 'bg-yellow-400')}>
             <EditMark />
           </a>
-          <a href="#" onClick={() => setStatesModal('削除', 'bg-red-500')}>
+          <a href="#!" onClick={() => setStatesModal('削除', 'bg-red-500')}>
             <DeleteMark />
           </a>
         </div>
