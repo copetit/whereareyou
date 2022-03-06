@@ -26,6 +26,8 @@ export function Update() {
   const [detail, setDetail] = useState('');
   const [lostDate, setLostDate] = useState<Date | null>(new Date());
   const [address, setAddress] = useState('');
+  const [currentLocation, setCurrentLocation] =
+    useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [location, setLocation] =
     useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [mailladdress, setMailaddress] = useState('');
@@ -148,20 +150,9 @@ export function Update() {
     height: '100%',
   };
 
-  function blobToDataURL(imageUrl: any) {
-    const blob = new Blob(imageUrl, { type: 'image/jpeg' });
+  const backBtnHandler = () => (document.location.href = '/wau/');
 
-    var a = new FileReader();
-    a.onload = function (e: any) {
-      if (e.target) {
-        console.log(e.target.result);
-        SetImgTextOne(e.target.result);
-      }
-    };
-    a.readAsDataURL(blob);
-  }
-
-  async function getPosting(id: 1) {
+  async function getPosting(id: number) {
     try {
       const [response] = await getPostingById(id);
       return response;
@@ -211,8 +202,21 @@ export function Update() {
   }
 
   useEffect(() => {
-    getPosting(1).then((res) => {
-      console.log(res.contents.imageUrl[0]);
+    // TODO ここは更新モーダルからidを受けるるようにする
+    getPosting(9).then((res) => {
+      const imgsFullUrl: string[] = [];
+      const imgsUrl = res.contents.imageUrl;
+
+      imgsUrl.map((imgUrl: string) =>
+        imgsFullUrl.push(`${process.env.REACT_APP_API_URL}/${imgUrl}`),
+      );
+      imgsFullUrl[0] ? SetImgTextOne(imgsFullUrl[0]) : SetImgTextOne('');
+      imgsFullUrl[1] ? SetImgTextTwo(imgsFullUrl[1]) : SetImgTextTwo('');
+      imgsFullUrl[2] ? SetImgTextThree(imgsFullUrl[2]) : SetImgTextThree('');
+      imgsFullUrl[3] ? SetImgTextFour(imgsFullUrl[3]) : SetImgTextFour('');
+      imgsFullUrl[4] ? SetImgTextFive(imgsFullUrl[4]) : SetImgTextFive('');
+
+      console.log(imgsFullUrl);
       setPetName(res.PetName);
       setPetSex(res.PetSex);
       setPetAge(res.PetAge);
@@ -221,15 +225,13 @@ export function Update() {
       // TODO Make date change
       // setLostDate(res.LostDate);
 
-      // TODO DataURL生成ロジック
-      // blobToDataURL(res.contents.imageUrl[0]);
       SetImgTextOne(
         `${process.env.REACT_APP_API_URL}/${res.contents.imageUrl[0]}`,
       );
       setAddress(res.Address);
       const { lat, lng } = res.locationinfo;
+      setCurrentLocation({ lat: Number(lat), lng: Number(lng) });
       setLocation({ lat: Number(lat), lng: Number(lng) });
-
       setMailaddress(res.user.MailAddress);
       setPostingInfo(res);
     });
@@ -449,7 +451,7 @@ export function Update() {
                 >
                   <GoogleMap
                     mapContainerStyle={containerStyle}
-                    center={location}
+                    center={currentLocation}
                     zoom={17}
                     onClick={(e) => {
                       setLocation(e.latLng!.toJSON());
@@ -494,7 +496,7 @@ export function Update() {
                     },
                     onChange: (event) => changeMailaddress(event),
                   })}
-                  value={address}
+                  value={mailladdress}
                 />
                 {errors.MailAddress && (
                   <AlertMessage msg={errors.MailAddress.message} color="red" />
@@ -533,9 +535,15 @@ export function Update() {
             </div>
             <Button
               classList="posting-btn"
-              value="登録"
+              value="更新"
               onClick={handleSubmit(onSubmit)}
               btnColor="bg-yellow-400"
+            />
+            <Button
+              classList="posting-btn"
+              value="戻る"
+              onClick={backBtnHandler}
+              btnColor="bg-gray-200"
             />
           </form>
         </div>
