@@ -201,3 +201,17 @@ table {
 .modal-btn {
   @apply p-5;
 }
+
+/* about modal */
+.about-modal {
+  width: 600px;
+  height: 400px;
+}
+.about-profile {
+  height: 120px;
+}
+.about-profile-img {
+  width: 100px;
+  height: 100px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

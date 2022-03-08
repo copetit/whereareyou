@@ -17,6 +17,7 @@ export interface IPasswordChkModalProps {
 export interface IModalProps {
   isOpen: Boolean;
   setShowModal: Dispatch<SetStateAction<Boolean>>;
+  classList: string;
   children: ReactNode;
 }
 
