@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import { ReactComponent as Logo } from '../images/logo.svg';
 import { About } from './About';
 
@@ -6,14 +6,14 @@ export interface HeaderMenuListProps {
   classList: string;
   value: string;
   link: string;
-  onClick: any;
+  onClick: MouseEventHandler<HTMLAnchorElement>;
 }
 
 export function Header() {
-  const [showModal, setShowModal] = useState<Boolean>(true);
+  const [showModal, setShowModal] = useState<Boolean>(false);
 
   const onClickHandler = () => {
-    setShowModal(false);
+    setShowModal(true);
   };
 
   const HeaderMenuList = (props: HeaderMenuListProps) => {

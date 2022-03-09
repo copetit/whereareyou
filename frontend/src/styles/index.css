@@ -38,6 +38,12 @@
   .required-tag {
     @apply bg-red-100 bg-requiredTagRed text-white text-sm text-center font-semibold ml-4 px-2.5 py-1 rounded;
   }
+  .about-profile-img {
+    @apply w-36 h-36 shadow-profileIcon rounded-full;
+  }
+  .about-profile-sns {
+    @apply flex items-center absolute bottom-20 right-10;
+  }
 }
 
 /* infowindowのデザインを初期化 */
@@ -172,7 +178,7 @@ input[type='file'] {
   @apply justify-center;
 }
 .swiper-pagination {
-  @apply: m-0;
+  @apply m-0;
 }
 .swiper-pagination-bullet-active {
   @apply bg-black;
@@ -208,11 +214,8 @@ table {
   height: 400px;
 }
 .about-profile {
-  height: 120px;
+  @apply flex;
+  @apply flex-col;
+  @apply justify-center;
   margin: 0 auto;
-}
-.about-profile-img {
-  width: 100px;
-  height: 100px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

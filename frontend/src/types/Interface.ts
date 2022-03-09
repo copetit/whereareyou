@@ -26,3 +26,8 @@ export interface IPetInfoWindowProps {
   setdisplayFlg: Dispatch<SetStateAction<Boolean>>;
   postingInfo: any;
 }
+
+export interface IAboutProps {
+  isOpen: Boolean;
+  setShowModal: Dispatch<SetStateAction<Boolean>>;
+}
