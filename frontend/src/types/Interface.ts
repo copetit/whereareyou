@@ -17,10 +17,17 @@ export interface IPasswordChkModalProps {
 export interface IModalProps {
   isOpen: Boolean;
   setShowModal: Dispatch<SetStateAction<Boolean>>;
+  classList: string;
+  cancelBtnColor: string;
   children: ReactNode;
 }
 
 export interface IPetInfoWindowProps {
   setdisplayFlg: Dispatch<SetStateAction<Boolean>>;
   postingInfo: any;
+}
+
+export interface IAboutProps {
+  isOpen: Boolean;
+  setShowModal: Dispatch<SetStateAction<Boolean>>;
 }

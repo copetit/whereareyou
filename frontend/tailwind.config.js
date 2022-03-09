@@ -26,6 +26,7 @@ module.exports = {
       },
       boxShadow: {
         btn: '6px 6px 4px rgba(0, 0, 0, 0.3);',
+        profileIcon: 'rgba(0, 0, 0, 0.24) 0px 3px 8px;',
       },
     },
   },
