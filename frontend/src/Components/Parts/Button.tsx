@@ -34,12 +34,13 @@ export function Button(props: IButtonProps) {
     </button>
   );
 }
-export function CancelButton(props: Omit<IButtonProps, 'btnColor'>) {
-  const { classList, value, onClick } = props;
+export function CancelButton(props: IButtonProps) {
+  const { classList, value, onClick, btnColor } = props;
+
   return (
     <button
       type="button"
-      className={`text-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg ${classList}`}
+      className={`rounded-lg ${classList} ${btnColor} `}
       onClick={onClick}
     >
       {value}

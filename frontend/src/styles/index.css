@@ -209,6 +209,7 @@ table {
 }
 .about-profile {
   height: 120px;
+  margin: 0 auto;
 }
 .about-profile-img {
   width: 100px;

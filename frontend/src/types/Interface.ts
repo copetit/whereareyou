@@ -18,6 +18,7 @@ export interface IModalProps {
   isOpen: Boolean;
   setShowModal: Dispatch<SetStateAction<Boolean>>;
   classList: string;
+  cancelBtnColor: string;
   children: ReactNode;
 }
 

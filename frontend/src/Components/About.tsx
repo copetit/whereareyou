@@ -10,19 +10,24 @@ export function About(props: any) {
   const { isOpen, setShowModal } = props;
 
   return (
-    <Modal isOpen={isOpen} setShowModal={setShowModal} classList="">
+    <Modal
+      isOpen={isOpen}
+      setShowModal={setShowModal}
+      classList=""
+      cancelBtnColor="text-white"
+    >
       <div className="about-modal relative">
-        <div className="bg-black flex items-center justify-around w-full h-1/2 ">
+        <div className="bg-black flex items-center justify-evenly w-full h-1/2 ">
           <div className="h-3/4">
             <Logo />
           </div>
-          <div>
+          <div className="text-center">
             <p className="text-white text-7xl mb-10">Where Are you</p>
             <p className="text-white">まいごのペットをみんなで探しませんか?</p>
           </div>
         </div>
         <div className="flex w-full h-1/2">
-          <div className="flex items-center relative w-1/2 p-10 justify-between">
+          <div className="flex items-center relative w-1/2 p-10">
             <img
               className="about-profile-img object-cover rounded-full"
               src={redpanda}
@@ -31,7 +36,7 @@ export function About(props: any) {
             <div className="about-profile flex flex-col justify-center">
               <p className="text-3xl">Mini Redpanda</p>
             </div>
-            <div className="flex items-center absolute bottom-20 right-10 space-x-2">
+            <div className="flex items-center absolute bottom-20 right-10 space-x-6">
               <a href="#!">
                 <TwitterLogo />
               </a>
@@ -40,7 +45,7 @@ export function About(props: any) {
               </a>
             </div>
           </div>
-          <div className="flex items-center relative w-1/2 p-10 justify-around">
+          <div className="flex items-center relative w-1/2 p-10">
             <img
               className="about-profile-img object-contain rounded-full"
               src={eevee}

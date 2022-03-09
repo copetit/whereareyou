@@ -3,7 +3,7 @@ import { ReactComponent as BtnCancel } from '../../images/btn_cancel_icon.svg';
 import { IModalProps } from '../../types/Interface';
 
 export const Modal = (props: Required<IModalProps>) => {
-  const { isOpen, setShowModal, classList, children } = props;
+  const { isOpen, setShowModal, classList, cancelBtnColor, children } = props;
   if (isOpen) {
     return (
       <>
@@ -12,10 +12,11 @@ export const Modal = (props: Required<IModalProps>) => {
           <div
             className={`${classList} flex flex-col justify-between h-auto relative bg-white rounded-lg shadow`}
           >
-            <div className="absolute right-2 top-2">
+            <div className="absolute right-2 top-2 z-10">
               <CancelButton
                 classList="p-1.5"
                 value={<BtnCancel />}
+                btnColor={cancelBtnColor}
                 onClick={() => setShowModal(false)}
               />
             </div>

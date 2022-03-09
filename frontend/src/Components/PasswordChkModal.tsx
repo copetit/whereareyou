@@ -49,6 +49,7 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
       isOpen={isOpen}
       setShowModal={setShowModal}
       classList="max-w-2xl w-full"
+      cancelBtnColor="text-black"
     >
       <form
         className="flex flex-col h-full px-10 py-8 space-y-5 xl:pb-8"
