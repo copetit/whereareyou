@@ -13,7 +13,7 @@ export function About(props: Required<IAboutProps>) {
     <Modal
       isOpen={isOpen}
       setShowModal={setShowModal}
-      classList="about-modal "
+      classList="about-modal"
       cancelBtnColor="text-white"
     >
       <div className="w-full h-full relative">
