@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { canActivate, deletePostingById } from '../Api';
 import { IPasswordChkModalProps } from '../types/Interface';
@@ -8,6 +9,7 @@ import { AlertMessage } from './Parts/AlertMessage';
 import { Modal } from './Parts/Modal';
 
 function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
+  const navigate = useNavigate();
   const { isOpen, setShowModal, userId, modalType, btnColor } = props;
   const [inputPW, setInputPW] = useState('');
 
@@ -28,7 +30,9 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
         .catch((err) => console.log(`Can't Delte Posting: ${err}`)));
 
     // 修正ケース
-    canActivate && modalType === '修正' && console.log('Not Yet');
+    canActivate &&
+      modalType === '修正' &&
+      navigate('/update', { state: userId });
   }
 
   async function checkPassword() {
