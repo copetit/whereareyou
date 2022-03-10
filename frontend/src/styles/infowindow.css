@@ -1,0 +1,23 @@
+/* infowindowのデザインを初期化 */
+.gm-style .gm-style-iw-c {
+  padding: 0px;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  overflow: visible;
+  border-radius: 0px !important;
+}
+.gm-style-iw-d {
+  overflow: scroll;
+}
+.gm-style {
+  font-family: Noto Sans JP, sans-serif;
+}
+.gm-ui-hover-effect {
+  top: 0px !important;
+  right: 0px !important;
+}
+.gm-ui-hover-effect > img {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  margin: 0px !important;
+}
