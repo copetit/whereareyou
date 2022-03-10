@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as Plus } from '../../images/btn_plus_icon.svg';
 
 export interface IButtonProps {
@@ -8,7 +9,8 @@ export interface IButtonProps {
 }
 
 export function PostingButton() {
-  const clickHandler = () => (document.location.href = '/wau/posting');
+  const navigate = useNavigate();
+  const clickHandler = () => navigate('/posting');
 
   return (
     <div className="absolute h-24 w-24 2xl:h-32 2xl:w-32 bottom-24 left-10">
