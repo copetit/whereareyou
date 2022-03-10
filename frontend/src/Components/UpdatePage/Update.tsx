@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import { uploadFiles, createPosting, getPostingById } from '../../Api';
@@ -14,6 +15,7 @@ import { Header } from '../Header';
 const ALLOWED_IMG_SIZE: number = 10485760;
 
 export function Update() {
+  const userId = Number(useLocation().state);
   const {
     register,
     handleSubmit,
@@ -202,9 +204,7 @@ export function Update() {
   }
 
   useEffect(() => {
-    // TODO ここは更新モーダルからidを受けるるようにする
-    // 今はid,10番のものを固定で表示しています
-    getPosting(10).then((res) => {
+    getPosting(userId).then((res) => {
       const { lat, lng } = res.locationinfo;
       const imgsFullUrl: string[] = [];
       const imgsUrl = res.contents.imageUrl;
