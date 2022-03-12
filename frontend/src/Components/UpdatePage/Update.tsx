@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import { uploadFiles, createPosting, getPostingById } from '../../Api';
@@ -16,6 +16,7 @@ const ALLOWED_IMG_SIZE: number = 10485760;
 
 export function Update() {
   const userId = Number(useLocation().state);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -204,32 +205,37 @@ export function Update() {
   }
 
   useEffect(() => {
-    getPosting(userId).then((res) => {
-      const { lat, lng } = res.locationinfo;
-      const imgsFullUrl: string[] = [];
-      const imgsUrl = res.contents.imageUrl;
-      imgsUrl.map((imgUrl: string) =>
-        imgsFullUrl.push(`${process.env.REACT_APP_API_URL}/${imgUrl}`),
-      );
-      imgsFullUrl[0] ? SetImgTextOne(imgsFullUrl[0]) : SetImgTextOne('');
-      imgsFullUrl[1] ? SetImgTextTwo(imgsFullUrl[1]) : SetImgTextTwo('');
-      imgsFullUrl[2] ? SetImgTextThree(imgsFullUrl[2]) : SetImgTextThree('');
-      imgsFullUrl[3] ? SetImgTextFour(imgsFullUrl[3]) : SetImgTextFour('');
-      imgsFullUrl[4] ? SetImgTextFive(imgsFullUrl[4]) : SetImgTextFive('');
+    userId
+      ? getPosting(userId).then((res) => {
+          console.log(res);
+          const { lat, lng } = res.locationinfo;
+          const imgsFullUrl: string[] = [];
+          const imgsUrl = res.contents.imageUrl;
+          imgsUrl.map((imgUrl: string) =>
+            imgsFullUrl.push(`${process.env.REACT_APP_API_URL}/${imgUrl}`),
+          );
+          imgsFullUrl[0] ? SetImgTextOne(imgsFullUrl[0]) : SetImgTextOne('');
+          imgsFullUrl[1] ? SetImgTextTwo(imgsFullUrl[1]) : SetImgTextTwo('');
+          imgsFullUrl[2]
+            ? SetImgTextThree(imgsFullUrl[2])
+            : SetImgTextThree('');
+          imgsFullUrl[3] ? SetImgTextFour(imgsFullUrl[3]) : SetImgTextFour('');
+          imgsFullUrl[4] ? SetImgTextFive(imgsFullUrl[4]) : SetImgTextFive('');
 
-      setPetName(res.PetName);
-      setPetSex(res.PetSex);
-      setPetAge(res.PetAge);
-      setPetInfo(res.PetInfo);
-      setDetail(res.Detail);
-      setLostDate(new Date(res.LostDate));
-      setAddress(res.Address);
-      setInitialLocation({ lat: Number(lat), lng: Number(lng) });
-      setLocation({ lat: Number(lat), lng: Number(lng) });
-      setMailaddress(res.user.MailAddress);
-      setPostingInfo(res);
-    });
-  }, []);
+          setPetName(res.PetName);
+          setPetSex(res.PetSex);
+          setPetAge(res.PetAge);
+          setPetInfo(res.PetInfo);
+          setDetail(res.Detail);
+          setLostDate(new Date(res.LostDate));
+          setAddress(res.Address);
+          setInitialLocation({ lat: Number(lat), lng: Number(lng) });
+          setLocation({ lat: Number(lat), lng: Number(lng) });
+          setMailaddress(res.user.MailAddress);
+          setPostingInfo(res);
+        })
+      : navigate('/');
+  }, [userId, navigate]);
 
   return (
     <>
