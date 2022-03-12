@@ -235,7 +235,7 @@ export function Update() {
           setPostingInfo(res);
         })
       : navigate('/');
-  }, []);
+  }, [userId, navigate]);
 
   return (
     <>
