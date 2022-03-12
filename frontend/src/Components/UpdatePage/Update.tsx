@@ -503,9 +503,10 @@ export function Update() {
                   <span className="required-tag">必須</span>
                 </div>
                 <input
-                  className="text-input"
-                  type="password"
                   id="password"
+                  type="password"
+                  className="text-input"
+                  autoComplete="new-password"
                   {...register('Password', {
                     required: 'パスワードを入力してください',
                     maxLength: {

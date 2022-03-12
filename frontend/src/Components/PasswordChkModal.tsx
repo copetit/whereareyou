@@ -69,10 +69,12 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
         <h3 className="font-medium text-gray-900 text-center">
           登録時のパスワードを入力してください
         </h3>
+        <input hidden type="text" autoComplete="username" />
         <input
           type="password"
           id="password"
           className="text-input"
+          autoComplete="new-password"
           {...register('password', {
             required: 'パスワードを入力してください',
             validate: {
