@@ -7,8 +7,8 @@ export const Modal = (props: Required<IModalProps>) => {
   if (isOpen) {
     return (
       <>
-        <div className="modal-bg w-full h-full bg-black absolute top-0 left-0 bg-opacity-90"></div>
-        <div className="modal bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
+        <div className="modal-bg w-full h-full bg-black fixed top-0 left-0 bg-opacity-90"></div>
+        <div className="modal bg-slate-800 bg-opacity-50 flex justify-center items-center fixed top-0 right-0 bottom-0 left-0">
           <div
             className={`${classList} flex flex-col justify-between h-auto relative bg-white rounded-lg shadow`}
           >

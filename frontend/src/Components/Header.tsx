@@ -4,9 +4,8 @@ import { About } from './About';
 
 export interface HeaderMenuListProps {
   classList: string;
-  value: string;
-  link: string;
-  onClick: MouseEventHandler<HTMLAnchorElement>;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  children: string;
 }
 
 export function Header() {
@@ -17,16 +16,15 @@ export function Header() {
   };
 
   const HeaderMenuList = (props: HeaderMenuListProps) => {
-    const { classList, value, link, onClick } = props;
+    const { classList, onClick, children } = props;
     return (
       <li className="mr-6">
-        <a
+        <button
           className={`${classList} font-bold text-3xl 2xl:text-4xl`}
-          href={link}
           onClick={onClick}
         >
-          {value}
-        </a>
+          {children}
+        </button>
       </li>
     );
   };
@@ -40,10 +38,10 @@ export function Header() {
         <ul className="flex">
           <HeaderMenuList
             classList="text-yellow-400 hover:text-white"
-            value="About"
-            link="#!"
             onClick={onClickHandler}
-          />
+          >
+            About
+          </HeaderMenuList>
         </ul>
       </nav>
       {showModal && <About isOpen={showModal} setShowModal={setShowModal} />}
