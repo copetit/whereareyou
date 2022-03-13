@@ -61,7 +61,7 @@ export class AppService {
     posting.PetInfo = 'とてもかわいい';
     posting.Detail = 'とてもかわいい2';
     posting.LostDate = new Date('2021-12-09');
-    posting.Address = 'hogehoge';
+    posting.Address = 'address';
     posting.user = user;
     posting.locationinfo = location;
     posting.contents = contents;

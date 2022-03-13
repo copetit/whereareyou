@@ -40,7 +40,7 @@ export class CreatePostingDto {
   LostDate: Date;
 
   @ApiProperty({
-    default: 'hogehoge',
+    default: 'address',
   })
   Address: string;
 
