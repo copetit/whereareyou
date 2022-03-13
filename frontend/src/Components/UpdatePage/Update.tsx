@@ -28,7 +28,6 @@ export function Update() {
   const [petInfo, setPetInfo] = useState('');
   const [detail, setDetail] = useState('');
   const [lostDate, setLostDate] = useState<Date | null>(new Date());
-  const [address, setAddress] = useState('');
   const [initialLocation, setInitialLocation] =
     useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [location, setLocation] =
@@ -57,9 +56,6 @@ export function Update() {
   };
   const changeDetail = (event: any) => {
     setDetail(event.target.value);
-  };
-  const changeAddress = (event: any) => {
-    setAddress(event.target.value);
   };
   const changeMailaddress = (event: any) => {
     setMailaddress(event.target.value);
@@ -182,7 +178,6 @@ export function Update() {
             PetInfo: petInfo,
             Detail: detail,
             LostDate: lostDate,
-            Address: address,
             CreatedDate: `${nowYear}-${nowMonth}-${nowDate}`,
             UpdateDate: `${nowYear}-${nowMonth}-${nowDate}`,
             locationinfo: location,
@@ -228,7 +223,6 @@ export function Update() {
           setPetInfo(res.PetInfo);
           setDetail(res.Detail);
           setLostDate(new Date(res.LostDate));
-          setAddress(res.Address);
           setInitialLocation({ lat: Number(lat), lng: Number(lng) });
           setLocation({ lat: Number(lat), lng: Number(lng) });
           setMailaddress(res.user.MailAddress);
@@ -421,28 +415,6 @@ export function Update() {
                   maxDate={new Date()}
                   onChange={(date: Date | null) => setLostDate(date)}
                 />
-              </label>
-              <label className="form-label">
-                <div className="flex items-center">
-                  離れた場所
-                  <span className="required-tag">必須</span>
-                </div>
-                <input
-                  className="text-input"
-                  type="text"
-                  {...register('Address', {
-                    required: '離れた場所を入力してください',
-                    maxLength: {
-                      value: 255,
-                      message: '離れた場所は255文字まで入力可能です',
-                    },
-                    onChange: (event) => changeAddress(event),
-                  })}
-                  value={address}
-                />
-                {errors.Address && (
-                  <AlertMessage msg={errors.Address.message} color="red" />
-                )}
               </label>
               <div className="posting-map w-full mb-7">
                 <LoadScript

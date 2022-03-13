@@ -51,7 +51,7 @@ export class Posting extends CoreEntity {
   LostDate: Date;
 
   @ApiProperty({
-    default: 'hogehoge',
+    default: 'address',
   })
   @Column()
   Address: string;

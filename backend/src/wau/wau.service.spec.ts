@@ -56,7 +56,7 @@ const TEST_POSTING_POST: CreatePostingDto = {
   PetInfo: 'かわいい',
   Detail: 'ふわふわなしっぽ',
   LostDate: new Date('2021-12-09'),
-  Address: 'hogehoge',
+  Address: 'address',
   CreatedDate: new Date('2021-12-11'),
   UpdateDate: new Date('2021-12-11'),
   locationinfo: { lat: 12, lng: 56 },
