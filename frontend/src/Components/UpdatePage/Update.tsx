@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
-import { uploadFiles, createPosting, getPostingById } from '../../Api';
+import { uploadFiles, getPostingById, updatePostingByID } from '../../Api';
 import { nowDate, nowMonth, nowYear } from '../../utils/getTime';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { IGetLocations } from '../../types/Interface';
@@ -42,6 +42,14 @@ export function Update() {
   const [errorLocation, setErrorLocation] = useState<Boolean>(true);
   const [fileSizeError, setFileSizeError] = useState<Boolean>(false);
 
+  const [postingInfo, setPostingInfo] = useState<any>();
+  const [imgTextOne, SetImgTextOne] = useState<string>('');
+  const [imgTextTwo, SetImgTextTwo] = useState<string>('');
+  const [imgTextThree, SetImgTextThree] = useState<string>('');
+  const [imgTextFour, SetImgTextFour] = useState<string>('');
+  const [imgTextFive, SetImgTextFive] = useState<string>('');
+  const reader = new FileReader();
+
   const changePetName = (event: any) => {
     setPetName(event.target.value);
   };
@@ -63,14 +71,6 @@ export function Update() {
   const changePassword = (event: any) => {
     setPassword(event.target.value);
   };
-
-  const [postingInfo, setPostingInfo] = useState<any>();
-  const [imgTextOne, SetImgTextOne] = useState<string>('');
-  const [imgTextTwo, SetImgTextTwo] = useState<string>('');
-  const [imgTextThree, SetImgTextThree] = useState<string>('');
-  const [imgTextFour, SetImgTextFour] = useState<string>('');
-  const [imgTextFive, SetImgTextFive] = useState<string>('');
-  const reader = new FileReader();
 
   const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
@@ -171,7 +171,7 @@ export function Update() {
       await uploadFiles(data)
         .then((res) => res.data['imageUrl'])
         .then(async (res) => {
-          await createPosting({
+          const result = await updatePostingByID(userId, {
             PetName: petName,
             PetSex: petSex,
             PetAge: parseInt(petAge),
@@ -190,9 +190,11 @@ export function Update() {
               // TODO: Video導入後編集
               videoUrl: '',
             },
-          }).then(() => {
-            window.location.href = '/wau';
           });
+          console.log(result);
+          // .then(() => {
+          //   window.location.href = '/wau';
+          // });
         });
     } catch (error) {
       console.log(error);
@@ -202,20 +204,50 @@ export function Update() {
   useEffect(() => {
     userId
       ? getPosting(userId).then((res) => {
-          console.log(res);
           const { lat, lng } = res.locationinfo;
           const imgsFullUrl: string[] = [];
           const imgsUrl = res.contents.imageUrl;
           imgsUrl.map((imgUrl: string) =>
             imgsFullUrl.push(`${process.env.REACT_APP_API_URL}/${imgUrl}`),
           );
-          imgsFullUrl[0] ? SetImgTextOne(imgsFullUrl[0]) : SetImgTextOne('');
-          imgsFullUrl[1] ? SetImgTextTwo(imgsFullUrl[1]) : SetImgTextTwo('');
-          imgsFullUrl[2]
-            ? SetImgTextThree(imgsFullUrl[2])
-            : SetImgTextThree('');
-          imgsFullUrl[3] ? SetImgTextFour(imgsFullUrl[3]) : SetImgTextFour('');
-          imgsFullUrl[4] ? SetImgTextFive(imgsFullUrl[4]) : SetImgTextFive('');
+
+          if (imgsFullUrl[0]) {
+            SetImgTextOne(imgsFullUrl[0]);
+            // TESTTESTTESTTESTTESTTESTTESTTESTTESTTEST
+            // setFileOne(imgsUrl[0]);
+            fetch(imgsFullUrl[0])
+              .then((res) => res.blob())
+              .then((blob) => {
+                setFileOne(blob);
+                console.log(blob);
+              });
+          } else {
+            SetImgTextOne('');
+          }
+          if (imgsFullUrl[1]) {
+            SetImgTextTwo(imgsFullUrl[1]);
+            setFileTwo(imgsUrl[1]);
+          } else {
+            SetImgTextTwo('');
+          }
+          if (imgsFullUrl[2]) {
+            SetImgTextThree(imgsFullUrl[2]);
+            setFileThree(imgsUrl[2]);
+          } else {
+            SetImgTextThree('');
+          }
+          if (imgsFullUrl[3]) {
+            SetImgTextFour(imgsFullUrl[3]);
+            setFileFour(imgsUrl[3]);
+          } else {
+            SetImgTextFour('');
+          }
+          if (imgsFullUrl[4]) {
+            SetImgTextFive(imgsFullUrl[4]);
+            setFileFive(imgsUrl[4]);
+          } else {
+            SetImgTextFive('');
+          }
 
           setPetName(res.PetName);
           setPetSex(res.PetSex);
@@ -250,6 +282,7 @@ export function Update() {
                         onChange: (event) => fileOneChange(event),
                       })}
                       type="file"
+                      // value={fileOne}
                       accept="image/png, image/jpeg, image/jpg, image/gif"
                     ></input>
                     <img className="thumbnail" src={imgTextOne} alt="" />
