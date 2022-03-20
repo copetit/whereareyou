@@ -34,7 +34,7 @@ export function Update() {
     useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [mailladdress, setMailaddress] = useState('');
   const [password, setPassword] = useState('');
-  const [fileOne, setFileOne] = useState<string | Blob>('');
+  const [fileOne, setFileOne] = useState<any>('');
   const [fileTwo, setFileTwo] = useState<string | Blob>('');
   const [fileThree, setFileThree] = useState<string | Blob>('');
   const [fileFour, setFileFour] = useState<string | Blob>('');
@@ -211,16 +211,57 @@ export function Update() {
             imgsFullUrl.push(`${process.env.REACT_APP_API_URL}/${imgUrl}`),
           );
 
+          // function urlContentToDataUri(url: any) {
+          //   return fetch(url)
+          //     .then((response) => response.blob())
+          //     .then(
+          //       (blob) =>
+          //         new Promise((callback) => {
+          //           let reader = new FileReader();
+          //           reader.onload = function () {
+          //             callback(this.result);
+          //           };
+          //           reader.readAsDataURL(blob);
+          //         }),
+          //     );
+          // }
+          // function dataURLtoFile(dataurl: any, filename: any) {
+          //   var arr = dataurl.split(','),
+          //     mime = arr[0].match(/:(.*?);/)[1],
+          //     bstr = atob(arr[1]),
+          //     n = bstr.length,
+          //     u8arr = new Uint8Array(n);
+
+          //   while (n--) {
+          //     u8arr[n] = bstr.charCodeAt(n);
+          //   }
+
+          //   return new File([u8arr], filename, { type: mime });
+          // }
+          // if (imgsFullUrl[0]) {
+          //   SetImgTextOne(imgsFullUrl[0]);
+          //   const file = urlContentToDataUri(imgsFullUrl[0]).then((dataUri) =>
+          //     dataURLtoFile(dataUri, 'abc.img'),
+          //   );
+          //   console.log(file);
+          //   setFileOne(file);
+          // } else {
+          //   SetImgTextOne('');
+          // }
+
+          // async function dataUrlToFile(
+          //   dataUrl: string,
+          //   fileName: string,
+          // ): Promise<File> {
+          //   const res: Response = await fetch(dataUrl);
+          //   const blob: Blob = await res.blob();
+          //   return new File([blob], fileName, { type: 'image/png' });
+          // }
+
           if (imgsFullUrl[0]) {
             SetImgTextOne(imgsFullUrl[0]);
-            // TESTTESTTESTTESTTESTTESTTESTTESTTESTTEST
-            // setFileOne(imgsUrl[0]);
-            fetch(imgsFullUrl[0])
-              .then((res) => res.blob())
-              .then((blob) => {
-                setFileOne(blob);
-                console.log(blob);
-              });
+            // const abc = dataUrlToFile(imgsFullUrl[0], 'abc.img');
+            setFileOne(imgsUrl[1]);
           } else {
             SetImgTextOne('');
           }
@@ -282,8 +323,8 @@ export function Update() {
                         onChange: (event) => fileOneChange(event),
                       })}
                       type="file"
-                      // value={fileOne}
                       accept="image/png, image/jpeg, image/jpg, image/gif"
+                      value={imgTextOne}
                     ></input>
                     <img className="thumbnail" src={imgTextOne} alt="" />
                   </label>
