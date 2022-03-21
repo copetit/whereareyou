@@ -96,8 +96,10 @@ export class WauController {
   @Post('uploads')
   @UseInterceptors(FilesInterceptor('files', 5, { dest: './contents' }))
   async uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
-    let imageUrl: string[] = [];
-    let videoUrl: string[] = [];
+    const imageUrl: string[] = [];
+    const videoUrl: string[] = [];
+    console.log(imageUrl);
+    console.log(files);
     files.map((file) => imageUrl.push(file.path));
     return { imageUrl, videoUrl };
   }

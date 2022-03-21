@@ -171,7 +171,7 @@ export function Update() {
       await uploadFiles(data)
         .then((res) => res.data['imageUrl'])
         .then(async (res) => {
-          const result = await updatePostingByID(userId, {
+          updatePostingByID(userId, {
             PetName: petName,
             PetSex: petSex,
             PetAge: parseInt(petAge),
@@ -182,20 +182,18 @@ export function Update() {
             UpdateDate: `${nowYear}-${nowMonth}-${nowDate}`,
             locationinfo: location,
             user: {
-              Password: password,
               MailAddress: mailladdress,
             },
             contents: {
               imageUrl: res,
-              // TODO: Video導入後編集
-              videoUrl: '',
             },
+            id: userId,
           });
-          console.log(result);
           // .then(() => {
           //   window.location.href = '/wau';
           // });
-        });
+        })
+        .then((res) => console.log(res));
     } catch (error) {
       console.log(error);
     }
@@ -211,57 +209,19 @@ export function Update() {
             imgsFullUrl.push(`${process.env.REACT_APP_API_URL}/${imgUrl}`),
           );
 
-          // function urlContentToDataUri(url: any) {
-          //   return fetch(url)
-          //     .then((response) => response.blob())
-          //     .then(
-          //       (blob) =>
-          //         new Promise((callback) => {
-          //           let reader = new FileReader();
-          //           reader.onload = function () {
-          //             callback(this.result);
-          //           };
-          //           reader.readAsDataURL(blob);
-          //         }),
-          //     );
-          // }
-          // function dataURLtoFile(dataurl: any, filename: any) {
-          //   var arr = dataurl.split(','),
-          //     mime = arr[0].match(/:(.*?);/)[1],
-          //     bstr = atob(arr[1]),
-          //     n = bstr.length,
-          //     u8arr = new Uint8Array(n);
-
-          //   while (n--) {
-          //     u8arr[n] = bstr.charCodeAt(n);
-          //   }
-
-          //   return new File([u8arr], filename, { type: mime });
-          // }
-          // if (imgsFullUrl[0]) {
-          //   SetImgTextOne(imgsFullUrl[0]);
-          //   const file = urlContentToDataUri(imgsFullUrl[0]).then((dataUri) =>
-          //     dataURLtoFile(dataUri, 'abc.img'),
-          //   );
-          //   console.log(file);
-          //   setFileOne(file);
-          // } else {
-          //   SetImgTextOne('');
-          // }
-
-          // async function dataUrlToFile(
-          //   dataUrl: string,
-          //   fileName: string,
-          // ): Promise<File> {
-          //   const res: Response = await fetch(dataUrl);
-          //   const blob: Blob = await res.blob();
-          //   return new File([blob], fileName, { type: 'image/png' });
-          // }
+          const urlToObject = async (url: any) => {
+            const response = await fetch(url);
+            // here image is url/location of image
+            const blob = await response.blob();
+            const file = new File([blob], 'image.jpg', { type: blob.type });
+            console.log(file);
+          };
 
           if (imgsFullUrl[0]) {
             SetImgTextOne(imgsFullUrl[0]);
             // const abc = dataUrlToFile(imgsFullUrl[0], 'abc.img');
-            setFileOne(imgsUrl[1]);
+            setFileOne(urlToObject(imgsFullUrl[0]));
+            console.log(fileOne);
           } else {
             SetImgTextOne('');
           }
@@ -319,12 +279,10 @@ export function Update() {
                     <Camera />
                     <input
                       {...register('fileOne', {
-                        required: '写真1枚目は必須です',
                         onChange: (event) => fileOneChange(event),
                       })}
                       type="file"
                       accept="image/png, image/jpeg, image/jpg, image/gif"
-                      value={imgTextOne}
                     ></input>
                     <img className="thumbnail" src={imgTextOne} alt="" />
                   </label>
@@ -548,37 +506,6 @@ export function Update() {
                 {errors.MailAddress && (
                   <AlertMessage msg={errors.MailAddress.message} color="red" />
                 )}
-              </label>
-              <label className="form-label">
-                <div className="flex items-center">
-                  パスワード
-                  <span className="required-tag">必須</span>
-                </div>
-                <input
-                  id="password"
-                  type="password"
-                  className="text-input"
-                  autoComplete="new-password"
-                  {...register('Password', {
-                    required: 'パスワードを入力してください',
-                    maxLength: {
-                      value: 32,
-                      message: 'パスワードは32文字以下まで設定可能です',
-                    },
-                    minLength: {
-                      value: 8,
-                      message: 'パスワードは8文字以上から設定可能です',
-                    },
-                    onChange: (event) => changePassword(event),
-                  })}
-                />
-                {errors.Password && (
-                  <AlertMessage msg={errors.Password.message} color="red" />
-                )}
-                <AlertMessage
-                  msg="パスワードは記事を修正、削除するときに利用します"
-                  color="blue"
-                />
               </label>
             </div>
             <Button
