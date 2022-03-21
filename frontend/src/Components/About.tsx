@@ -37,7 +37,11 @@ export function About(props: Required<IAboutProps>) {
               <p className="text-3xl">Mini Redpanda</p>
             </div>
             <div className="about-profile-sns space-x-6">
-              <a href="#!" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://twitter.com/mini_redpanda?s=20&t=KIy_jFkA70bNz133Wya8Rg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <TwitterLogo />
               </a>
               <a
@@ -56,11 +60,11 @@ export function About(props: Required<IAboutProps>) {
               alt="profile"
             />
             <div className="about-profile">
-              <p className="text-3xl">SHY</p>
+              <p className="text-3xl">shhwan</p>
             </div>
             <div className="about-profile-sns">
               <a
-                href="https://github.com/SHY-KG"
+                href="https://github.com/shhwan"
                 target="_blank"
                 rel="noopener noreferrer"
               >
