@@ -33,15 +33,13 @@ export function Update() {
   const [location, setLocation] =
     useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [mailladdress, setMailaddress] = useState('');
-  const [password, setPassword] = useState('');
-  const [fileOne, setFileOne] = useState<any>('');
+  const [fileOne, setFileOne] = useState<string | Blob>('');
   const [fileTwo, setFileTwo] = useState<string | Blob>('');
   const [fileThree, setFileThree] = useState<string | Blob>('');
   const [fileFour, setFileFour] = useState<string | Blob>('');
   const [fileFive, setFileFive] = useState<string | Blob>('');
   const [errorLocation, setErrorLocation] = useState<Boolean>(true);
   const [fileSizeError, setFileSizeError] = useState<Boolean>(false);
-
   const [postingInfo, setPostingInfo] = useState<any>();
   const [imgTextOne, SetImgTextOne] = useState<string>('');
   const [imgTextTwo, SetImgTextTwo] = useState<string>('');
@@ -67,9 +65,6 @@ export function Update() {
   };
   const changeMailaddress = (event: any) => {
     setMailaddress(event.target.value);
-  };
-  const changePassword = (event: any) => {
-    setPassword(event.target.value);
   };
 
   const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -170,7 +165,7 @@ export function Update() {
     try {
       await uploadFiles(data)
         .then((res) => res.data['imageUrl'])
-        .then(async (res) => {
+        .then((res) => {
           updatePostingByID(userId, {
             PetName: petName,
             PetSex: petSex,
@@ -189,11 +184,8 @@ export function Update() {
             },
             id: userId,
           });
-          // .then(() => {
-          //   window.location.href = '/wau';
-          // });
         })
-        .then((res) => console.log(res));
+        .then(() => (window.location.href = '/wau'));
     } catch (error) {
       console.log(error);
     }
@@ -246,7 +238,6 @@ export function Update() {
           } else {
             SetImgTextFive('');
           }
-
           setPetName(res.PetName);
           setPetSex(res.PetSex);
           setPetAge(res.PetAge);
