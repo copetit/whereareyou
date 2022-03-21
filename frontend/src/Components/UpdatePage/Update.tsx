@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
@@ -22,6 +22,7 @@ export function Update() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [imgFiles, setImgFiles] = useState<any>([]);
   const [petName, setPetName] = useState('');
   const [petSex, setPetSex] = useState('不明');
   const [petAge, setPetAge] = useState('');
@@ -65,85 +66,8 @@ export function Update() {
   };
 
   const [postingInfo, setPostingInfo] = useState<any>();
-  const [imgTextOne, SetImgTextOne] = useState<string>('');
-  const [imgTextTwo, SetImgTextTwo] = useState<string>('');
-  const [imgTextThree, SetImgTextThree] = useState<string>('');
-  const [imgTextFour, SetImgTextFour] = useState<string>('');
-  const [imgTextFive, SetImgTextFive] = useState<string>('');
-  const reader = new FileReader();
 
-  const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (
-      event.currentTarget.files &&
-      event.currentTarget.files[0]?.size <= ALLOWED_IMG_SIZE
-    ) {
-      setFileSizeError(false);
-      setFileOne(event.currentTarget.files[0]);
-      reader.onload = (e: any) => {
-        SetImgTextOne(e.target.result);
-      };
-      reader.readAsDataURL(event.currentTarget.files[0]);
-    } else {
-      setFileSizeError(true);
-    }
-  };
-  const fileTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (
-      event.currentTarget.files &&
-      event.currentTarget.files[0]?.size <= ALLOWED_IMG_SIZE
-    ) {
-      setFileSizeError(false);
-      setFileTwo(event.currentTarget.files[0]);
-      reader.onload = (e: any) => {
-        SetImgTextTwo(e.target.result);
-      };
-      reader.readAsDataURL(event.currentTarget.files[0]);
-    } else {
-      setFileSizeError(true);
-    }
-  };
-  const fileThreeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (
-      event.currentTarget.files &&
-      event.currentTarget.files[0]?.size <= ALLOWED_IMG_SIZE
-    ) {
-      setFileThree(event.currentTarget.files[0]);
-      reader.onload = (e: any) => {
-        SetImgTextThree(e.target.result);
-      };
-      reader.readAsDataURL(event.currentTarget.files[0]);
-    } else {
-      setFileSizeError(true);
-    }
-  };
-  const fileFourChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (
-      event.currentTarget.files &&
-      event.currentTarget.files[0]?.size <= ALLOWED_IMG_SIZE
-    ) {
-      setFileFour(event.currentTarget.files[0]);
-      reader.onload = (e: any) => {
-        SetImgTextFour(e.target.result);
-      };
-      reader.readAsDataURL(event.currentTarget.files[0]);
-    } else {
-      setFileSizeError(true);
-    }
-  };
-  const fileFiveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (
-      event.currentTarget.files &&
-      event.currentTarget.files[0]?.size <= ALLOWED_IMG_SIZE
-    ) {
-      setFileFive(event.currentTarget.files[0]);
-      reader.onload = (e: any) => {
-        SetImgTextFive(e.target.result);
-      };
-      reader.readAsDataURL(event.currentTarget.files[0]);
-    } else {
-      setFileSizeError(true);
-    }
-  };
+  const reader = new FileReader();
 
   const containerStyle = {
     height: '100%',
@@ -161,11 +85,10 @@ export function Update() {
   }
   async function onSubmit(e: any) {
     let data = new FormData();
-    data.append('files', fileOne);
-    data.append('files', fileTwo);
-    data.append('files', fileThree);
-    data.append('files', fileFour);
-    data.append('files', fileFive);
+
+    imgFiles.forEach((imgFile: any) => {
+      data.append('files', imgFile);
+    });
 
     try {
       await uploadFiles(data)
@@ -199,24 +122,84 @@ export function Update() {
     }
   }
 
+  const [imgBlobs, setImgBlobs] = useState<any>([]);
+  const [imgTexts, setImgTexts] = useState<any>([]);
+  const [fileNumError, setFileNumError] = useState<Boolean>(false);
+
+  const inputRef = useRef<any>(null);
+  const fileUpload = () => {
+    console.log('ref');
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  };
+  const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('onFileInputChange');
+    console.log(imgFiles.length);
+
+    if (event.target.files && event.target.files[0]?.size <= ALLOWED_IMG_SIZE) {
+      if (imgFiles.length <= 4) {
+        setFileSizeError(false);
+        setFileNumError(false);
+        let nowBolbs = [...imgFiles];
+        nowBolbs.push(event.target.files[0]);
+        setImgFiles(nowBolbs);
+        // reader.onload = (e: any) => {
+        //   let nowImgText = [...imgTexts];
+        //   nowImgText.push(e.target.result);
+        //   setImgTexts(nowImgText);
+        // };
+        let nowImgBlob = [...imgBlobs];
+        nowImgBlob.push(URL.createObjectURL(event.target.files[0]));
+        console.log(URL.createObjectURL(event.target.files[0]));
+
+        setImgBlobs(nowImgBlob);
+        reader.readAsDataURL(event.target.files[0]);
+      } else {
+        setFileNumError(true);
+      }
+    } else {
+      setFileSizeError(true);
+    }
+  };
+
+  const changeImgToBlob = (imgFullURL: any) => {
+    return fetch(imgFullURL)
+      .then(function (response) {
+        return response.blob();
+      })
+      .then(function (blob) {
+        const imgBlob = URL.createObjectURL(blob);
+        return imgBlob;
+      });
+  };
+  const blobToObject = (blob: any) => {
+    const file = new File([blob], 'image.jpg', { type: blob.type });
+    return file;
+  };
+  // const [imgFullUrl, setImgFullUrl] = useState(['']);
+
   useEffect(() => {
     userId
-      ? getPosting(userId).then((res) => {
+      ? getPosting(userId).then(async (res) => {
           console.log(res);
           const { lat, lng } = res.locationinfo;
-          const imgsFullUrl: string[] = [];
+          // const imgsBlob: any[] = [];
           const imgsUrl = res.contents.imageUrl;
-          imgsUrl.map((imgUrl: string) =>
-            imgsFullUrl.push(`${process.env.REACT_APP_API_URL}/${imgUrl}`),
-          );
-          imgsFullUrl[0] ? SetImgTextOne(imgsFullUrl[0]) : SetImgTextOne('');
-          imgsFullUrl[1] ? SetImgTextTwo(imgsFullUrl[1]) : SetImgTextTwo('');
-          imgsFullUrl[2]
-            ? SetImgTextThree(imgsFullUrl[2])
-            : SetImgTextThree('');
-          imgsFullUrl[3] ? SetImgTextFour(imgsFullUrl[3]) : SetImgTextFour('');
-          imgsFullUrl[4] ? SetImgTextFive(imgsFullUrl[4]) : SetImgTextFive('');
-
+          let nowBolbs = [...imgBlobs];
+          let nowFiles = [...imgFiles];
+          for (const imgUrl of imgsUrl) {
+            const imgFullURL = `${process.env.REACT_APP_API_URL}/${imgUrl}`;
+            // imgFullURLs.push(imgFullURL);
+            await changeImgToBlob(imgFullURL).then((res) => {
+              nowBolbs.push(res);
+              nowFiles.push(blobToObject(res));
+            });
+          }
+          setImgBlobs(nowBolbs);
+          setImgFiles(nowFiles);
+          console.log(nowBolbs);
+          console.log(nowFiles);
           setPetName(res.PetName);
           setPetSex(res.PetSex);
           setPetAge(res.PetAge);
@@ -241,54 +224,28 @@ export function Update() {
             <div className="pet-info p-14">
               <div className="mb-10">
                 <div className="flex flex-wrap justify-center mb-4">
+                  {console.log(imgFiles)}
+
                   <label className="petPhoto required">
                     <p>必須</p>
                     <Camera />
-                    <input
-                      {...register('fileOne', {
-                        required: '写真1枚目は必須です',
-                        onChange: (event) => fileOneChange(event),
-                      })}
-                      type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/gif"
-                    ></input>
-                    <img className="thumbnail" src={imgTextOne} alt="" />
+                    <img className="thumbnail" src={imgBlobs[0]} alt="" />
                   </label>
                   <label className="petPhoto">
                     <Camera />
-                    <input
-                      type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/gif"
-                      onChange={(event) => fileTwoChange(event)}
-                    ></input>
-                    <img className="thumbnail" src={imgTextTwo} alt="" />
+                    <img className="thumbnail" src={imgBlobs[1]} alt="" />
                   </label>
                   <label className="petPhoto">
                     <Camera />
-                    <input
-                      type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/gif"
-                      onChange={(event) => fileThreeChange(event)}
-                    ></input>
-                    <img className="thumbnail" src={imgTextThree} alt="" />
+                    <img className="thumbnail" src={imgBlobs[2]} alt="" />
                   </label>
                   <label className="petPhoto">
                     <Camera />
-                    <input
-                      type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/gif"
-                      onChange={(event) => fileFourChange(event)}
-                    ></input>
-                    <img className="thumbnail" src={imgTextFour} alt="" />
+                    <img className="thumbnail" src={imgBlobs[3]} alt="" />
                   </label>
                   <label className="petPhoto">
                     <Camera />
-                    <input
-                      type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/gif"
-                      onChange={(event) => fileFiveChange(event)}
-                    ></input>
-                    <img className="thumbnail" src={imgTextFive} alt="" />
+                    <img className="thumbnail" src={imgBlobs[4]} alt="" />
                   </label>
                 </div>
                 {fileSizeError && (
@@ -306,6 +263,20 @@ export function Update() {
                   color="blue"
                 />
               </div>
+              <input
+                hidden
+                ref={inputRef}
+                type="file"
+                multiple
+                onChange={onFileInputChange}
+              />
+              <button
+                type="button"
+                className="bg-yellow-500"
+                onClick={fileUpload}
+              >
+                ファイルアップロード
+              </button>
               <label className="form-label w-1/2">
                 <div className="flex items-center">
                   名前
