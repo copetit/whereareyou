@@ -15,8 +15,9 @@ export const createPosting = (data: {}) =>
 export const deletePostingById = (id: Number) =>
   api.delete(`/wau/v1/posting/${id}`);
 
-// TODO: Update Posting Issue
-export const updatePostingByID = () => {};
+export const updatePostingByID = (id: Number, data: {}) => {
+  api.put(`/wau/v1/posting/${id}`, data, { headers: postHeader });
+};
 
 // uploadファイル用のHeader
 let headers = { 'content-type': 'multipart/form-data' };

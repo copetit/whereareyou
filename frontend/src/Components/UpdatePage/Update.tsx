@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
-import { uploadFiles, createPosting, getPostingById } from '../../Api';
+import { uploadFiles, getPostingById, updatePostingByID } from '../../Api';
 import { nowDate, nowMonth, nowYear } from '../../utils/getTime';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { IGetLocations } from '../../types/Interface';
@@ -33,7 +33,6 @@ export function Update() {
   const [location, setLocation] =
     useState<Pick<IGetLocations, 'lat' | 'lng'>>();
   const [mailladdress, setMailaddress] = useState('');
-  const [password, setPassword] = useState('');
   const [fileOne, setFileOne] = useState<string | Blob>('');
   const [fileTwo, setFileTwo] = useState<string | Blob>('');
   const [fileThree, setFileThree] = useState<string | Blob>('');
@@ -41,6 +40,13 @@ export function Update() {
   const [fileFive, setFileFive] = useState<string | Blob>('');
   const [errorLocation, setErrorLocation] = useState<Boolean>(true);
   const [fileSizeError, setFileSizeError] = useState<Boolean>(false);
+  const [postingInfo, setPostingInfo] = useState<any>();
+  const [imgTextOne, SetImgTextOne] = useState<string>('');
+  const [imgTextTwo, SetImgTextTwo] = useState<string>('');
+  const [imgTextThree, SetImgTextThree] = useState<string>('');
+  const [imgTextFour, SetImgTextFour] = useState<string>('');
+  const [imgTextFive, SetImgTextFive] = useState<string>('');
+  const reader = new FileReader();
 
   const changePetName = (event: any) => {
     setPetName(event.target.value);
@@ -60,17 +66,6 @@ export function Update() {
   const changeMailaddress = (event: any) => {
     setMailaddress(event.target.value);
   };
-  const changePassword = (event: any) => {
-    setPassword(event.target.value);
-  };
-
-  const [postingInfo, setPostingInfo] = useState<any>();
-  const [imgTextOne, SetImgTextOne] = useState<string>('');
-  const [imgTextTwo, SetImgTextTwo] = useState<string>('');
-  const [imgTextThree, SetImgTextThree] = useState<string>('');
-  const [imgTextFour, SetImgTextFour] = useState<string>('');
-  const [imgTextFive, SetImgTextFive] = useState<string>('');
-  const reader = new FileReader();
 
   const fileOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
@@ -170,8 +165,8 @@ export function Update() {
     try {
       await uploadFiles(data)
         .then((res) => res.data['imageUrl'])
-        .then(async (res) => {
-          await createPosting({
+        .then((res) => {
+          updatePostingByID(userId, {
             PetName: petName,
             PetSex: petSex,
             PetAge: parseInt(petAge),
@@ -182,18 +177,15 @@ export function Update() {
             UpdateDate: `${nowYear}-${nowMonth}-${nowDate}`,
             locationinfo: location,
             user: {
-              Password: password,
               MailAddress: mailladdress,
             },
             contents: {
               imageUrl: res,
-              // TODO: Video導入後編集
-              videoUrl: '',
             },
-          }).then(() => {
-            window.location.href = '/wau';
+            id: userId,
           });
-        });
+        })
+        .then(() => (window.location.href = '/wau'));
     } catch (error) {
       console.log(error);
     }
@@ -201,22 +193,51 @@ export function Update() {
 
   useEffect(() => {
     userId
-      ? getPosting(userId).then((res) => {
-          console.log(res);
+      ? getPosting(userId).then(async (res) => {
           const { lat, lng } = res.locationinfo;
           const imgsFullUrl: string[] = [];
           const imgsUrl = res.contents.imageUrl;
           imgsUrl.map((imgUrl: string) =>
             imgsFullUrl.push(`${process.env.REACT_APP_API_URL}/${imgUrl}`),
           );
-          imgsFullUrl[0] ? SetImgTextOne(imgsFullUrl[0]) : SetImgTextOne('');
-          imgsFullUrl[1] ? SetImgTextTwo(imgsFullUrl[1]) : SetImgTextTwo('');
-          imgsFullUrl[2]
-            ? SetImgTextThree(imgsFullUrl[2])
-            : SetImgTextThree('');
-          imgsFullUrl[3] ? SetImgTextFour(imgsFullUrl[3]) : SetImgTextFour('');
-          imgsFullUrl[4] ? SetImgTextFive(imgsFullUrl[4]) : SetImgTextFive('');
 
+          const urlToObject = async (url: any) => {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const file = new File([blob], 'image.jpg', { type: blob.type });
+            return file;
+          };
+
+          if (imgsFullUrl[0]) {
+            SetImgTextOne(imgsFullUrl[0]);
+            setFileOne(await urlToObject(imgsFullUrl[0]));
+          } else {
+            SetImgTextOne('');
+          }
+          if (imgsFullUrl[1]) {
+            SetImgTextTwo(imgsFullUrl[1]);
+            setFileTwo(await urlToObject(imgsFullUrl[1]));
+          } else {
+            SetImgTextTwo('');
+          }
+          if (imgsFullUrl[2]) {
+            SetImgTextThree(imgsFullUrl[2]);
+            setFileThree(await urlToObject(imgsFullUrl[2]));
+          } else {
+            SetImgTextThree('');
+          }
+          if (imgsFullUrl[3]) {
+            SetImgTextFour(imgsFullUrl[3]);
+            setFileFour(await urlToObject(imgsFullUrl[3]));
+          } else {
+            SetImgTextFour('');
+          }
+          if (imgsFullUrl[4]) {
+            SetImgTextFive(imgsFullUrl[4]);
+            setFileFive(await urlToObject(imgsFullUrl[4]));
+          } else {
+            SetImgTextFive('');
+          }
           setPetName(res.PetName);
           setPetSex(res.PetSex);
           setPetAge(res.PetAge);
@@ -246,7 +267,6 @@ export function Update() {
                     <Camera />
                     <input
                       {...register('fileOne', {
-                        required: '写真1枚目は必須です',
                         onChange: (event) => fileOneChange(event),
                       })}
                       type="file"
@@ -474,37 +494,6 @@ export function Update() {
                 {errors.MailAddress && (
                   <AlertMessage msg={errors.MailAddress.message} color="red" />
                 )}
-              </label>
-              <label className="form-label">
-                <div className="flex items-center">
-                  パスワード
-                  <span className="required-tag">必須</span>
-                </div>
-                <input
-                  id="password"
-                  type="password"
-                  className="text-input"
-                  autoComplete="new-password"
-                  {...register('Password', {
-                    required: 'パスワードを入力してください',
-                    maxLength: {
-                      value: 32,
-                      message: 'パスワードは32文字以下まで設定可能です',
-                    },
-                    minLength: {
-                      value: 8,
-                      message: 'パスワードは8文字以上から設定可能です',
-                    },
-                    onChange: (event) => changePassword(event),
-                  })}
-                />
-                {errors.Password && (
-                  <AlertMessage msg={errors.Password.message} color="red" />
-                )}
-                <AlertMessage
-                  msg="パスワードは記事を修正、削除するときに利用します"
-                  color="blue"
-                />
               </label>
             </div>
             <Button

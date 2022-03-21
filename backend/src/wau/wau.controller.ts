@@ -78,7 +78,6 @@ export class WauController {
 
   // see.https://docs.nestjs.com/openapi/operations#file-upload
   @ApiConsumes('multipart/form-data')
-  // [TODO] Create upload-files.dto.ts
   @ApiBody({
     schema: {
       type: 'object',
@@ -96,8 +95,8 @@ export class WauController {
   @Post('uploads')
   @UseInterceptors(FilesInterceptor('files', 5, { dest: './contents' }))
   async uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
-    let imageUrl: string[] = [];
-    let videoUrl: string[] = [];
+    const imageUrl: string[] = [];
+    const videoUrl: string[] = [];
     files.map((file) => imageUrl.push(file.path));
     return { imageUrl, videoUrl };
   }
