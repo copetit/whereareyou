@@ -201,7 +201,7 @@ export function Update() {
 
   useEffect(() => {
     userId
-      ? getPosting(userId).then((res) => {
+      ? getPosting(userId).then(async (res) => {
           const { lat, lng } = res.locationinfo;
           const imgsFullUrl: string[] = [];
           const imgsUrl = res.contents.imageUrl;
@@ -211,41 +211,38 @@ export function Update() {
 
           const urlToObject = async (url: any) => {
             const response = await fetch(url);
-            // here image is url/location of image
             const blob = await response.blob();
             const file = new File([blob], 'image.jpg', { type: blob.type });
-            console.log(file);
+            return file;
           };
 
           if (imgsFullUrl[0]) {
             SetImgTextOne(imgsFullUrl[0]);
-            // const abc = dataUrlToFile(imgsFullUrl[0], 'abc.img');
-            setFileOne(urlToObject(imgsFullUrl[0]));
-            console.log(fileOne);
+            setFileOne(await urlToObject(imgsFullUrl[0]));
           } else {
             SetImgTextOne('');
           }
           if (imgsFullUrl[1]) {
             SetImgTextTwo(imgsFullUrl[1]);
-            setFileTwo(imgsUrl[1]);
+            setFileTwo(await urlToObject(imgsFullUrl[1]));
           } else {
             SetImgTextTwo('');
           }
           if (imgsFullUrl[2]) {
             SetImgTextThree(imgsFullUrl[2]);
-            setFileThree(imgsUrl[2]);
+            setFileThree(await urlToObject(imgsFullUrl[2]));
           } else {
             SetImgTextThree('');
           }
           if (imgsFullUrl[3]) {
             SetImgTextFour(imgsFullUrl[3]);
-            setFileFour(imgsUrl[3]);
+            setFileFour(await urlToObject(imgsFullUrl[3]));
           } else {
             SetImgTextFour('');
           }
           if (imgsFullUrl[4]) {
             SetImgTextFive(imgsFullUrl[4]);
-            setFileFive(imgsUrl[4]);
+            setFileFive(await urlToObject(imgsFullUrl[4]));
           } else {
             SetImgTextFive('');
           }
