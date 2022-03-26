@@ -24,7 +24,6 @@ import {
 } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UpdatePostingDto } from './dtos/update-posting.dto';
-// import { CreateContentsDto } from './dtos/create-contents.dto';
 
 @ApiTags('wau')
 @Controller('')
@@ -76,6 +75,7 @@ export class WauController {
     return this.wauService.deletePosting(id);
   }
 
+  // ファイルアップロードAPI
   // see.https://docs.nestjs.com/openapi/operations#file-upload
   @ApiConsumes('multipart/form-data')
   @ApiBody({

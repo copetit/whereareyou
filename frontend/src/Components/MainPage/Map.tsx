@@ -36,7 +36,6 @@ export function Map() {
 
   async function getGeoLocation() {
     if (navigator.geolocation) {
-      // TODO 位置情報許可の窓が表示されるタイミングなので、Loading中だと表示させる
       console.log('Locating...');
       navigator.geolocation.getCurrentPosition(
         function (position) {

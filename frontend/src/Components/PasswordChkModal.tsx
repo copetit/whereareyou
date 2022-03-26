@@ -19,7 +19,6 @@ function PasswordChkModal(props: Required<IPasswordChkModalProps>) {
     formState: { errors },
   } = useForm();
 
-  // TODO 更新、削除処理
   async function onSubmit() {
     const canActivate = await checkPassword();
     // 削除ケース

@@ -8,9 +8,6 @@ import { CreatePostingDto } from './dtos/create-posting.dto';
 import { User } from './entities/user.entity';
 import { Contents } from './entities/contents.entity';
 
-// Mock Repositoryの型
-// Repositoryのmethod key全部を jest.mockによってmockingする
-// それを型化
 export type MockRepository<T> = Partial<Record<keyof Repository<T>, jest.Mock>>;
 
 // jestのmock function作成

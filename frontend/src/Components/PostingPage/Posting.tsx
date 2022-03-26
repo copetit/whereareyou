@@ -147,7 +147,6 @@ function Posting() {
 
   async function getGeoLocation() {
     if (navigator.geolocation) {
-      // TODO 位置情報許可の窓が表示されるタイミングなので、Loading中だと表示させる
       console.log('Locating...');
       navigator.geolocation.getCurrentPosition(
         function (position) {
@@ -192,7 +191,6 @@ function Posting() {
             },
             contents: {
               imageUrl: res,
-              // TODO: Video導入後編集
               videoUrl: '',
             },
           }).then(() => {
@@ -298,7 +296,6 @@ function Posting() {
                   },
                   onChange: (event) => changePetName(event),
                 })}
-                // value={petName}
               />
               {errors.PetName && (
                 <AlertMessage msg={errors.PetName.message} color="red" />
@@ -355,7 +352,6 @@ function Posting() {
                   },
                   onChange: (event) => changePetInfo(event),
                 })}
-                // value={petInfo}
               ></textarea>
               {errors.PetInfo && (
                 <AlertMessage msg={errors.PetInfo.message} color="red" />

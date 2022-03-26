@@ -3,8 +3,6 @@ import { IAboutProps } from '../types/Interface';
 import { ReactComponent as Logo } from '../images/logo.svg';
 import { ReactComponent as TwitterLogo } from '../images/tw_icon.svg';
 import { ReactComponent as GitLogo } from '../images/git_icon.svg';
-import redpanda from '../images/redpanda.jpg';
-import eevee from '../images/eevee.png';
 
 export function About(props: Required<IAboutProps>) {
   const { isOpen, setShowModal } = props;
@@ -30,7 +28,7 @@ export function About(props: Required<IAboutProps>) {
           <div className="flex items-center relative w-1/2 p-10">
             <img
               className="about-profile-img object-cover"
-              src={redpanda}
+              src="https://github.com/copetit.png"
               alt="profile"
             />
             <div className="about-profile">
@@ -56,7 +54,7 @@ export function About(props: Required<IAboutProps>) {
           <div className="flex items-center relative w-1/2 p-10">
             <img
               className="about-profile-img object-contain"
-              src={eevee}
+              src="https://github.com/shhwan.png"
               alt="profile"
             />
             <div className="about-profile">
