@@ -3,7 +3,7 @@
   <h1>Where Are You</h1>
 <img src="/readme-img/logo.png" width="150" >
   <p>Posting your lost Pet info. </p>
-  <p>checking lost Pet on google map.</p>
+  <p>Checking lost Pet on google map.</p>
 </div>
 
 
