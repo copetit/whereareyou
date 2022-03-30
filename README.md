@@ -1,27 +1,19 @@
 # Where Are You
-
 ## Description
-
-1. Posting your lost Pet info.  
-2. Find your lost Pet on google map.  
-
-Built with by @copetit and @shhwan  
-(This project make for study)
+- Posting your lost Pet info.  
+- checking lost Pet on google map.  
 
 ### Main
-
 ![Main Image](/readme-img/main.png)
-You can see pet info and lost Location on google map.
+You can check pet's information and location where lost on google map.
 
 ### Posting
-
-![Posting Image](/readme-img/posting.png)  
-You can posting your Lost pet info.
+![Posting Image](/readme-img/posting.png) 
+You can post information about your missing pet.
 
 ### About
 
 ![About Image](/readme-img/about.png)
-About @copetit and @shhwan
 
 ## Installation and Usage
 
@@ -50,3 +42,6 @@ Swagger(API Doc)
 ## License
 
 MIT
+
+## Contributer
+@copetit and @shhwan
