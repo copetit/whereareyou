@@ -2,8 +2,9 @@
 
 ## Description
 
-Posting your lost Pet info.  
-Find your lost Pet on google map.  
+1. Posting your lost Pet info.  
+2. Find your lost Pet on google map.  
+
 Built with by @copetit and @shhwan  
 (This project make for study)
 
