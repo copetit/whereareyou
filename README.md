@@ -1,19 +1,25 @@
-# Where Are You
-## Description
-- Posting your lost Pet info.  
-- checking lost Pet on google map.  
 
+<div align="center">
+  <h1>Where Are You</h1>
+<img src="/readme-img/logo.png" width="150" >
+  <p>Posting your lost Pet info. </p>
+  <p>checking lost Pet on google map.</p>
+</div>
+
+
+## Page Description
 ### Main
-![Main Image](/readme-img/main.png)
 You can check pet's information and location where lost on google map.
 
+<img src="/readme-img/main.png" width="550" >
+
 ### Posting
-![Posting Image](/readme-img/posting.png) 
 You can post information about your missing pet.
 
-### About
+<img src="/readme-img/posting.png" >
 
-![About Image](/readme-img/about.png)
+### About
+<img src="/readme-img/about.png" width="550" >
 
 ## Installation and Usage
 
@@ -31,17 +37,12 @@ $ docker-compose up -d
 
 ### URL
 
-WAU App
-
-- http://localhost:3000/wau
-
-Swagger(API Doc)
-
-- http://localhost:4000/doc/
-
-## License
-
-MIT
+|WAU App | http://localhost:3000/wau | |
+|--|--|--|
+|Swagger| http://localhost:4000/doc/ | API Doc|
 
 ## Contributer
 @copetit and @shhwan
+
+## License
+MIT
