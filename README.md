@@ -41,7 +41,7 @@ $ docker-compose up -d
 
 | WAU App | http://localhost:3000/wau  |         |
 | ------- | -------------------------- | ------- |
-| Swagger | http://localhost:4000/doc/ | API Doc |
+| Swagger | http://localhost:4000/doc  | API Doc |
 
 ## Contributer
 
