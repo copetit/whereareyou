@@ -5,6 +5,12 @@
   <p>Checking lost Pet on google map.</p>
 </div>
 
+## Tech Stack
+
+**Client:** React, TailwindCSS
+
+**Server:** NestJS
+
 ## Page Description
 
 ### Main
