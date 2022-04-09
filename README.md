@@ -7,9 +7,12 @@
 
 ## Tech Stack
 
-**Client:** React, TailwindCSS
+**Client:** React, Tailwind CSS
 
-**Server:** NestJS
+**Server:** NestJS, TypeORM
+
+**DB:** MySQL
+
 
 ## Page Description
 
